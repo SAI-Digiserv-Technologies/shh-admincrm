@@ -1,0 +1,1129 @@
+@import "./colors.scss";
+* {
+  margin: 0;
+  box-sizing: border-box;
+  --transition-default: all 300ms ease-in-out;
+}
+
+.tranc {
+  transition: all 0.5s ease-in-out;
+}
+
+.poppup {
+  background: rgba(173, 169, 169, 0.364);
+  z-index: 1000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Loading start
+.smooth-loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.smooth-loading-spinner div {
+  width: 14px;
+  height: 14px;
+  margin: 0 5px;
+  background-color: $primary3; /* Change this to your primary color */
+  border-radius: 50%;
+  animation: smooth-bounce 1.5s infinite ease-in-out;
+}
+
+.smooth-loading-spinner div:nth-child(1) {
+  animation-delay: 0s;
+}
+.smooth-loading-spinner div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.smooth-loading-spinner div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes smooth-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.5);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+// Loading end
+.error {
+  position: absolute;
+  right: 0;
+  bottom: -18px;
+}
+
+.btns {
+  background: $primary2;
+  height: 42px;
+}
+
+// Pie chart start
+.chartdiv {
+  margin: -0.5em auto;
+  text-align: center;
+  width: 100%;
+  height: 390px;
+}
+// Pie chart end
+
+// Register start
+.register-cont {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: $white;
+  .top-img {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    height: 30rem;
+    width: 30rem;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .bottom-img {
+    position: absolute;
+    height: 30rem;
+    width: 30rem;
+    bottom: -160px;
+    right: -160px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .passicon {
+    height: 43px;
+    width: 30px;
+    position: absolute;
+    right: 10px;
+    top: 43%;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .form-cont {
+    height: 90vh;
+    position: relative;
+    z-index: 100000;
+    // border: 10px solid transparent;
+    background: #86868624; /* Semi-transparent background */
+    backdrop-filter: blur(9px); /* Blur effect */
+    -webkit-backdrop-filter: blur(9px);
+    overflow: scroll;
+    .inner-layer {
+      .gradient-text {
+        background: linear-gradient(90deg, $primary, $primary1);
+        -webkit-background-clip: text; /* Clip background to text */
+        -webkit-text-fill-color: transparent;
+      }
+    }
+    .input-form {
+      position: relative;
+      input {
+        height: 43px;
+        border: solid 2px $light_blue;
+        box-shadow: 0 0 5px $light_blue;
+        background: $white;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .forms {
+    }
+    .main-form {
+      // height: 100%;
+      .check-cont {
+        .check {
+          width: 23px;
+          height: 23px;
+          border: solid 2px $light_blue;
+          box-shadow: 0 0 5px $light_blue;
+          background: $white;
+          position: relative;
+          img {
+            height: 16px;
+            width: 16px;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+}
+// Register end
+
+// login Start
+.login-cont {
+  background-image: url(../images/loginbg.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .form-layer {
+    position: relative;
+    z-index: 100000;
+    background: #dfcfff35;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    overflow: scroll;
+    height: 80vh;
+    .check-cont {
+      .check {
+        width: 23px;
+        height: 23px;
+        border: solid 2px $light_blue;
+        box-shadow: 0 0 5px $light_blue;
+        background: $white;
+        position: relative;
+        img {
+          height: 16px;
+          width: 16px;
+          object-fit: contain;
+        }
+      }
+    }
+    .input-form {
+      position: relative;
+      input {
+        height: 38px;
+        border: solid 2px $light_blue;
+        box-shadow: 0 0 5px $light_blue;
+        background: $white;
+        &:focus {
+          outline: none;
+        }
+      }
+      .passicon {
+        height: 43px;
+        width: 30px;
+        position: absolute;
+        right: 10px;
+        top: 34%;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    .logo-cont {
+      width: 100px;
+      height: 80px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+// login end
+
+// resetpass start
+.resetpass-cont {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: $white;
+  .top-img {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    height: 30rem;
+    width: 30rem;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .bottom-img {
+    position: absolute;
+    height: 30rem;
+    width: 30rem;
+    bottom: 40px;
+    right: 40px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .form-layer {
+    position: relative;
+    z-index: 100000;
+    background: #dfcfff35;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    overflow: scroll;
+    height: 80vh;
+    .check-cont {
+      .check {
+        width: 23px;
+        height: 23px;
+        border: solid 2px $light_blue;
+        box-shadow: 0 0 5px $light_blue;
+        background: $white;
+        position: relative;
+        img {
+          height: 16px;
+          width: 16px;
+          object-fit: contain;
+        }
+      }
+    }
+    .input-form {
+      position: relative;
+      input {
+        height: 38px;
+        border: solid 2px $light_blue;
+        box-shadow: 0 0 5px $light_blue;
+        background: $white;
+        &:focus {
+          outline: none;
+        }
+      }
+      .passicon {
+        height: 43px;
+        width: 30px;
+        position: absolute;
+        right: 10px;
+        top: 34%;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    .logo-cont {
+      width: 100px;
+      height: 80px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+// resetpass end
+
+// otp resetpass start
+.otpresetpass-cont {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: $white;
+  .top-img {
+    position: absolute;
+    top: -70px;
+    left: -70px;
+    height: 39rem;
+    width: 39rem;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .bottom-img {
+    position: absolute;
+    height: 30rem;
+    width: 30rem;
+    bottom: 10px;
+    right: -20px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .form-layer {
+    position: relative;
+    z-index: 100000;
+    background: #dfcfff69;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    overflow: scroll;
+    height: 80vh;
+    .check-cont {
+      .check {
+        width: 23px;
+        height: 23px;
+        border: solid 2px $light_blue;
+        box-shadow: 0 0 5px $light_blue;
+        background: $white;
+        position: relative;
+        img {
+          height: 16px;
+          width: 16px;
+          object-fit: contain;
+        }
+      }
+    }
+    .input-form {
+      position: relative;
+      input {
+        height: 38px;
+        border: solid 2px $light_blue;
+        box-shadow: 0 0 5px $light_blue;
+        background: $white;
+        &:focus {
+          outline: none;
+        }
+      }
+      .passicon {
+        height: 43px;
+        width: 30px;
+        position: absolute;
+        right: 10px;
+        top: 34%;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    .otpinput-form {
+      position: relative;
+      input {
+        height: 38px;
+        border: solid 2px $light_blue;
+        box-shadow: 0 0 5px $light_blue;
+        background: $white;
+        text-align: center;
+        &:focus {
+          outline: none;
+        }
+      }
+      .passicon {
+        height: 43px;
+        width: 30px;
+        position: absolute;
+        right: 10px;
+        top: 34%;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+    .logo-cont {
+      width: 100px;
+      height: 80px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+// otp resetpass end
+
+// Side navbar start
+.layer {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: $white;
+  .containersss {
+    width: 100%;
+    position: relative;
+    .navigation.active {
+      width: 70px;
+      span.title {
+        opacity: 0;
+      }
+      .t-hh {
+        opacity: 0;
+      }
+    }
+    .navigation {
+      position: fixed;
+      width: 260px;
+      height: 100vh;
+      background: $primary3;
+      overflow: hidden;
+      transition: 0.5s;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      // overflow-y: scroll;
+      overflow-y: hidden;
+      z-index: 10000;
+      .pro-cont {
+        background: #dfcfff35;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        .pro-img {
+          min-width: 70px;
+          height: 70px;
+          img {
+            height: 70%;
+            width: 70%;
+            object-fit: contain;
+          }
+        }
+        .textss {
+          position: relative;
+          display: block;
+          text-align: start;
+          white-space: nowrap;
+        }
+      }
+      .t-hh {
+        // height: 50px;
+        text-align: center;
+        white-space: nowrap;
+      }
+      .line {
+        height: 1px;
+        width: 100%;
+        background: $white;
+        // margin: 10px 0;
+      }
+      button {
+        height: 70px;
+        width: 70px;
+        &:hover {
+          color: $primary;
+        }
+      }
+      .topnavss {
+        position: relative;
+        z-index: 10000000;
+      }
+      .logout-cont {
+        position: fixed;
+        bottom: 0;
+        width: 260px;
+      }
+      .logout {
+        height: 100%;
+        position: relative;
+        // bottom: -65px;
+        &.cc {
+          // bottom: -105px;
+        }
+        .icon_box_list2 {
+          position: relative;
+          min-width: 60px;
+          height: 50px;
+          text-align: center;
+          z-index: 10000;
+          img {
+            height: 50%;
+            width: 50%;
+            object-fit: contain;
+          }
+        }
+      }
+      ul {
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 0;
+        li {
+          .icon_box {
+            position: relative;
+            min-width: 70px;
+            height: 70px;
+            z-index: 10000;
+            img {
+              height: 100%;
+              width: 100%;
+              object-fit: contain;
+            }
+          }
+          .icon_box_list {
+            position: relative;
+            min-width: 60px;
+            height: 50px;
+            text-align: center;
+            z-index: 10000;
+            img {
+              height: 50%;
+              width: 50%;
+              object-fit: contain;
+            }
+          }
+          position: relative;
+          width: 100%;
+          list-style: none;
+          a {
+            position: relative;
+            display: block;
+            width: 100%;
+            display: flex;
+            text-decoration: none;
+            color: $white;
+            .title {
+              position: relative;
+              display: block;
+              height: 45px;
+              line-height: 45px;
+              text-align: start;
+              white-space: nowrap;
+            }
+          }
+        }
+        li:nth-child(1) {
+          // margin-bottom: 40px;
+          // pointer-events: none;
+        }
+        // li:hover,
+
+        li:hover a {
+          color: $white;
+          // background-color: $white;
+        }
+        li.hovered a {
+          color: $primary3;
+          background-color: $white;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}
+.main.active {
+  width: calc(100% - 70px);
+  left: 70px;
+}
+.main {
+  position: absolute;
+  width: calc(100% - 260px);
+  left: 260px;
+  min-height: 100vh;
+  // background-color: $primary;
+  transition: 0.5s;
+  .topbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    .toggle {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+    .search {
+      position: relative;
+      width: 400px;
+      margin: 0 10px;
+      lable {
+        position: relative;
+        width: 100%;
+        input {
+          width: 100%;
+          height: 40px;
+          border-radius: 40px;
+          padding: 5px 20px;
+          padding-left: 35px;
+          font-size: 18px;
+          outline: none;
+          border: 2px solid $primary;
+          box-shadow: 0 0 25px $primary;
+          background: $primary;
+        }
+        .icon {
+          position: absolute;
+          top: 0;
+          left: 10px;
+          font-size: 1.2rem;
+        }
+      }
+    }
+    .user {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 0 25px $primary;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* Chrome, Safari, Edge, Opera */
+}
+
+.ressidenav {
+  height: 40px;
+  width: 50px;
+  display: none;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+// Side navbar end
+
+// Top header start
+.top-header {
+  .serach-cont {
+    box-shadow: 0px -1px 0px rgb(0, 0, 0), 0px 2px 5px rgba(0, 0, 0, 0.2);
+    .search-input {
+      outline: none;
+    }
+  }
+  .icon-cont {
+    .icon-bg {
+      position: relative;
+      height: 48px;
+      width: 48px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2), 0px 2px 5px rgba(0, 0, 0, 0.2);
+      img {
+        width: 60%;
+        height: 60%;
+        object-fit: contain;
+      }
+      .inner-text {
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        background: red;
+        top: -5px;
+        right: -5px;
+        border: 2px solid $white;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2),
+          0px 2px 5px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+// Top header end
+
+// Dashboard start
+.topbox-const {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2rem;
+  background: $white;
+  .bash-box {
+    position: relative;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2), 0px 2px 5px rgba(0, 0, 0, 0.2);
+    .imgcont {
+      height: 160px;
+      width: 160px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+    .iconabsolute {
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: $white;
+    }
+  }
+}
+.leed-report {
+  position: relative;
+  // height: 400px;
+  .leedlay {
+    background: #86868624; /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    height: 100%;
+    width: 100%;
+    .in-box {
+      .min-box1 {
+        background: #ff818173;
+      }
+      .min-box2 {
+        background: #81a9ff73;
+      }
+      .min-box3 {
+        background: #81ff89a6;
+      }
+    }
+  }
+  .springcont-top {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    top: 0px;
+    right: 0;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .springcont-bottum {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    bottom: -10px;
+    left: 0;
+    transform: rotate(300deg);
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+}
+// Dashboard end
+
+// Leade Manage start
+.lead-head {
+  .lead-h {
+    .refil-text {
+      width: 170px;
+      height: 40px;
+    }
+    .refil-box {
+      height: 40px;
+      width: 40px;
+      img {
+        height: 60%;
+        width: 60%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+// Leade Manage end
+
+// Table Variables
+// Table Variables
+$table-border: 1px solid #ddd;
+$padding: 10px;
+$bg-color: #f4f4f4;
+
+.table-container {
+  width: 100%;
+  // overflow-x: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: #17054817;
+  border-radius: 12px;
+}
+
+.responsive-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; // Adds space between rows
+
+  th,
+  td {
+    border: $table-border;
+    text-align: left;
+  }
+
+  th {
+    background: $primary3;
+    color: $white;
+    text-align: center;
+    border: none;
+  }
+
+  tbody tr {
+    background: #ffffff59;
+    overflow: hidden;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background: #0b146b59 !important;
+    }
+  }
+
+  tbody tr td {
+    background: #ffffff59;
+    border: none;
+    .table-drop {
+      position: relative;
+      height: 40px;
+      width: 200px;
+      box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.2);
+      .drop-img {
+        height: 20px;
+        width: 20px;
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+      .dropdrowncont {
+        position: absolute;
+        background: $white;
+        z-index: 10000;
+        bottom: -125px;
+        height: 120px;
+        overflow: scroll;
+        width: 100%;
+        left: 0;
+        right: 0;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2),
+          0px 2px 5px rgba(0, 0, 0, 0.2);
+        .list {
+        }
+      }
+    }
+  }
+
+  thead tr:first-child {
+    th:first-child {
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+    th:last-child {
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+  }
+  // Apply border-radius to the first and last cell of each row
+  tbody tr td:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+
+  tbody tr td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  // Responsive styles for mobile screens
+  @media (max-width: 600px) {
+    thead {
+      display: none; // Hide table headers on small screens
+    }
+
+    tbody tr {
+      display: block;
+      margin-bottom: 10px; // Adds gap between rows
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    td {
+      display: block;
+      text-align: center;
+      padding: 8px;
+      position: relative;
+
+      &::before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        position: absolute;
+        left: 10px;
+        text-align: center;
+      }
+    }
+  }
+}
+.droppopp {
+  background: transparent;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-box {
+  height: 40px;
+  width: 40px;
+}
+
+// End
+
+// Detail start
+.detaile-cont {
+  .det-layer {
+    .not-cont {
+      .cust-sendbtn {
+        height: 100px;
+        .btn-sub {
+          height: 40px;
+          width: 180px;
+        }
+      }
+      .text-cont {
+        // border: 10px solid $light_blue;
+        // box-shadow: 0 0 5px $light_blue;
+        background: $light_blue;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        -webkit-box-shadow: 0 0.2rem 0.2rem $white;
+        position: relative;
+        .shadow-layer {
+        }
+        .text-scroll {
+          height: 70vh;
+          overflow-y: scroll;
+          background: $white;
+          -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          -webkit-box-shadow: -5px 5px 5px -2px $light_blue,
+            inset -5px 5px 4px -3px $light_blue;
+          .listlayer {
+            -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          }
+        }
+        .text-areacont {
+          // border: 2px solid $light_blue;
+          // position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: $light_blue;
+          -webkit-box-shadow: -5px 5px 5px -5px #cbb4b4,
+            inset -70px 5px 4px 55px #cbb4b4;
+          // border-top-left-radius: 1rem;
+          // border-top-right-radius: 1rem;
+          border-radius: 1rem;
+          .send-btn {
+            height: 45px;
+            width: 45px;
+          }
+          textarea {
+            resize: none;
+            background: $light_blue;
+            color: $primary3;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+    .inputcont {
+      // height: 90vh;
+      .left-box-cont {
+        .out-input {
+          position: relative;
+        }
+      }
+    }
+  }
+}
+
+fieldset {
+  border: 1px solid $light_blue !important;
+  position: relative;
+  height: 330px;
+  input {
+    height: 43px;
+    border: solid 2px $light_blue;
+    box-shadow: 0 0 5px $light_blue;
+    background: $white;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+legend {
+  float: none !important;
+  width: auto !important;
+}
+// Detail end
+
+// Stattus color start
+.bg-not {
+  background: #ff0000;
+  color: #fff;
+}
+.bg-notintrest {
+  background: #ff3c00;
+  color: #fff;
+}
+.bg-follow {
+  background: #fdca73;
+  color: #00225d !important;
+}
+.bg-closefollow {
+  background: #5ba1e394;
+  color: #00225d;
+}
+.bg-intrest {
+  background: #00225d;
+  color: #fff;
+}
+.bg-enroll {
+  background: #2aff00;
+  color: #00225d !important;
+}
+.bg-switchoff {
+  background: #0068ae;
+  color: #fff;
+}
+.bg-disconnected {
+  background: #747474;
+  color: #fff;
+}
+// Stattus color end
+
+// LeadDetaile start
+.lead_drop {
+  select {
+    height: 43px !important;
+    border: solid 2px #cbb4b4 !important;
+    box-shadow: 0 0 5px #cbb4b4 !important;
+    background: #ffffff !important;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+// LeadDetaile end
