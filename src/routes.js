@@ -22,6 +22,11 @@ import LeadManageDetailScreen from "./Screens/LeadManageDetailScreen";
 import PaymentUpdates from "./Screens/PaymentUpdates";
 import PaymentDetails from "./Screens/PaymentDetails";
 import PaymentList from "./Screens/PaymentList";
+import Sourcescreen from "./Screens/Sourcescreen";
+import FollowupScreen from "./Screens/FollowupScreen";
+import CloseFollowupScreen from "./Screens/CloseFollowupScreen";
+import CloseFollowupDetailScreen from "./Screens/CloseFollowupDetailScreen";
+import FollowupDetailScreen from "./Screens/FollowupDetailScreen";
 
 const ReactRoute = () => {
   return (
@@ -52,6 +57,20 @@ const ReactRoute = () => {
           path="/telecallers/payment-updates/payment-list/payment-detalis"
           element={<PaymentDetails />}
         />
+         <Route path="/telecallers/followup" element={<FollowupScreen />} />
+        <Route
+          path="/telecallers/close_followup"
+          element={<CloseFollowupScreen />}
+        />
+        <Route
+          path="/telecallers/close_followup/details"
+          element={<CloseFollowupDetailScreen />}
+        />
+        <Route
+          path="/telecallers/followup/details"
+          element={<FollowupDetailScreen />}
+        />
+        <Route path="/source" element={<Sourcescreen />} />
       </Route>
     </Routes>
   );
