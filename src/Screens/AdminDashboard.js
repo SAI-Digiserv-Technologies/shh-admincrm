@@ -1,17 +1,43 @@
 import React from "react";
-import { calendericon, leadicon, sandclock } from "../assets/images";
+import { calendericon, leadicon, sandclock, speakericon } from "../assets/images";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import PieChartcomp from "../Components/Dashboard/PieChartcomp";
 import LeadReport from "../Components/Dashboard/LeadReport";
+import { Dropdown } from "react-bootstrap";
+import { FaChevronDown } from "react-icons/fa";
 
-const TelecallersDashboardScreen = () => {
+const AdminDashboard= () => {
   return (
     <div>
-      <div className="topbox-const">
+        
+      <div className="topbox-const  gap-3">
+ 
+
+      <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
+       
+       <div>
+         <p className=" mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
+           Total
+         </p>
+         <p className="mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
+           Leads
+         </p>
+         <p className="mt-md-4 mt-2 mb-0 f7 fs-xxl-29 fs-xl-29 fs-lg-28 fs-sm-25 fs-xs-22 textani white">
+           35
+         </p>
+       </div>
+       <div className="imgcont d-flex ac-jc">
+         <img src={speakericon} />
+       </div>
+       <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
+         <EastOutlinedIcon className="primary3" />
+       </button>
+     </div>
         <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
+       
           <div>
             <p className=" mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
-              Pending
+            Enrolled
             </p>
             <p className="mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
               Leads
@@ -30,7 +56,7 @@ const TelecallersDashboardScreen = () => {
         <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
           <div>
             <p className=" mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
-              Converted
+            Follow-up
             </p>
             <p className="mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
               Leads
@@ -49,10 +75,10 @@ const TelecallersDashboardScreen = () => {
         <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
           <div>
             <p className=" mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
-              Upcoming
+            Total-
             </p>
             <p className="mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
-              Leads
+            walk in
             </p>
             <p className="mt-md-4 mt-2 mb-0 f7 fs-xxl-29 fs-xl-29 fs-lg-28 fs-sm-25 fs-xs-22 textani white">
               1230
@@ -78,4 +104,4 @@ const TelecallersDashboardScreen = () => {
   );
 };
 
-export default TelecallersDashboardScreen;
+export default AdminDashboard;

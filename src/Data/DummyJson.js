@@ -64,7 +64,7 @@ export const SideNavList = [
   {
     id: 1,
     name: "Dashboard",
-    navi: "/telecallers/dashboard",
+    navi: "/admindashboard",
     active_icon: dash_blue,
     inactive_icon: dash_white,
     sub: [
@@ -122,9 +122,15 @@ export const SideNavList = [
     ],
   },
   {
+<<<<<<< HEAD
     id: 6,
     name: "Performance Report",
     navi: "/telecallers/perfomance-report",
+=======
+    id: 5,
+    name: "Staffs",
+    navi: "/staff",
+>>>>>>> 3d6a927e25e43740c08d6609d93eed5069e4c9f6
     active_icon: perfomance_blue,
     inactive_icon: perfomance_white,
     sub: [
@@ -134,8 +140,63 @@ export const SideNavList = [
     ],
   },
   {
+<<<<<<< HEAD
     id: 7,
     name: "Notifications ",
+=======
+    id: 6,
+    name: "Finance ",
+    navi: "/telecallers/notification",
+    active_icon: notification_blue,
+    inactive_icon: notification_white,
+    sub: [
+      // {
+      //   name:"Invoice",
+      //   list: "/",
+      // },
+    ],
+  },
+  {
+    id: 7,
+    name: "Reports ",
+    navi: "/telecallers/notification",
+    active_icon: notification_blue,
+    inactive_icon: notification_white,
+    sub: [
+      // {
+      //   list: "/",
+      // },
+    ],
+  },
+  {
+    id: 8,
+    name: "Setup ",
+    navi: "/source",
+    active_icon: notification_blue,
+    inactive_icon: notification_white,
+    sub: [
+      // {
+      //   name:''
+      //   list: "/",
+      // },
+    ],
+  },
+  {
+    id: 9,
+    name: "Remainder ",
+    navi: "/telecallers/notification",
+    active_icon: notification_blue,
+    inactive_icon: notification_white,
+    sub: [
+      // {
+      //   list: "/",
+      // },
+    ],
+  },
+  {
+    id: 10,
+    name: "Enquiries ",
+>>>>>>> 3d6a927e25e43740c08d6609d93eed5069e4c9f6
     navi: "/telecallers/notification",
     active_icon: notification_blue,
     inactive_icon: notification_white,
@@ -184,6 +245,7 @@ export const leadsList = [
     },
     status: "Not reachable",
   },
+<<<<<<< HEAD
   {
     id: 5,
     name: "Sankari",
@@ -295,6 +357,11 @@ export const followupleadsList = [
     },
     status: "Follow Ups",
   },
+=======
+  { id: "005", name: "Sankari", course: "JavaScript", status: "Switched Off" },
+  { id: "006", name: "Michael Brown", course: "Django", status: "Follow Ups" },
+  { id: "007", name: "Sarah Wilson", course: "Vue.js", status: "Discontinue" },
+>>>>>>> 3d6a927e25e43740c08d6609d93eed5069e4c9f6
 ];
 
 export const leadstatus = [
@@ -506,3 +573,72 @@ export const leadsListss = [
     status: "Enrollement",
   },
 ];
+export const usersList = [
+  {
+    id: 1,
+    name: "Sujatha",
+    email: "sujatha@gmail.com",
+    phone: "+1 123-456-7890",
+    role: "Telecaller",
+    status: true,
+  },
+  {
+    id: 2,
+    name: "Keerthana",
+    email: "Keerthana@gmail.com",
+    phone: "+1 987-654-3210",
+    role: "Tele-Counsoller",
+    status: false,
+  },
+  {
+    id: 3,
+    name: "Sankari",
+    email: "sankari@gmail.com",
+    phone: "+1 555-123-4567",
+    role: "Telecaller",
+    status: true,
+  },
+  {
+    id: 4,
+    name: "Vijay",
+    email: "vijay@gmail.com",
+    phone: "+1 444-789-1234",
+    role: "Telecaller",
+    status: false,
+  },
+];
+export const staffstatus = [
+  {
+    id: 1,
+    name: "TeleCaller",
+  },
+  {
+    id: 2,
+    name: "Tele-Counsoler",
+  },
+  
+];
+
+export const sourcelist = [
+  
+  { id: "001", sourcename: "Facebook"},
+  { id: "002", sourcename: "Youtube"},
+  { id: "003", sourcename: "Website"},
+  { id: "003", sourcename: "Instagram"},
+];
+export const staffrolelist = [
+  
+  { id: "001", rolename: "Tele-counselor"},
+  { id: "002", rolename: "Telecaller"},
+ 
+ 
+];
+
+export const courselist = [
+  
+  { id: "001", coursename: "Digital Marketing", amount:"25,000", duration:'3 months'},
+  { id: "002", coursename: "Fullstact", amount:"25,000", duration:'3 months'},
+ 
+ 
+];
+

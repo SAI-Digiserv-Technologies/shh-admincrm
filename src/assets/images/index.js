@@ -47,3 +47,5 @@ export const droparrow = require("./droparrow.png");
 export const car_icon = require("./car_icon.png");
 export const calendar_icon = require("./calendar_icon.png");
 export const time_icon = require("./time_icon.png");
+export const speakericon = require("./speakericon.png");
+
