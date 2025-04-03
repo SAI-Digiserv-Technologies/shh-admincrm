@@ -62,7 +62,7 @@ export const SideNavList = [
   {
     id: 1,
     name: "Dashboard",
-    navi: "/telecallers/dashboard",
+    navi: "/admindashboard",
     active_icon: dash_blue,
     inactive_icon: dash_white,
     sub: [
@@ -110,7 +110,7 @@ export const SideNavList = [
   {
     id: 5,
     name: "Staffs",
-    navi: "/telecallers/perfomance-report",
+    navi: "/staff",
     active_icon: perfomance_blue,
     inactive_icon: perfomance_white,
     sub: [
@@ -121,12 +121,13 @@ export const SideNavList = [
   },
   {
     id: 6,
-    name: "Fiance ",
+    name: "Finance ",
     navi: "/telecallers/notification",
     active_icon: notification_blue,
     inactive_icon: notification_white,
     sub: [
       // {
+      //   name:"Invoice",
       //   list: "/",
       // },
     ],
@@ -146,11 +147,12 @@ export const SideNavList = [
   {
     id: 8,
     name: "Setup ",
-    navi: "/telecallers/notification",
+    navi: "/source",
     active_icon: notification_blue,
     inactive_icon: notification_white,
     sub: [
       // {
+      //   name:''
       //   list: "/",
       // },
     ],
@@ -208,12 +210,6 @@ export const leadsList = [
   },
   { id: "005", name: "Sankari", course: "JavaScript", status: "Switched Off" },
   { id: "006", name: "Michael Brown", course: "Django", status: "Follow Ups" },
-  {
-    id: "007",
-    name: "Sarah Wilson",
-    course: "Vue.js",
-    status: "Close Follow Ups",
-  },
   { id: "007", name: "Sarah Wilson", course: "Vue.js", status: "Discontinue" },
 ];
 
@@ -351,3 +347,72 @@ export const leadaddform = [
     placeholder: "Source",
   },
 ];
+export const usersList = [
+  {
+    id: 1,
+    name: "Sujatha",
+    email: "sujatha@gmail.com",
+    phone: "+1 123-456-7890",
+    role: "Telecaller",
+    status: true,
+  },
+  {
+    id: 2,
+    name: "Keerthana",
+    email: "Keerthana@gmail.com",
+    phone: "+1 987-654-3210",
+    role: "Tele-Counsoller",
+    status: false,
+  },
+  {
+    id: 3,
+    name: "Sankari",
+    email: "sankari@gmail.com",
+    phone: "+1 555-123-4567",
+    role: "Telecaller",
+    status: true,
+  },
+  {
+    id: 4,
+    name: "Vijay",
+    email: "vijay@gmail.com",
+    phone: "+1 444-789-1234",
+    role: "Telecaller",
+    status: false,
+  },
+];
+export const staffstatus = [
+  {
+    id: 1,
+    name: "TeleCaller",
+  },
+  {
+    id: 2,
+    name: "Tele-Counsoler",
+  },
+  
+];
+
+export const sourcelist = [
+  
+  { id: "001", sourcename: "Facebook"},
+  { id: "002", sourcename: "Youtube"},
+  { id: "003", sourcename: "Website"},
+  { id: "003", sourcename: "Instagram"},
+];
+export const staffrolelist = [
+  
+  { id: "001", rolename: "Tele-counselor"},
+  { id: "002", rolename: "Telecaller"},
+ 
+ 
+];
+
+export const courselist = [
+  
+  { id: "001", coursename: "Digital Marketing", amount:"25,000", duration:'3 months'},
+  { id: "002", coursename: "Fullstact", amount:"25,000", duration:'3 months'},
+ 
+ 
+];
+
