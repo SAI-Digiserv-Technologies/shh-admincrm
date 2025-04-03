@@ -21,19 +21,16 @@ import LeadManageDetailScreen from "./Screens/LeadManageDetailScreen";
 import PaymentUpdates from "./Screens/PaymentUpdates";
 import PaymentDetails from "./Screens/PaymentDetails";
 import PaymentList from "./Screens/PaymentList";
-<<<<<<< HEAD
 import Sourcescreen from "./Screens/Sourcescreen";
 import FollowupScreen from "./Screens/FollowupScreen";
 import CloseFollowupScreen from "./Screens/CloseFollowupScreen";
 import CloseFollowupDetailScreen from "./Screens/CloseFollowupDetailScreen";
 import FollowupDetailScreen from "./Screens/FollowupDetailScreen";
-=======
 import Staff from "./Screens/Staff";
 import StaffForm from "./Screens/StaffForm";
 import AdminDashboard from "./Screens/AdminDashboard";
 import SourceScreen from "./Screens/SourceScreen";
 import StaffRoleScreen from "./Screens/StaffRoleScreen";
->>>>>>> 3d6a927e25e43740c08d6609d93eed5069e4c9f6
 
 const ReactRoute = () => {
   return (
@@ -65,7 +62,6 @@ const ReactRoute = () => {
           path="/telecallers/payment-updates/payment-list/payment-detalis"
           element={<PaymentDetails />}
         />
-<<<<<<< HEAD
          <Route path="/telecallers/followup" element={<FollowupScreen />} />
         <Route
           path="/telecallers/close_followup"
@@ -80,7 +76,6 @@ const ReactRoute = () => {
           element={<FollowupDetailScreen />}
         />
         <Route path="/source" element={<Sourcescreen />} />
-=======
         <Route
           path="/staff"
           element={<Staff />}
@@ -97,7 +92,6 @@ const ReactRoute = () => {
           path="/staffrole"
           element={<StaffRoleScreen />}
         />
->>>>>>> 3d6a927e25e43740c08d6609d93eed5069e4c9f6
       </Route>
     </Routes>
   );

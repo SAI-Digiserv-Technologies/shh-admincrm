@@ -122,15 +122,12 @@ export const SideNavList = [
     ],
   },
   {
-<<<<<<< HEAD
     id: 6,
     name: "Performance Report",
     navi: "/telecallers/perfomance-report",
-=======
     id: 5,
     name: "Staffs",
     navi: "/staff",
->>>>>>> 3d6a927e25e43740c08d6609d93eed5069e4c9f6
     active_icon: perfomance_blue,
     inactive_icon: perfomance_white,
     sub: [
@@ -140,10 +137,8 @@ export const SideNavList = [
     ],
   },
   {
-<<<<<<< HEAD
     id: 7,
     name: "Notifications ",
-=======
     id: 6,
     name: "Finance ",
     navi: "/telecallers/notification",
@@ -196,7 +191,6 @@ export const SideNavList = [
   {
     id: 10,
     name: "Enquiries ",
->>>>>>> 3d6a927e25e43740c08d6609d93eed5069e4c9f6
     navi: "/telecallers/notification",
     active_icon: notification_blue,
     inactive_icon: notification_white,
@@ -245,7 +239,6 @@ export const leadsList = [
     },
     status: "Not reachable",
   },
-<<<<<<< HEAD
   {
     id: 5,
     name: "Sankari",
@@ -357,11 +350,9 @@ export const followupleadsList = [
     },
     status: "Follow Ups",
   },
-=======
   { id: "005", name: "Sankari", course: "JavaScript", status: "Switched Off" },
   { id: "006", name: "Michael Brown", course: "Django", status: "Follow Ups" },
   { id: "007", name: "Sarah Wilson", course: "Vue.js", status: "Discontinue" },
->>>>>>> 3d6a927e25e43740c08d6609d93eed5069e4c9f6
 ];
 
 export const leadstatus = [
