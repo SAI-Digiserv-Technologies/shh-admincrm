@@ -12,7 +12,6 @@ import "./assets/scss/width.scss";
 import "./assets/scss/fonrmsstyle.scss";
 import "./assets/scss/height.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import RegisterScreen from "./Screens/RegisterScreen";
 import Layout from "./Components/Layout/Layout";
 import ResetPasswordScreen from "./Screens/ResetPasswordScreen";
 import ResetPasswordotpScreen from "./Screens/ResetPasswordotpScreen";
@@ -29,7 +28,7 @@ import FollowupDetailScreen from "./Screens/FollowupDetailScreen";
 import Staff from "./Screens/Staff";
 import StaffForm from "./Screens/StaffForm";
 import AdminDashboard from "./Screens/AdminDashboard";
-import SourceScreen from "./Screens/SourceScreen";
+
 import StaffRoleScreen from "./Screens/StaffRoleScreen";
 
 const ReactRoute = () => {
