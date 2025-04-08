@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import { courselist, staffrolelist } from "../../Data/DummyJson";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { DeleteForeverOutlined, DeleteForeverSharp } from "@mui/icons-material";
+import { courselist } from "../../Data/DummyJson";
 
 const LeadCourseList = () => {
   const [openDropdown, setOpenDropdown] = useState(null);

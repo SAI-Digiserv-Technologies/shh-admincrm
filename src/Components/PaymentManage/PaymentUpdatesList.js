@@ -43,7 +43,6 @@ const PaymentUpdatesList = () => {
                 <td className="text-center border-0 py-2 px-2">{lead.PaidAmount}</td>
                 <td className="text-center border-0 py-2 px-2">{lead.BalanceAmount}</td>
 
-                {/* Status Display in Rounded Button */}
                 <td className="text-center border-0 py-2 px-3">
                   <button
                     className={`px-3 py-1 rounded-pill border-0 text-center`}
@@ -62,14 +61,13 @@ const PaymentUpdatesList = () => {
                   </button>
                 </td>
 
-                {/* Action Buttons */}
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex justify-content-center gap-3">
                     <button
                       onClick={() => navigate("/telecallers/payment-updates/payment-list")}
                       className="border-0 rounded-2 action-box text-center"
                       style={{
-                        backgroundColor: "#007bff",
+                        backgroundColor: "#00225d",
                         color: "white",
                         width: "40px",
                         height: "40px",
@@ -89,13 +87,12 @@ const PaymentUpdatesList = () => {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="pagination d-flex justify-content-center mt-3">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
           className="px-3 py-1 mx-1 border-0 rounded text-white"
-          style={{ backgroundColor: "#007bff", width: "40px", height: "40px" }}
+          style={{ backgroundColor: "#00225d", width: "40px", height: "40px" }}
         >
           <ArrowBackIosNewOutlinedIcon />
         </button>
@@ -108,7 +105,7 @@ const PaymentUpdatesList = () => {
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
           className="px-3 py-1 mx-1 border-0 rounded text-white"
-          style={{ backgroundColor: "#007bff", width: "40px", height: "40px" }}
+          style={{ backgroundColor: "#00225d", width: "40px", height: "40px" }}
         >
           <ArrowForwardIosOutlinedIcon />
         </button>

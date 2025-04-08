@@ -34,7 +34,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
           <div className="w-100">
             <li className="">
               <div className="d-flex ac-js w-100 border-0 bg-transparent">
-                <div className="icon_box d-flex ac-jc">
+                <div className="icon_box d-flex ac-jc ">
                   <img src={round_logo} />
                 </div>
               </div>
@@ -52,7 +52,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
                   Sujatha <span className="white">Venkatesh</span>
                 </p>
                 <p className="mb-0 white f2 fs-xxl-14 fs-xl-14 fs-lg-13 fs-sm-12 fs-xs-12 textani">
-                  Telecaller
+                 Admin
                 </p>
               </div>
             </div>
@@ -112,10 +112,10 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
               })}
             </div>
           </div>
-          <div className="logout-cont d-flex ac-jb flex-column w-20">
+          <div className="logout-cont d-flex ac-jb flex-column w-20 ">
             <div
               className={`${
-                menuactive ? "" : "cc"
+                menuactive ? "" : "cc" 
               } logout cp w-100 d-flex ac-jb`}
             >
               <li>

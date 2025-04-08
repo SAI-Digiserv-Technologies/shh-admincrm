@@ -1,9 +1,17 @@
 import {
   calendar_icon,
+  closefollowup_blue,
+  closefollowup_white,
+  closewup_blue,
+  closewup_white,
   dash_blue,
   dash_white,
+  enquiries_blue,
+  enquiries_white,
   follow_blue,
   follow_white,
+  followup_blue,
+  followup_white,
   leads_blue,
   leads_white,
   notification_blue,
@@ -12,6 +20,8 @@ import {
   payment_white,
   perfomance_blue,
   perfomance_white,
+  setup_blue,
+  setup_white,
   time_icon,
 } from "../assets/images";
 
@@ -67,140 +77,78 @@ export const SideNavList = [
     navi: "/admindashboard",
     active_icon: dash_blue,
     inactive_icon: dash_white,
-    sub: [
-      // {
-      //   list: "/",
-      // },
-    ],
   },
   {
     id: 2,
-    name: "Follow-ups",
-    navi: "/telecallers/followup",
-    active_icon: follow_blue,
-    inactive_icon: follow_white,
-    sub: [
-      {
-        list: "/telecallers/followup/details",
-      },
-    ],
+    name: "Leads",
+    navi: "/telecallers/leads",
+    active_icon: leads_blue,
+    inactive_icon: leads_white,
   },
   {
     id: 3,
-    name: "Close Follow ups",
-    navi: "/telecallers/close_followup",
-    active_icon: follow_blue,
-    inactive_icon: follow_white,
-    sub: [
-      {
-        list: "/telecallers/close_followup/details",
-      },
-    ],
+    name: "Follow-ups",
+    navi: "/followup",
+    active_icon:followup_blue,
+    inactive_icon: followup_white
   },
   {
     id: 4,
-    name: "Leads",
-    navi: "/telecallers/leeds",
-    active_icon: leads_blue,
-    inactive_icon: leads_white,
-    sub: [
-      {
-        list: "/telecallers/leeds/details",
-      },
-    ],
+    name: "Close Follow-ups",
+    navi: "/closefollowup",
+    active_icon:closefollowup_blue,
+    inactive_icon:closefollowup_white
   },
   {
     id: 5,
-    name: "Payment Updates",
+    name: "Staffs",
+    navi: "/staff",
+    active_icon: follow_blue,
+    inactive_icon: follow_white,
+  },
+  {
+    id: 6,
+    name: "Finance",
     navi: "/telecallers/payment-updates",
     active_icon: payment_blue,
     inactive_icon: payment_white,
     sub: [
       {
+        name: "Payment List",
         list: "/telecallers/payment-updates/payment-list",
       },
     ],
   },
   {
-    id: 6,
-    name: "Performance Report",
-    navi: "/telecallers/perfomance-report",
-    id: 5,
-    name: "Staffs",
-    navi: "/staff",
+    id: 7,
+    name: "Reports",
+    navi: "/telecallers/reports",
     active_icon: perfomance_blue,
     inactive_icon: perfomance_white,
-    sub: [
-      // {
-      //   list: "/",
-      // },
-    ],
-  },
-  {
-    id: 7,
-    name: "Notifications ",
-    id: 6,
-    name: "Finance ",
-    navi: "/telecallers/notification",
-    active_icon: notification_blue,
-    inactive_icon: notification_white,
-    sub: [
-      // {
-      //   name:"Invoice",
-      //   list: "/",
-      // },
-    ],
-  },
-  {
-    id: 7,
-    name: "Reports ",
-    navi: "/telecallers/notification",
-    active_icon: notification_blue,
-    inactive_icon: notification_white,
-    sub: [
-      // {
-      //   list: "/",
-      // },
-    ],
   },
   {
     id: 8,
-    name: "Setup ",
+    name: "Setup",
     navi: "/source",
-    active_icon: notification_blue,
-    inactive_icon: notification_white,
-    sub: [
-      // {
-      //   name:''
-      //   list: "/",
-      // },
-    ],
+    active_icon: setup_blue,
+    inactive_icon: setup_white,
   },
   {
     id: 9,
-    name: "Remainder ",
-    navi: "/telecallers/notification",
+    name: "Reminder",
+    navi: "/telecallers/reminder",
     active_icon: notification_blue,
     inactive_icon: notification_white,
-    sub: [
-      // {
-      //   list: "/",
-      // },
-    ],
   },
   {
     id: 10,
-    name: "Enquiries ",
-    navi: "/telecallers/notification",
-    active_icon: notification_blue,
-    inactive_icon: notification_white,
-    sub: [
-      // {
-      //   list: "/",
-      // },
-    ],
+    name: "Enquiries",
+    navi: "/telecallers/enquiries",
+    active_icon: enquiries_blue,
+    inactive_icon: enquiries_white,
   },
 ];
+
 
 export const leadsList = [
   {
@@ -537,11 +485,8 @@ export const leadaddform = [
 ];
 
 export const courselist = [
-  {
-    id: 1,
-    name: "Digital marketing",
-    amount: "25000",
-  },
+  { id: "001", coursename: "Digital Marketing", amount:"25,000", duration:'3 months'},
+  { id: "002", coursename: "Fullstact", amount:"25,000", duration:'3 months'},
 ];
 
 export const leadsListss = [
@@ -625,11 +570,7 @@ export const staffrolelist = [
  
 ];
 
-export const courselist = [
-  
-  { id: "001", coursename: "Digital Marketing", amount:"25,000", duration:'3 months'},
-  { id: "002", coursename: "Fullstact", amount:"25,000", duration:'3 months'},
+
  
- 
-];
+
 

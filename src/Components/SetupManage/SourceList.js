@@ -32,7 +32,7 @@ const SourceList = () => {
   const handleStatusChange = (leadId, status) => {
     setSelectedStatus((prevStatuses) => ({
       ...prevStatuses,
-      [leadId]: status, // ✅ FIXED: Update status for specific lead
+      [leadId]: status, 
     }));
     setOpenDropdown(null);
   };

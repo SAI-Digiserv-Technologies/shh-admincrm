@@ -31,6 +31,14 @@ export const logout_icon = require("./logout_icon.png");
 export const menu_toggle = require("./menu_toggle.png");
 export const otpbg = require("./otpbg.png");
 export const otpresetbg = require("./otpresetbg.png");
+export const setup_blue = require("./setup_blue.png")
+export const setup_white = require("./setup_white.png")
+export const enquiries_blue=require("./enquiries_blue.png")
+export const enquiries_white= require("./enquiries_white.png")
+export const followup_white=require("./followup_white.png")
+export const followup_blue=require("./followup_blue.png")
+export const closefollowup_white=require("./closefollowup_white.png")
+export const closefollowup_blue=require("./closefollowup_blue.png")
 
 // top header
 export const topsetting = require("./topsetting.png");

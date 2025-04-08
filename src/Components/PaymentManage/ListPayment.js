@@ -21,17 +21,16 @@ const ListPayment = () => {
   // Function to determine button color based on payment mode
   const getPaymentModeColor = (mode) => {
     switch (mode.toLowerCase()) {
-
-    case "bank":
-      return { backgroundColor: "#f3ff70", color: "#000" }; // Yellow
-    case "upi":
-      return { backgroundColor: "#7cf2ff", color: "#000" }; // Light Blue
-    case "net banking":
-      return { backgroundColor: "#70ff87", color: "#000" }; // Green
-    case "credit card":
-      return { backgroundColor: "#ff69b4", color: "#000" }; // **Pink (Hot Pink)**
-    default:
-      return { backgroundColor: "#ccc", color: "#000" }; // Default Gray
+      case "bank":
+        return { backgroundColor: "#f3ff70", color: "#000" }; // Yellow
+      case "upi":
+        return { backgroundColor: "#7cf2ff", color: "#000" }; // Light Blue
+      case "net banking":
+        return { backgroundColor: "#70ff87", color: "#000" }; // Green
+      case "credit card":
+        return { backgroundColor: "#ff69b4", color: "#000" }; // **Pink (Hot Pink)**
+      default:
+        return { backgroundColor: "#ccc", color: "#000" }; // Default Gray
     }
   };
 
@@ -85,7 +84,7 @@ const ListPayment = () => {
                     }
                     className="border-0 rounded-2 text-center"
                     style={{
-                      backgroundColor: "#007bff",
+                      backgroundColor: "#00225d", // Dark Blue
                       color: "white",
                       width: "40px",
                       height: "40px",
@@ -109,31 +108,25 @@ const ListPayment = () => {
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
-          className="px-3 py-1 mx-1 border-0 rounded text-white"
-          style={{
-            backgroundColor: "#007bff",
-            width: "40px",
-            height: "40px",
-            opacity: currentPage === 1 ? 0.5 : 1,
-          }}
+          className={`${
+            currentPage === 1 ? "opacity-50" : "opacity-100"
+          } px-3 py-1 mx-1 border-0 rounded text-white`}
+          style={{ backgroundColor: "#00225d" }} // Dark Blue
         >
           <ArrowBackIosNewOutlinedIcon />
         </button>
-
         <span className="px-3 py-1 mx-1">
           Page {currentPage} of {totalPages}
         </span>
-
         <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
           disabled={currentPage === totalPages}
-          className="px-3 py-1 mx-1 border-0 rounded text-white"
-          style={{
-            backgroundColor: "#007bff",
-            width: "40px",
-            height: "40px",
-            opacity: currentPage === totalPages ? 0.5 : 1,
-          }}
+          className={`${
+            currentPage === totalPages ? "opacity-50" : "opacity-100"
+          } px-3 py-1 mx-1 border-0 rounded text-white`}
+          style={{ backgroundColor: "#00225d" }} // Dark Blue
         >
           <ArrowForwardIosOutlinedIcon />
         </button>
