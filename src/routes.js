@@ -24,9 +24,14 @@ import PaymentList from "./Screens/PaymentList";
 import Staff from "./Screens/Staff";
 import StaffForm from "./Screens/StaffForm";
 import AdminDashboard from "./Screens/AdminDashboard";
-import SourceScreen from "./Screens/SourceScreen";
+
 import StaffRoleScreen from "./Screens/StaffRoleScreen";
 import AdminProfileScreen from "./Screens/AdminProfileScreen";
+import Sourcescreen from "./Screens/Sourcescreen";
+import FollowupScreen from "./Screens/FollowupScreen";
+import CloseFollowupScreen from "./Screens/CloseFollowupScreen";
+import CloseFollowupDetailScreen from "./Screens/CloseFollowupDetailScreen";
+import FollowupDetailScreen from "./Screens/FollowupDetailScreen";
 
 const ReactRoute = () => {
   return (
@@ -68,7 +73,7 @@ const ReactRoute = () => {
         />
          <Route
           path="/source"
-          element={<SourceScreen />}
+          element={<Sourcescreen />}
         />
         <Route
           path="/staffrole"
@@ -78,6 +83,20 @@ const ReactRoute = () => {
           path="/adminprofile"
           element={<AdminProfileScreen />}
         />
+         <Route path="/telecallers/followup" element={<FollowupScreen />} />
+        <Route
+          path="/telecallers/close_followup"
+          element={<CloseFollowupScreen />}
+        />
+        <Route
+          path="/telecallers/close_followup/details"
+          element={<CloseFollowupDetailScreen />}
+        />
+        <Route
+          path="/telecallers/followup/details"
+          element={<FollowupDetailScreen />}
+        />
+        <Route path="/source" element={<Sourcescreen />} />
       </Route>
     </Routes>
   );
