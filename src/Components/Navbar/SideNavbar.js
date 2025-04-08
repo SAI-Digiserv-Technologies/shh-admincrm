@@ -13,6 +13,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+
   const [activeIndex, setActiveIndex] = useState(0);
   const pathname = location?.pathname;
   console.log("pathname", pathname);
@@ -43,16 +44,18 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
               className={`${
                 menuactive ? "rounded-2" : "rounded-5 mx-md-3 mx-2 py-1 px-2"
               } pro-cont d-flex ac-js `}
+              style={{cursor:'pointer'}}
+              onClick={()=>{ navigate("/adminprofile")}}
             >
               <div className="pro-img d-flex ac-jc ">
                 <img src={pro_icon} />
               </div>
-              <div className="textss">
+              <div className="textss" >
                 <p className="mb-0 orange f4 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani">
                   Sujatha <span className="white">Venkatesh</span>
                 </p>
                 <p className="mb-0 white f2 fs-xxl-14 fs-xl-14 fs-lg-13 fs-sm-12 fs-xs-12 textani">
-                  Telecaller
+                  Admin
                 </p>
               </div>
             </div>

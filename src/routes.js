@@ -26,6 +26,7 @@ import StaffForm from "./Screens/StaffForm";
 import AdminDashboard from "./Screens/AdminDashboard";
 import SourceScreen from "./Screens/SourceScreen";
 import StaffRoleScreen from "./Screens/StaffRoleScreen";
+import AdminProfileScreen from "./Screens/AdminProfileScreen";
 
 const ReactRoute = () => {
   return (
@@ -72,6 +73,10 @@ const ReactRoute = () => {
         <Route
           path="/staffrole"
           element={<StaffRoleScreen />}
+        />
+        <Route
+          path="/adminprofile"
+          element={<AdminProfileScreen />}
         />
       </Route>
     </Routes>
