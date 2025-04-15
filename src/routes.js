@@ -30,6 +30,7 @@ import StaffRoleScreen from "./Screens/StaffRoleScreen";
 import Telecallerprofile from "./Screens/Telecallerprofile";
 import Telecallerprofilepage from "./Screens/Telecallerprofilepage";
 import Paymentproofscreen from "./Screens/Paymentproofscreen";
+import LeadCourseScreen from "./Screens/LeadCourseScreen";
 // import SourceScreen from "./Screens/Sourcescreen";
 
 const ReactRoute = () => {
@@ -40,8 +41,9 @@ const ReactRoute = () => {
       <Route path="/otp-resetpassword" element={<ResetPasswordotpScreen />} />
       <Route element={<Layout />}>
         <Route path="/admindashboard" element={<AdminDashboard />} />
-        <Route path="/telecallers/leeds" element={<LeadsListScreen />} />
-        <Route path="/telecallers/leeds/add" element={<LeadManageDetailScreen />} />
+        <Route path="/leadslist" element={<LeadsListScreen />} />
+        <Route path="/leadcourse" element={<LeadCourseScreen />} />
+        <Route path="/leadmanage" element={<LeadManageDetailScreen />} />
         <Route path="/telecallers/payment-updates" element={<PaymentUpdates />} />
         <Route path="/telecallers/payment-updates/payment-list" element={<PaymentList />} />
         <Route path="/telecallers/payment-updates/payment-list/payment-detalis" element={<PaymentDetails />} />
