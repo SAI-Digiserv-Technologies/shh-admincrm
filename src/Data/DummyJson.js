@@ -81,7 +81,7 @@ export const SideNavList = [
   {
     id: 2,
     name: "Leads",
-    navi: "/telecallers/leads",
+    navi: "/leadmanage",
     active_icon: leads_blue,
     inactive_icon: leads_white,
   },
@@ -89,15 +89,15 @@ export const SideNavList = [
     id: 3,
     name: "Follow-ups",
     navi: "/followup",
-    active_icon:followup_blue,
+    active_icon: followup_blue,
     inactive_icon: followup_white
   },
   {
     id: 4,
     name: "Close Follow-ups",
     navi: "/closefollowup",
-    active_icon:closefollowup_blue,
-    inactive_icon:closefollowup_white
+    active_icon: closefollowup_blue,
+    inactive_icon: closefollowup_white
   },
   {
     id: 5,
@@ -109,45 +109,53 @@ export const SideNavList = [
   {
     id: 6,
     name: "Finance",
-    navi: "/telecallers/payment-updates",
+    navi: "/",
     active_icon: payment_blue,
     inactive_icon: payment_white,
     sub: [
-      {
-        name: "Payment List",
-        list: "/telecallers/payment-updates/payment-list",
-      },
-    ],
+      { name: "Payment", list: "/payment" },
+      { name: "Invoice", list: "/invoice" },
+      { name: "Payment Proof", list: "/paymentproof" }
+    ]
   },
   {
     id: 7,
     name: "Reports",
-    navi: "/telecallers/reports",
+    navi: "/",
     active_icon: perfomance_blue,
     inactive_icon: perfomance_white,
+    sub: [
+      { name: "All Leads", list: "/report" }
+    ]
   },
   {
     id: 8,
     name: "Setup",
-    navi: "/source",
+    navi: "/",
     active_icon: setup_blue,
     inactive_icon: setup_white,
+    sub: [
+      { name: "Lead", list: "/" },
+      { name: "Staff", list: "/staff" },
+      { name: "Role", list: "/role" }
+    ]
   },
   {
     id: 9,
     name: "Reminder",
-    navi: "/telecallers/reminder",
+    navi: "/reminder",
     active_icon: notification_blue,
     inactive_icon: notification_white,
   },
   {
     id: 10,
     name: "Enquiries",
-    navi: "/telecallers/enquiries",
+    navi: "/enquiries",
     active_icon: enquiries_blue,
     inactive_icon: enquiries_white,
   },
 ];
+
 
 
 export const leadsList = [
@@ -673,6 +681,21 @@ export const staffstatus = [
     id: 2,
     name: "Tele-Counsoler",
   },
+  {
+    id: 5,
+    name: "Payment Proof",
+    navi: "/telecallers/payment-proof",
+    active_icon: payment_blue,
+    inactive_icon: payment_white,
+    sub: [
+      {
+        list: "/telecallers/payment-proof/add",
+      },
+      {
+        list: "/telecallers/payment-proof/view",
+      },
+    ],
+  },
   
 ];
 
@@ -690,6 +713,7 @@ export const staffrolelist = [
  
  
 ];
+
 
 
  

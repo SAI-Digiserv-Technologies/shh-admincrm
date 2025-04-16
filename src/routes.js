@@ -31,8 +31,6 @@ import Telecallerprofile from "./Screens/Telecallerprofile";
 import Telecallerprofilepage from "./Screens/Telecallerprofilepage";
 import Paymentproofscreen from "./Screens/Paymentproofscreen";
 import LeadCourseScreen from "./Screens/LeadCourseScreen";
-import ListNotFound from "./Screens/ListNotFound";
-import EnquiryScreen from "./Screens/EnquiryScreen";
 // import SourceScreen from "./Screens/Sourcescreen";
 
 const ReactRoute = () => {
@@ -45,23 +43,24 @@ const ReactRoute = () => {
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/leadslist" element={<LeadsListScreen />} />
         <Route path="/leadcourse" element={<LeadCourseScreen />} />
-        <Route path="/leadmanage" element={<LeadManageDetailScreen />} />
-        <Route path="/telecallers/payment-updates" element={<PaymentUpdates />} />
-        <Route path="/telecallers/payment-updates/payment-list" element={<PaymentList />} />
-        <Route path="/telecallers/payment-updates/payment-list/payment-detalis" element={<PaymentDetails />} />
+        <Route path="/leadmanagedetail" element={<LeadManageDetailScreen />} />
+        <Route path="/payment-updates" element={<PaymentUpdates />} />
+        <Route path="/payment-updates/payment-list" element={<PaymentList />} />
+        <Route path="/payment-updates/payment-list/payment-detalis" element={<PaymentDetails />} />
         <Route path="/followup" element={<FollowupScreen />} />
         <Route path="/closefollowup" element={<CloseFollowupScreen />} />
-        <Route path="/telecallers/close_followup/details" element={<CloseFollowupDetailScreen />} />
-        <Route path="/telecallers/followup/details" element={<FollowupDetailScreen />} />
+        <Route path="/close_followup/details" element={<CloseFollowupDetailScreen />} />
+        <Route path="/followup/details" element={<FollowupDetailScreen />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/staffform" element={<StaffForm />} />
         <Route path="/staffrole" element={<StaffRoleScreen />} />
         {/* <Route path="/source" element={<SourceScreen />} /> */}
         <Route path="/telecaller" element={<Telecallerprofile />} />
         <Route path="/telecallerprofile" element={<Telecallerprofilepage />} />
+        
+        <Route path="/leadmanage" element={<LeadManage />} />
+        <Route path="/report" element={<ReportScreen />} />
         <Route path="/paymentproof" element={<Paymentproofscreen />} />
-        <Route path="/listnotfound" element={<ListNotFound />} />
-        <Route path="/enquiry" element={<EnquiryScreen />} />
 
 
       </Route>
