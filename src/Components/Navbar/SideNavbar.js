@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   logout_icon,
   menu_toggle,
@@ -11,10 +11,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(null);
   const pathname = location?.pathname;
 
-  const onNavclike = (item) => {
+  // Auto-open submenu on page load if a sub path is active
+  useEffect(() => {
+    const activeParentIndex = SideNavList.findIndex((item) =>
+      item?.sub?.some((sub) => sub.list === pathname)
+    );
+    if (activeParentIndex !== -1) {
+      setActiveIndex(activeParentIndex);
+    }
+  }, [pathname]);
+
+  const onNavClick = (item) => {
     if (item?.navi === "logout") {
       poppupHandle("clike");
     } else {
@@ -24,8 +34,9 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
 
   return (
     <div
-      className={`${menuactive ? "navigation active" : "navigation"
-        } textani d-flex flex-column justify-between`}
+      className={`${
+        menuactive ? "navigation active" : "navigation"
+      } textani d-flex flex-column justify-between`}
       style={{ height: "100vh", overflow: "hidden" }}
     >
       {/* TOP SCROLLABLE AREA */}
@@ -41,8 +52,9 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
 
         {/* Profile */}
         <div
-          className={`${menuactive ? "rounded-2" : "rounded-5 mx-md-3 mx-2 py-1 px-2"
-            } pro-cont d-flex ac-js`}
+          className={`${
+            menuactive ? "rounded-2" : "rounded-5 mx-md-3 mx-2 py-1 px-2"
+          } pro-cont d-flex ac-js`}
         >
           <div className="pro-img d-flex ac-jc">
             <img src={pro_icon} alt="Profile" />
@@ -55,7 +67,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
           </div>
         </div>
 
-        {/* Features */}
+        {/* Features Heading */}
         <div className="d-flex ms-3 ac-jb gap-2 my-2">
           <p className="white t-hh mb-2 f3 fs-xxl-14 textani">Features</p>
           <div className="line" />
@@ -64,34 +76,71 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
         {/* Nav Items */}
         <div className="d-flex flex-column gap-md-2 gap-0 px-1">
           {SideNavList?.map((item, index) => {
-            const isActive =
-              (activeIndex === index && pathname === item?.navi) ||
+            const isParentActive =
               pathname === item?.navi ||
               item?.sub?.some((subItem) => pathname === subItem?.list);
+            const isSubOpen = activeIndex === index && item?.sub?.length > 0;
 
             return (
-              <li
-                key={index}
-                onClick={() => {
-                  onNavclike(item);
-                  setActiveIndex(index);
-                  setMenuActive(!isActive);
-                }}
-                className={`${isActive ? "hovered" : ""
-                  } textani cp d-flex ac-js my-1`}
-              >
-                <a className="d-flex ac-js w-100">
-                  <div className="icon_box_list d-flex ac-jc">
-                    <img
-                      src={
-                        isActive ? item?.active_icon : item?.inactive_icon
-                      }
-                      alt={`${item.name} Icon`}
-                    />
-                  </div>
-                  <span className="title f5 fs-xxl-14">{item?.name}</span>
-                </a>
-              </li>
+              <React.Fragment key={index}>
+                <li
+                  onClick={() => {
+                    if (item.sub && item.sub.length > 0) {
+                      setActiveIndex(isSubOpen ? null : index);
+                    } else {
+                      onNavClick(item);
+                      setActiveIndex(index);
+                      setMenuActive(!isParentActive);
+                    }
+                  }}
+                  className={`${
+                    isParentActive ? "hovered" : ""
+                  } textani cp d-flex ac-js justify-between my-1`}
+                >
+                  <a className="d-flex ac-js w-100 justify-between">
+                    <div className="d-flex ac-js">
+                      <div className="icon_box_list d-flex ac-jc">
+                        <img
+                          src={isParentActive ? item?.active_icon : item?.inactive_icon}
+                          alt={`${item.name} Icon`}
+                        />
+                      </div>
+                      <span className="title f5 fs-xxl-14">{item?.name}</span>
+                    </div>
+
+                    {/* Dropdown Button */}
+                    {item.sub && item.sub.length > 0 && (
+                      <button
+                        className={`ms-2 btn-dropdown ${isSubOpen ? "active" : ""}`}
+                        style={{ background: "transparent", border: "none", cursor: "pointer" }}
+                      >
+                        {isSubOpen ? "▼" : "▶"}
+                      </button>
+                    )}
+                  </a>
+                </li>
+
+                {/* Sub Items */}
+                {isSubOpen && (
+                  <ul className="ms-4 ps-2 border-start border-light-subtle">
+                    {item.sub.map((subItem, subIndex) => {
+                      const isSubActive = pathname === subItem?.list;
+                      return (
+                        <li
+                          key={subIndex}
+                          onClick={() => {
+                            navigate(subItem?.list);
+                            setActiveIndex(index);
+                          }}
+                          className={`cp my-1 ${isSubActive ? "text-primary" : "text-white"}`}
+                        >
+                          <span className="f5 fs-xxl-13">{subItem?.name}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </React.Fragment>
             );
           })}
         </div>
@@ -108,11 +157,12 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
         }}
       >
         {/* Logout */}
-        <div
-          onClick={() => poppupHandle("clike")}
-          className="d-flex  gap-2 "
-        >
-          <img src={logout_icon} alt="Logout" style={{ width: 20, height: 20 }} />
+        <div onClick={() => poppupHandle("clike")} className="d-flex gap-2 cp">
+          <img
+            src={logout_icon}
+            alt="Logout"
+            style={{ width: 20, height: 20 }}
+          />
           {menuactive && <span className="white">Logout</span>}
         </div>
 
@@ -129,7 +179,6 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
           />
         </button>
       </div>
-
     </div>
   );
 };
