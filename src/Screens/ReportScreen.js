@@ -44,7 +44,7 @@ const monthlyProgress = [
   { month: "APR", percent: 30, color: "bg-pink-500" },
 ];
 
-export default function Dashboard() {
+export default function ReportScreen() {
   return (
     <div className="p-4 space-y-6">
       {/* Header Controls */}
