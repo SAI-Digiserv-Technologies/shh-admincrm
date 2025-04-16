@@ -31,6 +31,8 @@ import Telecallerprofile from "./Screens/Telecallerprofile";
 import Telecallerprofilepage from "./Screens/Telecallerprofilepage";
 import Paymentproofscreen from "./Screens/Paymentproofscreen";
 import LeadCourseScreen from "./Screens/LeadCourseScreen";
+import ListNotFound from "./Screens/ListNotFound";
+import EnquiryScreen from "./Screens/EnquiryScreen";
 // import SourceScreen from "./Screens/Sourcescreen";
 
 const ReactRoute = () => {
@@ -58,6 +60,8 @@ const ReactRoute = () => {
         <Route path="/telecaller" element={<Telecallerprofile />} />
         <Route path="/telecallerprofile" element={<Telecallerprofilepage />} />
         <Route path="/paymentproof" element={<Paymentproofscreen />} />
+        <Route path="/listnotfound" element={<ListNotFound />} />
+        <Route path="/enquiry" element={<EnquiryScreen />} />
 
 
       </Route>

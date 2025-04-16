@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import { leadsList, leadstatus } from "../../Data/DummyJson";
+import { enquiryleadList, leadsList, leadstatus } from "../../Data/DummyJson";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -38,8 +38,8 @@ const LeadeList = () => {
 
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = leadsList.slice(indexOfFirstLead, indexOfLastLead);
-  const totalPages = Math.ceil(leadsList.length / leadsPerPage);
+  const currentLeads = enquiryleadList.slice(indexOfFirstLead, indexOfLastLead);
+  const totalPages = Math.ceil(enquiryleadList.length / leadsPerPage);
 
   return (
     <>
@@ -51,21 +51,28 @@ const LeadeList = () => {
         <table className="responsive-table rounded-3">
           <thead>
             <tr>
-              <th className="py-3 px-2">Lead ID</th>
-              <th className="py-3 px-2">Name</th>
-              <th className="py-3 px-2">Course</th>
-              <th className="py-3 px-2">Amount</th>
-              <th className="py-3 px-2">Status</th>
-              <th className="py-3 px-2">Action</th>
+            <th className="py-3 px-2">S.No</th>
+                <th className="py-3 px-2">Name</th>
+                <th className="py-3 px-2">Email ID</th>
+                <th className="py-3 px-2">DOB</th>
+                <th className="py-3 px-2">Walk In</th>
+                <th className="py-3 px-2">Passing Year</th>
+                <th className="py-3 px-2">Contact</th>
+                <th className="py-3 px-2">Source</th>
+                <th className="py-3 px-2">Course</th>
             </tr>
           </thead>
           <tbody>
             {currentLeads.map((lead) => (
               <tr key={lead.id} style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.id}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.name}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.course.course}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.course.amount}</td>
+                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.name}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.email}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.dob}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.walkin}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.passingYear}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.contact}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.source}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.course}</td>
                 
                 {/* STATUS DROPDOWN */}
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
@@ -85,10 +92,10 @@ const LeadeList = () => {
                         <div className="dropdrowncont rounded-2">
                           {leadstatus.map((item) => (
                             <button
-                              key={item.name} // ✅ FIXED: Added `key` prop
+                              key={item.name} 
                               onClick={() => handleStatusChange(lead.id, item.name)}
                               className="list w-100 border-0 py-2 bg-white"
-                              style={{ color: "black" }} // ✅ FIXED: Ensure text color is black
+                              style={{ color: "black" }} 
                             >
                               <p className="mb-0">{item.name}</p>
                             </button>
@@ -99,17 +106,7 @@ const LeadeList = () => {
                   </div>
                 </td>
 
-                {/* ACTION BUTTONS */}
-                <td className="text-center border-0 py-3 px-2">
-                  <div className="d-flex ac-jc gap-3">
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
-                      <ModeEditOutlinedIcon className="fs-xxl-20" />
-                    </button>
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
-                      <RemoveRedEyeOutlinedIcon className="fs-xxl-20" />
-                    </button>
-                  </div>
-                </td>
+               
               </tr>
             ))}
           </tbody>
