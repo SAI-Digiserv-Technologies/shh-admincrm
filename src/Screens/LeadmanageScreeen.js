@@ -40,7 +40,7 @@ const mockLeads = Array.from({ length: 15 }, (_, i) => ({
   ][i]
 }));
 
-export default function LeadManagement() {
+export default function LeadmanagementScreen() {
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 5;
 

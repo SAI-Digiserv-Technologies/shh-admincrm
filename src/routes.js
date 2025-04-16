@@ -31,6 +31,11 @@ import Telecallerprofile from "./Screens/Telecallerprofile";
 import Telecallerprofilepage from "./Screens/Telecallerprofilepage";
 import Paymentproofscreen from "./Screens/Paymentproofscreen";
 import LeadCourseScreen from "./Screens/LeadCourseScreen";
+<<<<<<< HEAD
+=======
+import ReportScreen from "./Screens/ReportScreen";
+import LeadmanagementScreen from "./Screens/LeadmanageScreeen";
+>>>>>>> c003d225bc2a60bcee8fcf6437295773f14e8d44
 // import SourceScreen from "./Screens/Sourcescreen";
 
 const ReactRoute = () => {
@@ -58,8 +63,9 @@ const ReactRoute = () => {
         <Route path="/telecaller" element={<Telecallerprofile />} />
         <Route path="/telecallerprofile" element={<Telecallerprofilepage />} />
         
-        <Route path="/leadmanage" element={<LeadManage />} />
+        <Route path="/leadmanage" element={<LeadmanagementScreen />} />
         <Route path="/report" element={<ReportScreen />} />
+        
         <Route path="/paymentproof" element={<Paymentproofscreen />} />
 
 
