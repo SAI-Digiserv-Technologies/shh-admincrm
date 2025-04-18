@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import { leadsList, leadstatus } from "../../Data/DummyJson";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { LeadList as usersList } from "../../Data/DummyJson"; // Renamed import to match usage
 
-const LeadeList = () => {
+const LeadList = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState({}); // ✅ FIXED: Use an object instead of a string
+  const [selectedRole, setSelectedRole] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const leadsPerPage = 5;
+  const usersPerPage = 5;
+  const [statusToggle, setStatusToggle] = useState({});
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,104 +22,108 @@ const LeadeList = () => {
     };
   }, []);
 
-  const handleDropdownClick = (leadId) => {
-    setOpenDropdown(openDropdown === leadId ? null : leadId);
+  const handleDropdownClick = (userId) => {
+    setOpenDropdown(openDropdown === userId ? null : userId);
   };
 
-  const handleStatusChange = (leadId, status) => {
-    setSelectedStatus((prevStatuses) => ({
-      ...prevStatuses,
-      [leadId]: status, 
+  const handleRoleChange = (userId, role) => {
+    setSelectedRole((prevRoles) => ({
+      ...prevRoles,
+      [userId]: role,
     }));
     setOpenDropdown(null);
   };
 
-  const indexOfLastLead = currentPage * leadsPerPage;
-  const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = leadsList.slice(indexOfFirstLead, indexOfLastLead);
-  const totalPages = Math.ceil(leadsList.length / leadsPerPage);
+  const handleStatusToggle = (userId) => {
+    setStatusToggle((prev) => ({
+      ...prev,
+      [userId]: !prev[userId],
+    }));
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= Math.ceil(usersList.length / usersPerPage)) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = usersList.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(usersList.length / usersPerPage);
 
   return (
     <>
       {openDropdown !== null && (
         <button onClick={() => handleDropdownClick(null)} className="droppopp border-0" />
       )}
-      
       <div className="table-container rounded-3 mt-2">
         <table className="responsive-table rounded-3">
           <thead>
             <tr>
+              <th className="py-3 px-2">S.No</th>
               <th className="py-3 px-2">Lead ID</th>
-              <th className="py-3 px-2">Name</th>
+              <th className="py-3 px-2">Student Name</th>
+              <th className="py-3 px-2">Phone Number</th>
               <th className="py-3 px-2">Course</th>
-              <th className="py-3 px-2">Amount</th>
+              <th className="py-3 px-2">Assigned To</th>
+              <th className="py-3 px-2">City</th>
               <th className="py-3 px-2">Status</th>
-              <th className="py-3 px-2">Action</th>
             </tr>
           </thead>
           <tbody>
-            {currentLeads.map((lead) => (
-              <tr key={lead.id} style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.id}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.name}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.course.course}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.course.amount}</td>
-                
-                {/* STATUS DROPDOWN */}
-                <td className="text-center border-0 py-2 px-2 primary3 f5">
-                  <div className="w-100 ac-jc d-flex">
-                    <button
-                      onClick={() => handleDropdownClick(lead.id)}
-                      className="table-drop border-0 d-flex ac-jb px-3 rounded-5"
-                    >
-                      <p className="mb-0">
-                        {selectedStatus[lead.id] || lead.status}
-                      </p>
-                      <div className="drop-img d-flex ac-jc">
-                        <ArrowDropDownIcon className="fs-xxl-35 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13" />
-                      </div>
-                      
-                      {openDropdown === lead.id && (
-                        <div className="dropdrowncont rounded-2">
-                          {leadstatus.map((item) => (
-                            <button
-                              key={item.name} // ✅ FIXED: Added `key` prop
-                              onClick={() => handleStatusChange(lead.id, item.name)}
-                              className="list w-100 border-0 py-2 bg-white"
-                              style={{ color: "black" }} // ✅ FIXED: Ensure text color is black
-                            >
-                              <p className="mb-0">{item.name}</p>
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </button>
-                  </div>
-                </td>
-
-                {/* ACTION BUTTONS */}
-                <td className="text-center border-0 py-3 px-2">
-                  <div className="d-flex ac-jc gap-3">
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
-                      <ModeEditOutlinedIcon className="fs-xxl-20" />
-                    </button>
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
-                      <RemoveRedEyeOutlinedIcon className="fs-xxl-20" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {currentUsers.map((user, index) => {
+              return (
+                <tr
+                  key={user.id}
+                  className="hover-row"
+                  style={{
+                    backgroundColor: openDropdown === user.id ? "#0b146b59" : "#ffffff59",
+                  }}
+                >
+                  <td className="text-center border-0 py-4 px-3">{indexOfFirstUser + index + 1}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.LeadID}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.Studentname}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.phone}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.Course}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.AssignedTo}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.City}</td>
+                  <td className="text-center border-0 py-2 px-2">
+                    {user.Status === "Not Interested" ? (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#FF1818] f4 rounded-3 border-0 px-3 py-2 textani">
+                        Not Interested
+                      </button>
+                    ) : user.Status === "Follow Up" ? (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#FDCA73] f4 rounded-3 border-0 px-3 py-2 textani ">
+                        Follow Up
+                      </button>
+                    ) : user.Status === "Close Follow Up" ? (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#9AC2EA] f4 rounded-3 border-0 px-3 py-2 textani">
+                        Close Follow Up
+                      </button>
+                    ) : user.Status === "Enrolment" ? (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#2AFF00] f4 rounded-3 border-0 px-3 py-2 textani">
+                        Enrolment
+                      </button>
+                    ) : (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 px-3 py-2 textani">
+                        {user.Status}
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
 
-      {/* PAGINATION */}
+      {/* Pagination Section */}
       <div className="pagination d-flex justify-content-center mt-3">
         <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`${currentPage === 1 ? "opacity-25" : "opacity-100"} px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+          className={`px-3 py-1 mx-1 border-0 rounded white bg-primary3 ${currentPage === 1 ? "opacity-25" : "opacity-100"}`}
         >
           <ArrowBackIosNewOutlinedIcon />
         </button>
@@ -129,9 +131,9 @@ const LeadeList = () => {
           Page {currentPage} of {totalPages}
         </span>
         <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`${currentPage === totalPages ? "opacity-25" : "opacity-100"} px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+          className={`px-3 py-1 mx-1 border-0 rounded white bg-primary3 ${currentPage === totalPages ? "opacity-25" : "opacity-100"}`}
         >
           <ArrowForwardIosOutlinedIcon />
         </button>
@@ -140,4 +142,4 @@ const LeadeList = () => {
   );
 };
 
-export default LeadeList;
+export default LeadList;
