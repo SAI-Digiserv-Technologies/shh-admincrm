@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import SourceList from "../Components/SetupManage/SourceList";
-import StaffRoleScreen from "./StaffRoleScreen";
-import LeadCourseScreen from "./LeadCourseScreen";
 
 
 
-const SourceScreen = () => {
+
+const Sourcescreen = () => {
     const [show, setShow] = useState(false);
     const [sourceName, setSourceName] = useState("");
 
@@ -75,4 +74,4 @@ const SourceScreen = () => {
     );
 };
 
-export default SourceScreen;
+export default Sourcescreen;

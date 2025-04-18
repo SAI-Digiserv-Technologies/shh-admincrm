@@ -57,4 +57,6 @@ export const calendar_icon = require("./calendar_icon.png");
 export const time_icon = require("./time_icon.png");
 export const speakericon = require("./speakericon.png");
 export const addproof_icon = require("./addproof_icon.png");
+export const profile_dum = require("./profile_dum.png");
+
 

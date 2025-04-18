@@ -1,6 +1,7 @@
 import React from "react";
 
 import EnquiryList from "../Components/Enquiry/EnquiryList";
+import SourceList from "../Components/SetupManage/SourceList";
 
 const EnquiryScreen = () => {
  
@@ -13,6 +14,7 @@ const EnquiryScreen = () => {
        
       </div>
       <EnquiryList />
+      {/* <SourceList /> */}
     </div>
   );
 };

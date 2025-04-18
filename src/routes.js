@@ -33,7 +33,9 @@ import Paymentproofscreen from "./Screens/Paymentproofscreen";
 import LeadCourseScreen from "./Screens/LeadCourseScreen";
 import ReportScreen from "./Screens/ReportScreen";
 import LeadmanagementScreen from "./Screens/LeadmanageScreeen";
-// import SourceScreen from "./Screens/Sourcescreen";
+import EnquiryScreen from "./Screens/EnquiryScreen";
+import AdminProfileScreen from "./Screens/AdminProfileScreen";
+import SrcScreen from "./Screens/SrcScreen";
 
 const ReactRoute = () => {
   return (
@@ -56,7 +58,6 @@ const ReactRoute = () => {
         <Route path="/staff" element={<Staff />} />
         <Route path="/staffform" element={<StaffForm />} />
         <Route path="/staffrole" element={<StaffRoleScreen />} />
-        {/* <Route path="/source" element={<SourceScreen />} /> */}
         <Route path="/telecaller" element={<Telecallerprofile />} />
         <Route path="/telecallerprofile" element={<Telecallerprofilepage />} />
         
@@ -64,6 +65,10 @@ const ReactRoute = () => {
         <Route path="/report" element={<ReportScreen />} />
         
         <Route path="/paymentproof" element={<Paymentproofscreen />} />
+        <Route path="/enquiries" element={<EnquiryScreen/>} />
+        <Route path="/adminprofile" element={<AdminProfileScreen />} />
+        <Route path="/source" element={<SrcScreen />} />
+
 
 
       </Route>

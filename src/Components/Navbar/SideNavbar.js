@@ -7,13 +7,14 @@ import {
 } from "../../assets/images";
 import { SideNavList } from "../../Data/DummyJson";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { ChevronDown, ChevronRight } from "lucide-react";
+ 
 const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(null);
   const pathname = location?.pathname;
-
+ 
   // Auto-open submenu on page load if a sub path is active
   useEffect(() => {
     const activeParentIndex = SideNavList.findIndex((item) =>
@@ -23,7 +24,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
       setActiveIndex(activeParentIndex);
     }
   }, [pathname]);
-
+ 
   const onNavClick = (item) => {
     if (item?.navi === "logout") {
       poppupHandle("clike");
@@ -31,7 +32,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
       navigate(item?.navi);
     }
   };
-
+ 
   return (
     <div
       className={`${
@@ -49,7 +50,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
             </div>
           </div>
         </li>
-
+ 
         {/* Profile */}
         <div
           className={`${
@@ -66,13 +67,13 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
             <p className="mb-0 white f2 fs-xxl-14 textani">Admin</p>
           </div>
         </div>
-
+ 
         {/* Features Heading */}
         <div className="d-flex ms-3 ac-jb gap-2 my-2">
           <p className="white t-hh mb-2 f3 fs-xxl-14 textani">Features</p>
           <div className="line" />
         </div>
-
+ 
         {/* Nav Items */}
         <div className="d-flex flex-column gap-md-2 gap-0 px-1">
           {SideNavList?.map((item, index) => {
@@ -80,7 +81,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
               pathname === item?.navi ||
               item?.sub?.some((subItem) => pathname === subItem?.list);
             const isSubOpen = activeIndex === index && item?.sub?.length > 0;
-
+ 
             return (
               <React.Fragment key={index}>
                 <li
@@ -107,19 +108,19 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
                       </div>
                       <span className="title f5 fs-xxl-14">{item?.name}</span>
                     </div>
-
+ 
                     {/* Dropdown Button */}
                     {item.sub && item.sub.length > 0 && (
                       <button
                         className={`ms-2 btn-dropdown ${isSubOpen ? "active" : ""}`}
                         style={{ background: "transparent", border: "none", cursor: "pointer" }}
                       >
-                        {isSubOpen ? "▼" : "▶"}
+                        {isSubOpen ? <ChevronDown /> : < ChevronRight/>}
                       </button>
                     )}
                   </a>
                 </li>
-
+ 
                 {/* Sub Items */}
                 {isSubOpen && (
                   <ul className="ms-4 ps-2 border-start border-light-subtle">
@@ -145,7 +146,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
           })}
         </div>
       </ul>
-
+ 
       {/* BOTTOM FIXED SECTION */}
       <div
         className="d-flex ac-jb px-3 py-2"
@@ -165,7 +166,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
           />
           {menuactive && <span className="white">Logout</span>}
         </div>
-
+ 
         {/* Toggle Icon */}
         <button
           onClick={toggleFun}
@@ -182,5 +183,5 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
     </div>
   );
 };
-
+ 
 export default SideNavbar;

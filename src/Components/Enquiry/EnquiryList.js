@@ -65,14 +65,14 @@ const LeadeList = () => {
           <tbody>
             {currentLeads.map((lead) => (
               <tr key={lead.id} style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}>
-                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.name}</td>
-                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.email}</td>
-                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.dob}</td>
-                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.walkin}</td>
-                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.passingYear}</td>
-                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.contact}</td>
-                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.source}</td>
-                  <td className="text-center border-0 py-2 px-2 primary3 f5">{lead?.course}</td>
+                 <td className="text-center border-0 py-2 px-2 primary3 f5  text-[15px]">{lead?.name}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5 text-[15px]">{lead?.email}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5 text-[15px]">{lead?.dob}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5 text-[15px]">{lead?.walkin}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5 text-[15px]">{lead?.passingYear}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5 text-[15px]">{lead?.contact}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5 text-[15px]">{lead?.source}</td>
+                  <td className="text-center border-0 py-2 px-2 primary3 f5 text-[15px]">{lead?.course}</td>
                 
                 {/* STATUS DROPDOWN */}
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
