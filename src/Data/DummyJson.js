@@ -672,6 +672,48 @@ export const usersList = [
     status: false,
   },
 ];
+export const LeadList = [
+  {
+    id: 1,
+    LeadID:3242,
+    Studentname: "Sujatha",
+    phone: "+1 123-456-7890",
+    Course: "Digital Marketting",
+    AssignedTo: "Sankari",
+    City: "Chennai",
+    Status:"Not Interested"
+  },
+  {
+    id: 2,
+    LeadID:3242,
+    Studentname: "Sujatha",
+    phone: "+1 123-456-7890",
+    Course: "Digital Marketting",
+    AssignedTo: "Sankari",
+    City: "Chennai",
+    Status:"Follow Up"
+  },
+  {
+    id: 3,
+    LeadID:3242,
+    Studentname: "Sujatha",
+    phone: "+1 123-456-7890",
+    Course: "Digital Marketting",
+    AssignedTo: "Sankari",
+    City: "Chennai",
+    Status:"Close Follow Up"
+  },
+  {
+    id: 4,
+    LeadID:3242,
+    Studentname: "Sujatha",
+    phone: "+1 123-456-7890",
+    Course: "Digital Marketting",
+    AssignedTo: "Sankari",
+    City: "Chennai",
+    Status:"Enrollment"
+  },
+];
 export const staffstatus = [
   {
     id: 1,

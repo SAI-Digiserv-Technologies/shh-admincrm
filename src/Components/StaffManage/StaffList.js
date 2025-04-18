@@ -5,14 +5,14 @@ import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutl
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import Switch from "@mui/material/Switch";
 import { usersList } from "../../Data/DummyJson";
-
+ 
 const StaffList = () => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const [selectedRole, setSelectedRole] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 5;
     const [statusToggle, setStatusToggle] = useState({});
-
+ 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.target.closest(".table-drop")) {
@@ -24,11 +24,11 @@ const StaffList = () => {
             document.removeEventListener("click", handleClickOutside);
         };
     }, []);
-
+ 
     const handleDropdownClick = (userId) => {
         setOpenDropdown(openDropdown === userId ? null : userId);
     };
-
+ 
     const handleRoleChange = (userId, role) => {
         setSelectedRole((prevRoles) => ({
             ...prevRoles,
@@ -36,19 +36,19 @@ const StaffList = () => {
         }));
         setOpenDropdown(null);
     };
-
+ 
     const handleStatusToggle = (userId) => {
         setStatusToggle((prev) => ({
             ...prev,
             [userId]: !prev[userId],
         }));
     };
-
+ 
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = usersList.slice(indexOfFirstUser, indexOfLastUser);
     const totalPages = Math.ceil(usersList.length / usersPerPage);
-
+ 
     return (
         <>
             {openDropdown !== null && (
@@ -73,7 +73,7 @@ const StaffList = () => {
                                 <td className="text-center border-0 py-2 px-2">{user.email}</td>
                                 <td className="text-center border-0 py-2 px-2">{user.phone}</td>
                                 <td className="text-center border-0 py-2 px-2">{user.role}</td>
-
+ 
                                 <td className="text-center border-0 py-2 px-2">
                                     <Switch
                                         checked={statusToggle[user.id] || user.status}
@@ -96,7 +96,7 @@ const StaffList = () => {
                                             },
                                         }}
                                     />
-
+ 
                                 </td>
                                 <td className="text-center border-0 py-3 px-2">
                                     <div className="d-flex ac-jc gap-3">
@@ -125,5 +125,5 @@ const StaffList = () => {
         </>
     );
 };
-
+ 
 export default StaffList;
