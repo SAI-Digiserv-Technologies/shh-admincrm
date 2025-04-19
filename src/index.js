@@ -4,13 +4,25 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./Data/Redux/store/store";
+import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+     <ToastContainer
+      style={{
+        zIndex: 1000,
+      }}
+      position="top-right"
+      autoClose={1000}
+    />
+   <Provider store={store}>
+   <BrowserRouter>
       <App />
     </BrowserRouter>
+   </Provider>
   </React.StrictMode>
 );
 
