@@ -16,13 +16,22 @@ export const api = createApi({
   refetchOnMountOrArgChange: true,
   tagTypes: [],
   endpoints: (builder) => ({
-    login: builder.mutation({
+    addStaff: builder.mutation({
       query: (payload) => ({
-        url: URL.LOGIN,
+        url: URL.ADDSTAFF,
         method: "POST",
         body: payload,
       }),
     }),
+
+    Login: builder.mutation({
+      query: (payload) => ({
+        url: URL.LOGIN,
+        method: "POST",
+        body: payload,
+      })
+    }),
+
     roles: builder.mutation({
       query: (payload) => ({
         url: URL.ROLE,
@@ -44,10 +53,19 @@ export const api = createApi({
         url: `${URL.EDITROLES}/${id}`,
         method: "PUT",
       })
-    })
+    }),
+    viewStaff: builder.query({
+      query: () => ({
+        url: URL.VIEWSTAFF,
+        method: "GET",
+      }),
+    }),
 
 
   }),
 });
 
-export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation } = api;
+export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation, useAddStaffMutation, useLazyViewStaffQuery } = api;
+
+
+
