@@ -10,12 +10,11 @@ const paymentData = [
 ];
 
 export default function PaymentProof() {
-  const [selectedIndex, setSelectedIndex] = useState(1); // Default selection
-
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  
   return (
     <div className="max-w-xl mx-auto p-4">
       <h2 className="text-lg font-semibold mb-4">Payment Proof</h2>
-
       <div className="space-y-4">
         {paymentData.map((item, index) => (
           <div

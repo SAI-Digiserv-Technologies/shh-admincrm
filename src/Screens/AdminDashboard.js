@@ -4,7 +4,6 @@ import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import PieChartcomp from "../Components/Dashboard/PieChartcomp";
 import LeadReport from "../Components/Dashboard/LeadReport";
 import { Dropdown } from "react-bootstrap";
-import { FaChevronDown } from "react-icons/fa";
 
 const AdminDashboard= () => {
   return (

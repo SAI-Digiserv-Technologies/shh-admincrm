@@ -23,26 +23,31 @@ export const api = createApi({
         body: payload,
       }),
     }),
-    getUser: builder.query({
-      query: () => ({
-        url: URL.GETUSER,
-        method: "GET",
-      }),
-    }),
-    viewUser: builder.query({
-      query: (id) => ({
-        url:`${URL.VIEWUSER}${id}`,
-        method: "GET",
-      }),
-    }),
-    editUser: builder.query({
-      query: (id,payload) => ({
-        url:`${URL.EDITUSER}${id}`,
-        method: "PUT",
+    roles: builder.mutation({
+      query: (payload) => ({
+        url: URL.ROLE,
+        method: "POST",
         body: payload,
-      }),
+
+      })
     }),
+    viewroles: builder.query({
+      query: () => ({
+        url: URL.VIEWROLES,
+        method: "GET",
+
+      })
+    }),
+
+    Editroles: builder.mutation({
+      query: (id) => ({
+        url: `${URL.EDITROLES}/${id}`,
+        method: "PUT",
+      })
+    })
+
+
   }),
 });
 
-export const { useLoginMutation, useLazyGetUserQuery, useLazyViewUserQuery, useLazyEditUserQuery } = api;
+export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation } = api;

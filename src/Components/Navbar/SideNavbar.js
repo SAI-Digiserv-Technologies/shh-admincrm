@@ -109,7 +109,6 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
                       <span className="title f5 fs-xxl-14">{item?.name}</span>
                     </div>
  
-                    {/* Dropdown Button */}
                     {item.sub && item.sub.length > 0 && (
                       <button
                         className={`ms-2 btn-dropdown ${isSubOpen ? "active" : ""}`}
