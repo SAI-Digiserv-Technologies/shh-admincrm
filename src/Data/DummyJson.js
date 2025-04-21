@@ -547,71 +547,7 @@ export const paymentList = [
   },
 ];
 
-export const leadaddform = [
-  {
-    id: 1,
-    formFeald: "name",
-    type: "text",
-    lable: "Student Name",
-    placeholder: "Name",
-  },
-  {
-    id: 2,
-    formFeald: "email",
-    type: "text",
-    lable: "E-mail Address",
-    placeholder: "E-mail Address",
-  },
-  {
-    id: 3,
-    formFeald: "phoneno",
-    type: "text",
-    lable: "Phone Number",
-    placeholder: "Phone Number",
-  },
-  {
-    id: 4,
-    formFeald: "source",
-    type: "dropdown",
-    lable: "Source",
-    placeholder: "Source",
-    list: [
-      // {
-      //   id: 1,
-      //   name: "Select Source",
-      //   dissable: true,
-      // },
-      {
-        id: 1,
-        name: "Website",
-      },
-      {
-        id: 2,
-        name: "Instagram",
-      },
-      {
-        id: 3,
-        name: "Facebook",
-      },
-      {
-        id: 4,
-        name: "LinkedIn",
-      },
-      {
-        id: 5,
-        name: "YouTube",
-      },
-      {
-        id: 6,
-        name: "Reference",
-      },
-      {
-        id: 7,
-        name: "Advertisement",
-      },
-    ],
-  },
-];
+
 
 export const courselist = [
   { id: "001", coursename: "Digital Marketing", amount:"25,000", duration:'3 months'},
@@ -754,6 +690,128 @@ export const staffrolelist = [
   { id: "002", rolename: "Telecaller"},
  
  
+];
+export const leadaddform = [
+  {
+    id: 1,
+    formFeald: "name",
+    type: "text",
+    lable: "Student Name",
+    placeholder: "Name",
+  },
+  {
+    id: 2,
+    formFeald: "email",
+    type: "text",
+    lable: "E-mail Address",
+    placeholder: "E-mail Address",
+  },
+  {
+    id: 3,
+    formFeald: "phoneno",
+    type: "text",
+    lable: "Phone Number",
+    placeholder: "Phone Number",
+  },
+  {
+    id: 4,
+    formFeald: "source",
+    type: "dropdown",
+    lable: "Source",
+    placeholder: "Source",
+    list: [
+      // {
+      //   id: 1,
+      //   name: "Select Source",
+      //   dissable: true,
+      // },
+      {
+        id: 1,
+        name: "Website",
+      },
+      {
+        id: 2,
+        name: "Instagram",
+      },
+      {
+        id: 3,
+        name: "Facebook",
+      },
+      {
+        id: 4,
+        name: "LinkedIn",
+      },
+      {
+        id: 5,
+        name: "YouTube",
+      },
+      {
+        id: 6,
+        name: "Reference",
+      },
+      {
+        id: 7,
+        name: "Advertisement",
+      },
+    ],
+  },
+  {
+    id: 5,
+    formFeald: "degree",
+    type: "text",
+    lable: "Student Degree",
+    placeholder: "Student degree",
+  },
+  {
+    id: 6,
+    formFeald: "Passed Out",
+    type: "text",
+    lable: "Passed Out",
+    placeholder: "Passed Out",
+  },
+  {
+    id: 7,
+    formFeald: "college_name",
+    type: "text",
+    lable: "College Name",
+    placeholder: "College Name",
+  },
+
+  {
+    id: 8,
+    formFeald: "state",
+    type: "dropdownstate",
+    lable: "State",
+    placeholder: "State",
+  },
+  {
+    id: 9,
+    formFeald: "city",
+    type: "citydropdown",
+    lable: "City",
+    placeholder: "City",
+  },
+  {
+    id: 10,
+    formFeald: "pincode",
+    type: "number",
+    lable: "Pincode",
+    placeholder: "Pincode",
+  },
+  {
+    id: 11,
+    formFeald: "address",
+    type: "text",
+    lable: "Address",
+    placeholder: "Address",
+  },
+  {
+    id: 12,
+    formFeald: "assignto",
+    type: "text",
+    lable: "Assigned To",
+    placeholder: "Assigned To",
+  },
 ];
 
 

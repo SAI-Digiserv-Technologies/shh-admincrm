@@ -36,6 +36,7 @@ import LeadmanagementScreen from "./Screens/LeadmanageScreeen";
 import EnquiryScreen from "./Screens/EnquiryScreen";
 import AdminProfileScreen from "./Screens/AdminProfileScreen";
 import SrcScreen from "./Screens/SrcScreen";
+import PaymentScreen from "./Screens/PaymentScreen";
 
 const ReactRoute = () => {
   return (
@@ -68,6 +69,7 @@ const ReactRoute = () => {
         <Route path="/enquiries" element={<EnquiryScreen/>} />
         <Route path="/adminprofile" element={<AdminProfileScreen />} />
         <Route path="/source" element={<SrcScreen />} />
+        <Route path="/payment" element={<PaymentScreen />} />
 
 
 

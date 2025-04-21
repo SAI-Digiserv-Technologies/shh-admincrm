@@ -3,8 +3,8 @@
 export const BASE_URL = "http://192.168.29.198:9099/api/";
 
 export const URL = {
-  LOGIN:"auth/admin/login",
-  GETUSER:'get',
-  VIEWUSER:'auth/admin/',
-  EDITUSER:'auth/admin/update/'
+  ADDLEEDS:"lead/addleadmanage",
+  VIEWLEED:"lead/getlead",
+  DELETELEED:"lead/delete"
+
 };
