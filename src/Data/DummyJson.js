@@ -723,21 +723,21 @@ export const staffstatus = [
     id: 2,
     name: "Tele-Counsoler",
   },
-  {
-    id: 5,
-    name: "Payment Proof",
-    navi: "/telecallers/payment-proof",
-    active_icon: payment_blue,
-    inactive_icon: payment_white,
-    sub: [
-      {
-        list: "/telecallers/payment-proof/add",
-      },
-      {
-        list: "/telecallers/payment-proof/view",
-      },
-    ],
-  },
+  // {
+  //   id: 5,
+  //   name: "Payment Proof",
+  //   navi: "/telecallers/payment-proof",
+  //   active_icon: payment_blue,
+  //   inactive_icon: payment_white,
+  //   sub: [
+  //     {
+  //       list: "/telecallers/payment-proof/add",
+  //     },
+  //     {
+  //       list: "/telecallers/payment-proof/view",
+  //     },
+  //   ],
+  // },
   
 ];
 

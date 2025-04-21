@@ -1,10 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { refileicon } from "../assets/images";
 import { useNavigate } from "react-router-dom";
 import StaffList from "../Components/StaffManage/StaffList";
+import { useLazyViewStaffQuery } from "../Data/Api/api";
 
 const Staff = () => {
+   const [viewStaffApi] = useLazyViewStaffQuery();
+   const [loading,setLoading] =useState("");
+   
+       //stafflist
+       const [staffLists,setStaffLists] =useState([]);
+
+    // get user api (get method)
+    const viewStafffun = () => {
+      setLoading(true)
+
+      viewStaffApi()
+          .unwrap()
+          .then(res => {
+              console.log("res", res);
+              setStaffLists(res)
+
+
+          }).catch(err => {
+              console.log("err", err);
+
+
+          }).finally(() => {
+              setLoading(false)
+          })
+  }
+
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    viewStafffun()
+  })
   return (
     <div className="lead-head">
       <div className="lead-h d-flex ac-jb">
@@ -25,7 +56,7 @@ const Staff = () => {
           </button>
         </div>
       </div>
-      <StaffList />
+      <StaffList res={staffLists} />
     </div>
   );
 };

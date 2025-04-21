@@ -16,33 +16,33 @@ export const api = createApi({
   refetchOnMountOrArgChange: true,
   tagTypes: [],
   endpoints: (builder) => ({
-    login: builder.mutation({
+    addStaff: builder.mutation({
       query: (payload) => ({
-        url: URL.LOGIN,
+        url: URL.ADDSTAFF,
         method: "POST",
         body: payload,
       }),
     }),
-    getUser: builder.query({
+    viewStaff: builder.query({
       query: () => ({
-        url: URL.GETUSER,
+        url: URL.VIEWSTAFF,
         method: "GET",
       }),
     }),
-    viewUser: builder.query({
-      query: (id) => ({
-        url:`${URL.VIEWUSER}${id}`,
-        method: "GET",
-      }),
-    }),
-    editUser: builder.query({
-      query: (id,payload) => ({
-        url:`${URL.EDITUSER}${id}`,
-        method: "PUT",
-        body: payload,
-      }),
-    }),
+  //  viewStaff: builder.query({
+  //    query: (id) => ({
+  //      url:`${URL.VIEWSTAFF}${id}`,
+  //       method: "GET",
+  //    }),
+  //    }),
+    // editUser: builder.query({
+    //   query: (id,payload) => ({
+    //     url:`${URL.EDITUSER}${id}`,
+    //     method: "PUT",
+    //     body: payload,
+    //   }),
+    // }),
   }),
 });
 
-export const { useLoginMutation, useLazyGetUserQuery, useLazyViewUserQuery, useLazyEditUserQuery } = api;
+export const { useAddStaffMutation, useLazyViewStaffQuery } = api;
