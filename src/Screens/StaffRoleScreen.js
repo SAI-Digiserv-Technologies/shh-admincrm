@@ -18,7 +18,7 @@ const StaffRoleScreen = () => {
 
     const handleSave = () => {
         const payload = {
-            addroles
+            addroles,
         }
         RolesApi(payload)
             .unwrap()

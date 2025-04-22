@@ -61,11 +61,36 @@ export const api = createApi({
       }),
     }),
 
+    sourceadd: builder.mutation({
+      query: (payload) => ({
+        url: URL.SOURCEPOST,
+        method: "POST",
+        body: payload,
+      })
+    }),
+    sourceget: builder.query({
+      query: () => ({
+        url: URL.SOURCEGET,
+        method: "GET",
+
+      })
+    }),
+
+    courseadd: builder.mutation({
+      query: (payload) => ({
+        url: URL.COURSEADD,
+        method: "POST",
+        body: payload,
+
+      })
+    }),
+
+
 
   }),
 });
 
-export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation, useAddStaffMutation, useLazyViewStaffQuery } = api;
+export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation, useAddStaffMutation, useLazyViewStaffQuery, useSourceaddMutation, useCourseaddMutation, useLazySourcegetQuery } = api;
 
 
 

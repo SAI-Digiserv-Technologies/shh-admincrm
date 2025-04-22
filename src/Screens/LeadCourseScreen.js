@@ -2,21 +2,44 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import StaffRoleList from "../Components/SetupManage/StaffRoleList";
 import LeadCourseList from "../Components/SetupManage/LeadCourseList";
+import { useCourseaddMutation } from "../Data/Api/api";
+import { duration } from "@mui/material";
 
 const LeadCourseScreen = () => {
     const [show, setShow] = useState(false);
     const [sourceName, setSourceName] = useState("");
-
+    const [addcourse, setAddCourse] = useState();
+    const [amount, setAmount] = useState();
+    const [duration, setDuration] = useState();
+    const [courseAdd] = useCourseaddMutation();
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleSave = () => {
+        const payload = {
+            addcourse,
+            amount,
+            duration
+        }
+        courseAdd(payload)
+            .unwrap()
+            .then((res) => {
+                console.log("succesffuly added", res);
+
+            }).catch((err) => {
+                console.error("Error showing", err);
+
+            })
+
+
+
+
         console.log("Saved Source:", sourceName);
         handleClose();
     };
 
     return (
         <div >
-           
+
 
 
             {/* Popup Modal */}
@@ -37,8 +60,8 @@ const LeadCourseScreen = () => {
                                 <input
                                     className="w-100 rounded-2 px-2"
                                     type="text"
-                                    value={sourceName}
-                                    onChange={(e) => setSourceName(e.target.value)}
+                                    value={addcourse}
+                                    onChange={(e) => setAddCourse(e.target.value)}
 
                                 />
                             </div>
@@ -49,8 +72,8 @@ const LeadCourseScreen = () => {
                                 <input
                                     className="w-100 rounded-2 px-2"
                                     type="text"
-                                    value={sourceName}
-                                    onChange={(e) => setSourceName(e.target.value)}
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
 
                                 />
                             </div>
@@ -61,12 +84,12 @@ const LeadCourseScreen = () => {
                                 <input
                                     className="w-100 rounded-2 px-2"
                                     type="text"
-                                    value={sourceName}
-                                    onChange={(e) => setSourceName(e.target.value)}
+                                    value={duration}
+                                    onChange={(e) => setDuration(e.target.value)}
 
                                 />
                             </div>
-                             {/* Button to Open Popup */}
+                            {/* Button to Open Popup */}
                             <div className="d-flex justify-content-end gap-2 px-8 pb-3">
                                 <Button variant="secondary" onClick={handleClose}>
                                     Cancel
@@ -81,9 +104,9 @@ const LeadCourseScreen = () => {
 
             </Modal>
             <div>
-            <div style={{ alignItems: 'flex-end', width: '100%' }} className="d-flex  w-100 lead-h  ac-jb">
+                <div style={{ alignItems: 'flex-end', width: '100%' }} className="d-flex  w-100 lead-h  ac-jb">
                     <p className=" mb-0 f7 primary3 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani">
-                       Course
+                        Course
                     </p>
                     <Button className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani" style={{ backgroundColor: "#00225D", borderColor: "#00225D" }} onClick={handleShow}>
                         + New Course
@@ -91,7 +114,7 @@ const LeadCourseScreen = () => {
                 </div>
                 <LeadCourseList />
             </div>
-           
+
         </div>
     );
 };

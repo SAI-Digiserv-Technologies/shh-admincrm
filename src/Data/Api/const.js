@@ -9,6 +9,10 @@ export const URL = {
   EDITROLES:"role/editroles",
   ADDSTAFF:"telecallers/addtelecaller",
   VIEWSTAFF:"telecallers/gettelecallers",
+  SOURCEPOST:"source/sourcename",
+  
+  SOURCEGET:"source/sourceget",
+  COURSEADD:"addcourse"
   
 };
 

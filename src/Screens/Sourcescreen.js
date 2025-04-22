@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import SourceList from "../Components/SetupManage/SourceList";
-
-
+import { useSourceaddMutation } from "../Data/Api/api";
 
 
 const Sourcescreen = () => {
     const [show, setShow] = useState(false);
-    const [sourceName, setSourceName] = useState("");
-
+    const [sourcename, setSourcename] = useState("");
+    const [addsource] = useSourceaddMutation();
+   const [sourcelist, setSourcelist] = useState([]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     const handleSave = () => {
-        console.log("Saved Source:", sourceName);
+        const payload = {
+            sourcename,
+        }
+        addsource(payload)
+            .unwrap()
+            .then((res) => {
+                console.log("Sources added successfully", res);
+
+            }).catch((err) => {
+                console.error("Sources showing errror", err);
+
+            })
+
+        console.log("Saved Source:", sourcename);
         handleClose();
     };
 
@@ -24,7 +38,10 @@ const Sourcescreen = () => {
             {/* Popup Modal */}
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
+                    
                     {/* <Modal.Title>New Source</Modal.Title> */}
+                    <Modal.Title>{isEditMode ? "Edit Role" : "New Role"}</Modal.Title>
+
                 </Modal.Header>
                 <Modal.Body>
                     <fieldset className="out-input rounded-5 h-20">
@@ -39,8 +56,8 @@ const Sourcescreen = () => {
                                 <input
                                     className="w-100 rounded-2 px-2"
                                     type="text"
-                                    value={sourceName}
-                                    onChange={(e) => setSourceName(e.target.value)}
+                                    value={sourcename}
+                                    onChange={(e) => setSourcename(e.target.value)}
 
                                 />
                             </div>
@@ -48,8 +65,11 @@ const Sourcescreen = () => {
                                 <Button variant="secondary" onClick={handleClose}>
                                     Cancel
                                 </Button>
-                                <Button style={{ backgroundColor: "#00225D", borderColor: "#00225D" }} onClick={handleSave}>
-                                    Add
+                                <Button
+                                    style={{ backgroundColor: "#00225D", borderColor: "#00225D" }}
+                                    onClick={handleSave}
+                                >
+                                    {isEditMode ? "Update" : "Add"}
                                 </Button>
                             </div>
                         </div>
@@ -60,13 +80,13 @@ const Sourcescreen = () => {
             <div>
                 <div style={{ alignItems: 'flex-end', width: '100%' }} className="d-flex  w-100 lead-h  ac-jb">
                     <p className=" mb-0 f7 primary3 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani">
-                       Source
+                        Source
                     </p>
                     <Button className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani" style={{ backgroundColor: "#00225D", borderColor: "#00225D" }} onClick={handleShow}>
                         + New Source
-                    </Button    >
+                    </Button>
                 </div>
-                <SourceList />
+                <SourceList  />
             </div>
             {/* <StaffRoleScreen />
             <LeadCourseScreen /> */}
