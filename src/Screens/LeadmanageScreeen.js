@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StaffList from "../Components/StaffManage/StaffList";
 import LeadList from "../Components/LeadManage/LeadeList";
+import { useLazyGetUserQuery } from "../Data/Api/api";
 
 const Leadmanage = () => {
   const navigate = useNavigate();
   const [openDropdown, setOpenDropdown] = useState(null);
-
+  const [leadlists, setLeadlists] = useState([])
+   const [leadviewapi] = useLazyGetUserQuery();
   const handleOptionClick = (field, value) => {
-    navigate("/staffForm", { state: { type: "add", field, value } });
+    navigate("/leadmanagedetail", { state: { type: "add", field, value } });
     setOpenDropdown(null);
   };
+
+
+
 
   const fieldOptions = {
     Course: ["React", "Angular", "Node.js"],
@@ -18,6 +23,26 @@ const Leadmanage = () => {
     AssignedTo: ["Staff A", "Staff B", "Staff C"],
     Status: ["Not Interested", "Follow Up", "Converted"],
   };
+
+
+
+ const handleleadview = () => {
+    leadviewapi()
+      .unwrap().then(res => {
+        console.log("viewing", res);
+        setLeadlists(res?.data);
+
+      }).catch((err) => {
+        console.log("error", err);
+
+      })
+
+  };
+  useEffect(() =>{
+    handleleadview();
+
+  })
+
 
   return (
     <div className="lead-head">
@@ -55,14 +80,14 @@ const Leadmanage = () => {
         ))}
 
         <button
-          onClick={() => navigate("/staffForm", { state: { type: "add" } })}
+          onClick={() => navigate("/leadmanagedetail", { state: { type: "add" } })}
           className="refil-text mb-0 white d-flex ac-jc bg-[#8e005c] f4 rounded-3 border-0 px-3 py-2 textani"
         >
           + New Lead
         </button>
       </div>
       </div>
-      <LeadList/>
+      <LeadList data={leadlists}/> 
     </div>
   );
 };

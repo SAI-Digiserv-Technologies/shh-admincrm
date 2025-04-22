@@ -23,6 +23,13 @@ export const api = createApi({
         body: payload,
       }),
     }),
+    Leadadd: builder.mutation({
+      query: (payload) => ({
+        url: URL.ADDLEEDS,
+        method: "POST",
+        body: payload,
+      }),
+    }),
 
     Login: builder.mutation({
       query: (payload) => ({
@@ -84,13 +91,17 @@ export const api = createApi({
 
       })
     }),
-
+    getUser: builder.query({
+      query: () => ({
+        url: URL.VIEWLEED,
+         method: "GET",
+       }),
+     }),
 
 
   }),
 });
 
-export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation, useAddStaffMutation, useLazyViewStaffQuery, useSourceaddMutation, useCourseaddMutation, useLazySourcegetQuery } = api;
-
+export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation, useAddStaffMutation, useLazyViewStaffQuery, useSourceaddMutation, useCourseaddMutation, useLazySourcegetQuery ,useLazyGetUserQuery} = api;
 
 

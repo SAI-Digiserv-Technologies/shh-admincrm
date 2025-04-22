@@ -37,6 +37,7 @@ import EnquiryScreen from "./Screens/EnquiryScreen";
 import AdminProfileScreen from "./Screens/AdminProfileScreen";
 import SrcScreen from "./Screens/SrcScreen";
 import useUser from "./Data/Local/userDetail";
+import PaymentScreen from "./Screens/PaymentScreen";
 
 const ReactRoute = () => {
   const { user, setUser } = useUser()
@@ -73,9 +74,11 @@ const ReactRoute = () => {
           <Route path="/enquiries" element={<EnquiryScreen />} />
           <Route path="/adminprofile" element={<AdminProfileScreen />} />
           <Route path="/source" element={<SrcScreen />} />
-          
+          <Route path="/payment" element={<PaymentScreen />} />
+
         </Route>}
-    </Routes>
+        </Routes>
+   
   );
 };
 

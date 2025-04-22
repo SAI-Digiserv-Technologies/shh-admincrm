@@ -12,7 +12,11 @@ export const URL = {
   SOURCEPOST:"source/sourcename",
   
   SOURCEGET:"source/sourceget",
-  COURSEADD:"addcourse"
+  COURSEADD:"addcourse",
   
+  ADDLEEDS:"lead/addleadmanage",
+  VIEWLEED:"lead/getlead",
+  DELETELEED:"lead/delete"
+
 };
 
