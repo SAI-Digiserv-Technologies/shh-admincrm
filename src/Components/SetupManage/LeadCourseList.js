@@ -70,7 +70,8 @@ const LeadCourseList = () => {
                 {/* ACTION BUTTONS */}
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex ac-jc gap-3">
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button  
+                    className="border-0 bg-primary3 white rounded-2 action-box">
                       <ModeEditOutlinedIcon className="fs-xxl-20" />
                     </button>
                     <button className="border-0 bg-primary3 white rounded-2 action-box">

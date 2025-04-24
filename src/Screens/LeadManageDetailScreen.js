@@ -6,10 +6,10 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { City, State } from "country-state-city";
 import PostalCodes from "postal-codes-js";
-import PageLoad from "../Components/Pageload/Pageload";
 import { useLocation } from "react-router-dom";
 import { useLazyGetUserQuery, useLeadaddMutation, useLoginMutation } from "../Data/Api/api";
 import { toast } from "react-toastify";
+import PageLoad from "../Components/Loading/PageLoad";
 
 const LeadManageDetailScreen = () => {
   const [leadaddapi] = useLeadaddMutation();
@@ -262,7 +262,7 @@ const LeadManageDetailScreen = () => {
 
   return (
     <div className="detaile-cont">
-      {loading && <PageLoad />}
+      {loading && <PageLoad/>}
       <div className="d-flex as-jb mt-4 gap-4 det-layer">
         <div className="w-70 d-flex inputcont ac-jb flex-column gap-4 pb-5">
           <div className="left-box-cont ">

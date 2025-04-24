@@ -1,7 +1,13 @@
-import React from "react";
-import Paymentproof from "../assets/images/Proofimg.png"; // ✅ Ensure this path and file exist
+import React, { useEffect, useState } from "react";
+import Paymentproof from "../assets/images/Proofimg.png";
+import { useLazyModeofamountQuery, usePaymentsdetailMutation } from "../Data/Api/api";
 
 const PaymentScreen = () => {
+  const [Paymentdetails] = usePaymentsdetailMutation();
+  const [fetchModeofamount] = useLazyModeofamountQuery();
+
+  const [modeOptions, setModeOptions] = useState([]);
+
   const fields = [
     { label: "Name", type: "text", placeholder: "Sankari" },
     { label: "Course", type: "text", placeholder: "Digital Marketing" },
@@ -11,16 +17,43 @@ const PaymentScreen = () => {
     {
       label: "Mode",
       type: "select",
-      options: ["Select Mode", "UPI", "Card", "Cash"]
+      options: modeOptions, 
     },
     { label: "Email ID", type: "email", placeholder: "sankari@gmail.com" },
     { label: "Transaction ID", type: "text", placeholder: "Transaction ID" },
   ];
 
+  const handlepayment = () => {
+    Paymentdetails()
+      .unwrap()
+      .then((res) => {
+        console.log("Payment updated successfully", res);
+      })
+      .catch((err) => {
+        console.log("Payment showing error", err);
+      });
+  };
+
+  const fetchModes = () => {
+    fetchModeofamount()
+      .unwrap()
+      .then((res) => {
+        console.log("Modeofview added", res);
+        const dynamicModes = res.data.map((item) => item.amountname);
+        setModeOptions(["Select Mode", ...dynamicModes]);
+      })
+      .catch((err) => {
+        console.error("Error showing", err);
+      });
+  };
+
+  useEffect(() => {
+    fetchModes();
+  }, []);
+
   return (
     <div className="min-h-screen bg-white p-8">
       <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
-        
         {/* Left Side - Form */}
         <div className="w-full lg:w-1/2 border border-gray-400 rounded-3xl p-8 shadow-md">
           <h2 className="text-xl font-semibold mb-6 text-[#070148]">Payment</h2>
@@ -49,13 +82,15 @@ const PaymentScreen = () => {
           </form>
 
           <div className="flex justify-center mt-8">
-            <button className="bg-[#070148] text-white px-6 py-2 rounded-md hover:bg-[#12075f] transition">
+            <button
+              onClick={handlepayment}
+              className="bg-[#070148] text-white px-6 py-2 rounded-md hover:bg-[#12075f] transition"
+            >
               Submit
             </button>
           </div>
         </div>
 
-        {/* Right Side - Image */}
         <div className="w-full lg:w-1/3 flex justify-center">
           <img
             src={Paymentproof}

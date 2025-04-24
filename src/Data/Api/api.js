@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL, URL } from "./const";
+import PaymentProof from "../../Screens/Paymentproofscreen";
 
 export const api = createApi({
   reducerPath: "api",
@@ -56,16 +57,33 @@ export const api = createApi({
     }),
 
     Editroles: builder.mutation({
-      query: (id) => ({
+      query: ({ payload, id }) => ({
         url: `${URL.EDITROLES}/${id}`,
         method: "PUT",
+        body: payload
       })
     }),
+    deleteroles: builder.mutation({
+      query: (id) => ({
+        url: `${URL.DELETEROLES}/${id}`,
+        method: "DELETE",
+      })
+    }),
+
+
     viewStaff: builder.query({
       query: () => ({
         url: URL.VIEWSTAFF,
         method: "GET",
       }),
+    }),
+
+    StaffEdit: builder.query({
+      query: (id, payload) => ({
+        url: `${URL.STAFFEDIT}/${id}`,
+        method: "PUT",
+        body: payload
+      })
     }),
 
     sourceadd: builder.mutation({
@@ -82,6 +100,21 @@ export const api = createApi({
 
       })
     }),
+    sourceedit: builder.mutation({
+      query: ({ payload, id }) => ({
+        url: `${URL.SOURCEEDIT}/${id}`,
+        method: "PUT",
+        body: payload
+
+      })
+    }),
+    sourcedelete: builder.mutation({
+      query: (id) => ({
+        url: `${URL.DELETESOURCE}/${id}`,
+        method: "DELETE",
+
+      })
+    }),
 
     courseadd: builder.mutation({
       query: (payload) => ({
@@ -94,14 +127,34 @@ export const api = createApi({
     getUser: builder.query({
       query: () => ({
         url: URL.VIEWLEED,
-         method: "GET",
-       }),
-     }),
+        method: "GET",
+      }),
+    }),
+
+    paymentsdetail: builder.mutation({
+      query: (payload) => ({
+        url: URL.PAYMENTDETAILS,
+        method: "POST",
+        body: payload
+      })
+    }),
+    Modeofamount: builder.query({
+      query: () => ({
+        url: URL.MODEOFAMOUNT,
+        method: "GET",
+      })
+    }),
+    PaymentProof: builder.query({
+      query: () => ({
+        url: URL.PAYMENTPROOF,
+        method: "GET",
+      })
+    }),
 
 
   }),
 });
 
-export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation, useAddStaffMutation, useLazyViewStaffQuery, useSourceaddMutation, useCourseaddMutation, useLazySourcegetQuery ,useLazyGetUserQuery} = api;
+export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation, useAddStaffMutation, useLazyViewStaffQuery, useSourceaddMutation, useCourseaddMutation, useLazySourcegetQuery, useLazyGetUserQuery, useLeadaddMutation, useSourceeditMutation, useDeleterolesMutation, useSourcedeleteMutation, usePaymentsdetailMutation, useLazyPaymentProofQuery, useLazyModeofamountQuery } = api;
 
 

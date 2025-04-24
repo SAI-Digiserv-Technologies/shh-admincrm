@@ -6,7 +6,7 @@ import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutl
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { useLazySourcegetQuery } from "../../Data/Api/api";
 
-const SourceList = ({ data }) => {
+const SourceList = ({ data , handleShow, handleDelete}) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -62,7 +62,7 @@ const SourceList = ({ data }) => {
           <tbody>
             {currentLeads.map((lead, index) => (
               <tr
-                key={`${lead.id}-${index}`} // Combine lead.id and index for uniqueness
+                key={`${lead.id}-${index}`} 
                 style={{
                   background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59",
                 }}
@@ -75,10 +75,15 @@ const SourceList = ({ data }) => {
                 </td>
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex ac-jc gap-3">
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button onClick={() =>{
+                      handleShow(lead)
+                    }}
+                     className="border-0 bg-primary3 white rounded-2 action-box">
                       <ModeEditOutlinedIcon className="fs-xxl-20" />
                     </button>
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button onClick={() =>
+                      handleDelete(lead)
+                    } className="border-0 bg-primary3 white rounded-2 action-box">
                       <DeleteForeverOutlined className="fs-xxl-20" />
                     </button>
                   </div>

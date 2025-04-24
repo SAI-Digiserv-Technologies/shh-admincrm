@@ -7,16 +7,19 @@ export const URL = {
   ROLE:"role/addroles",
   VIEWROLES:"role/getroles",
   EDITROLES:"role/editroles",
+  DELETEROLES:"role/deleteroles",
   ADDSTAFF:"telecallers/addtelecaller",
   VIEWSTAFF:"telecallers/gettelecallers",
-  SOURCEPOST:"source/sourcename",
-  
+  SOURCEPOST:"source/sourcename", 
   SOURCEGET:"source/sourceget",
+  SOURCEEDIT:"source/sourceedit",
+  DELETESOURCE:"source/sourcedelete",
   COURSEADD:"addcourse",
-  
   ADDLEEDS:"lead/addleadmanage",
   VIEWLEED:"lead/getlead",
-  DELETELEED:"lead/delete"
-
+  DELETELEED:"lead/delete",
+  PAYMENTDETAILS:"payments/addpayment",
+  PAYMENTPROOF:"telepay/telecaller/view",
+  MODEOFAMOUNT:"amount/getamount",
 };
 

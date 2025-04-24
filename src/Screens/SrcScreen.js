@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import SourceList from "../Components/SetupManage/SourceList";
-import { useLazySourcegetQuery, useSourceaddMutation } from "../Data/Api/api";
+import { useLazySourcegetQuery, useSourceaddMutation, useSourcedeleteMutation, useSourceeditMutation } from "../Data/Api/api";
 
 const SrcScreen = () => {
     const [show, setShow] = useState(false);
@@ -9,52 +9,101 @@ const SrcScreen = () => {
     const [addsource] = useSourceaddMutation();
     const [isEditMode, setIsEditMode] = useState(false);
     const [sourcelistss, setSourcelistss] = useState([]);
+    const [sourcedata, setSourceData] = useState(null);
     const [viewsource] = useLazySourcegetQuery()
-
+    const [Editsource] = useSourceeditMutation();
+    const [DeleteSource] = useSourcedeleteMutation();
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+
+
+    const handleShow = (item) => {
+        console.log("kkksjdhffk", item);
+        setShow(true);
+        if (item) {
+            setSourceData(item)
+            setIsEditMode(true)
+            setSourcename(item?.sourcename)
+
+        } else {
+            setSourcename("")
+            setSourceData(null)
+        }
+    }
     const handleSave = () => {
         const payload = {
-            sourcename
+            sourcename,
         }
-        addsource(payload)
+        const id = sourcedata?._id
+        console.log("sourcename", id);
+
+        if (sourcedata) {
+            Editsource({ id, payload })
+                .unwrap()
+                .then((res) => {
+                    console.log("Sources updated successfully", res);
+                    viewsourcelist()
+                }).catch((err) => {
+                    console.error("Sources showing errror", err);
+
+                }).finally(() => {
+                    setShow(false);
+                })
+
+        } else {
+            addsource(payload)
+                .unwrap()
+                .then((res) => {
+                    console.log("Sources added successfully", res);
+                    viewsourcelist()
+
+                }).catch((err) => {
+                    console.error("Sources showing errror", err);
+
+                }).finally(() => {
+                    setShow(false);
+                })
+        }
+
+    };
+
+    const handleDelete = (item) => {
+        const id = item?._id
+        console.log("idnj", item, id);
+        DeleteSource(id)
             .unwrap()
             .then((res) => {
-                console.log("Sources added successfully", res);
-
+                console.log("Deleted Successfully", res);
+                viewsourcelist();
             }).catch((err) => {
-                console.error("Sources showing errror", err);
+                console.error("Delete Error", err);
 
-            })
+            });
 
-        console.log("Saved Source:", sourcename);
-        handleClose();
     };
+
 
     const viewsourcelist = () => {
         viewsource()
-          .unwrap()
-          .then((res) => {
-            console.log("success viewed", res);
-            setSourcelistss(res?.data)
-          }).catch((err) => {
-            console.error("vieed not shoiwng", err);
-    
-          })
-      }
-    
-    useEffect(() =>{
-      viewsourcelist();
-    },[])
-    
+            .unwrap()
+            .then((res) => {
+                console.log("success viewed", res);
+                setSourcelistss(res?.data);
+            }).catch((err) => {
+                console.error("vieed not shoiwng", err);
+
+            })
+    }
+
+    useEffect(() => {
+        viewsourcelist()
+    }, [])
 
     return (
         <div >
             {/* Popup Modal */}
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>{isEditMode ? "Edit Role" : "New Role"}</Modal.Title>
-
+                    <Modal.Title>{isEditMode ? "Edit Source" : "New Source"}</Modal.Title>
                     {/* <Modal.Title>New Source</Modal.Title> */}
                 </Modal.Header>
                 <Modal.Body>
@@ -96,11 +145,16 @@ const SrcScreen = () => {
                     <p className=" mb-0 f7 primary3 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani">
                         Source
                     </p>
-                    <Button className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani" style={{ backgroundColor: "#00225D", borderColor: "#00225D" }} onClick={handleShow}>
+                    <Button className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani" style={{ backgroundColor: "#00225D", borderColor: "#00225D" }}
+                        onClick={() => {
+                            handleShow()
+                            setIsEditMode(false)
+                        }}
+                    >
                         + New Source
                     </Button    >
                 </div>
-                <SourceList data={sourcelistss} />
+                <SourceList data={sourcelistss} handleShow={handleShow} handleDelete={handleDelete} />
             </div>
             {/* <StaffRoleScreen />
              <LeadCourseScreen /> */}

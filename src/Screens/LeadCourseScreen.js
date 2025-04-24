@@ -30,9 +30,6 @@ const LeadCourseScreen = () => {
 
             })
 
-
-
-
         console.log("Saved Source:", sourceName);
         handleClose();
     };

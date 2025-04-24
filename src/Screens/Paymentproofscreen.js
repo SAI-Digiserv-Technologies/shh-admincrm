@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaClock } from 'react-icons/fa';
+import { useLazyPaymentProofQuery } from '../Data/Api/api';
 
 const paymentData = [
   { name: 'Student Name', size: '87.26KB', date: '12/12/2024', time: '7:30 AM' },
@@ -11,12 +12,31 @@ const paymentData = [
 
 export default function PaymentProof() {
   const [selectedIndex, setSelectedIndex] = useState(1);
-  
+  const [PaymentProof] = useLazyPaymentProofQuery();
+  const [paymentlist, Setpaymentlist] = useState([]);
+
+
+  const viewpayment = () => {
+    PaymentProof()
+      .unwrap()
+      .then((res) => {
+        console.log("Paymentproof successfuully viewed", res);
+        Setpaymentlist(res?.data)
+
+      }).catch((err) => {
+        console.error("error showing", err);
+
+      })
+  }
+
+  useEffect(() => {
+    viewpayment()
+  }, [])
   return (
     <div className="max-w-xl mx-auto p-4">
       <h2 className="text-lg font-semibold mb-4">Payment Proof</h2>
       <div className="space-y-4">
-        {paymentData.map((item, index) => (
+        {paymentlist.map((item, index) => (
           <div
             key={index}
             onClick={() => setSelectedIndex(index)}
@@ -26,21 +46,23 @@ export default function PaymentProof() {
           >
             <div className="flex items-center space-x-3">
               <img
-                src="https://via.placeholder.com/40x50.png?text=PDF"
+                src={item.image}
                 alt="Proof"
                 className="w-10 h-14 object-cover rounded"
               />
               <div>
-                <div className="font-semibold">{item.name}</div>
-                <div className="text-xs text-gray-500">Size: {item.size}</div>
+                <div className="font-semibold">{item?.data?.name}</div>
+                <div className="text-xs text-gray-500">PaymentMethod: {item.paymentmethood}</div>
               </div>
             </div>
             <div className="text-right text-sm text-gray-500">
               <div>{item.date}</div>
-              <div className="flex items-center justify-end space-x-1">
+              <div className="flex items-center justify-end space-x-1 text-xs text-gray-500">
                 <FaClock className="w-3.5 h-3.5" />
-                <span>{item.time}</span>
+                <span>{new Date(item.updatedAt).toLocaleDateString()}</span>
+                <span>{new Date(item.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
+
             </div>
           </div>
         ))}

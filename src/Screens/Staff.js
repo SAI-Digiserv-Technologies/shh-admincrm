@@ -35,7 +35,7 @@ const Staff = () => {
 
   useEffect(()=>{
     viewStafffun()
-  })
+  },[])
   return (
     <div className="lead-head">
       <div className="lead-h d-flex ac-jb">

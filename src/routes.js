@@ -42,6 +42,7 @@ import PaymentScreen from "./Screens/PaymentScreen";
 const ReactRoute = () => {
   const { user, setUser } = useUser()
   console.log("ndsmmds", user);
+  
   return (
     <Routes>
       
