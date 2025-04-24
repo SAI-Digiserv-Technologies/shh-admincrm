@@ -9,6 +9,7 @@ export const URL = {
   // DELETELEED:"lead/delete",
   ADDCOURSE:"course/addcourse",
   VIEWCOURSE:"course/getcourse",
-  EDITCOURSE:"course/editcourse"
+  EDITCOURSE:"course/editcourse",
+  DELETECOURSE:"course/deletecourse"
 
 };

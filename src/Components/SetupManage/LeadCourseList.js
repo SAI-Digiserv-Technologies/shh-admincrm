@@ -5,7 +5,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import { DeleteForeverOutlined, DeleteForeverSharp } from "@mui/icons-material";
 import { courselist } from "../../Data/DummyJson";
 
-const LeadCourseList = ({data , handleShow}) => {
+const LeadCourseList = ({data , handleShow, handledelete}) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({}); 
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,19 +65,19 @@ const LeadCourseList = ({data , handleShow}) => {
                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.amount}</td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.duration}</td>
                
-               
-
-                {/* ACTION BUTTONS */}
+               {/* ACTION BUTTONS */}
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex ac-jc gap-3">
                     <button onClick={() =>{
-                      handleShow(lead);
+                      handleShow(lead)
 
                     }}
                      className="border-0 bg-primary3 white rounded-2 action-box">
                       <ModeEditOutlinedIcon className="fs-xxl-20" />
                     </button>
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button onClick={()=>{
+                      handledelete(lead)
+                    }} className="border-0 bg-primary3 white rounded-2 action-box">
                       <DeleteForeverSharp className="fs-xxl-20" />
                     </button>
                   </div>

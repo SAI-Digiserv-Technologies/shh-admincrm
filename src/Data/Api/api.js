@@ -61,6 +61,13 @@ export const api = createApi({
        body: payload,
       })
     }),
+    deleteuser:builder.mutation({
+      query:(id) =>({
+        url:`${URL.DELETECOURSE}/${id}`,
+       method: "DELETE",
+       
+      })
+    }),
 
     //  viewUser: builder.query({
     //    query: (id) => ({
@@ -78,4 +85,4 @@ export const api = createApi({
   }),
 });
 
-export const { useLeadaddMutation, useLazyGetUserQuery, useCourseaddMutation,useLazyViewUserQuery,useCourseUserMutation,useLeadeditMutation } = api;
+export const { useLeadaddMutation, useLazyGetUserQuery, useCourseaddMutation,useLazyViewUserQuery,useCourseUserMutation,useLeadeditMutation,useDeleteuserMutation } = api;
