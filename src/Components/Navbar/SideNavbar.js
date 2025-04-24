@@ -165,7 +165,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
           <img
             src={logout_icon}
             alt="Logout"
-            style={{ width: 20, height: 20 }}
+            style={{ width: 20, height: 10 }}
           />
           {menuactive && <span className="white">Logout</span>}
         </div>
