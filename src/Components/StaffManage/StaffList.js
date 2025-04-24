@@ -6,12 +6,16 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import Switch from "@mui/material/Switch";
 import { usersList } from "../../Data/DummyJson";
  
-const StaffList = () => {
+const StaffList = ({res}) => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const [selectedRole, setSelectedRole] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 5;
     const [statusToggle, setStatusToggle] = useState({});
+
+
+
+
  
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -46,8 +50,8 @@ const StaffList = () => {
  
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = usersList.slice(indexOfFirstUser, indexOfLastUser);
-    const totalPages = Math.ceil(usersList.length / usersPerPage);
+    const currentUsers = res.slice(indexOfFirstUser, indexOfLastUser);
+    const totalPages = Math.ceil(res.length / usersPerPage);
  
     return (
         <>

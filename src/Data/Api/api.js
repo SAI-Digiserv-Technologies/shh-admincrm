@@ -16,73 +16,33 @@ export const api = createApi({
   refetchOnMountOrArgChange: true,
   tagTypes: [],
   endpoints: (builder) => ({
-    Leadadd: builder.mutation({
+    login: builder.mutation({
       query: (payload) => ({
-        url: URL.ADDLEEDS,
+        url: URL.LOGIN,
         method: "POST",
         body: payload,
       }),
     }),
-    getUser: builder.query({
+    viewStaff: builder.query({
       query: () => ({
-        url: URL.VIEWLEED,
+        url: URL.GETUSER,
         method: "GET",
       }),
     }),
-    leadedit: builder.mutation({
-      query: ({ payload, id }) => ({
-        url: `${URL.LEAD_EDIT}/${id}`,
+    viewUser: builder.query({
+      query: (id) => ({
+        url:`${URL.VIEWUSER}${id}`,
+        method: "GET",
+      }),
+    }),
+    editUser: builder.query({
+      query: (id,payload) => ({
+        url:`${URL.EDITUSER}${id}`,
         method: "PUT",
         body: payload,
       }),
     }),
-    
-  
-
-
-  //  course api
-    courseadd:builder.mutation({
-      query: (payload) => ({
-      url: URL.ADDCOURSE,
-       method: "POST",
-       body: payload,
-      })
-    }),
-    viewUser: builder.query({
-      query: () => ({
-        url: URL.VIEWCOURSE,
-        method: "GET",
-      }),
-    }),
-    courseUser:builder.mutation({
-      query:({payload,id}) => ({
-      url:`${URL.EDITCOURSE}/${id}`,
-       method: "PUT",
-       body: payload,
-      })
-    }),
-    deleteuser:builder.mutation({
-      query:(id) =>({
-        url:`${URL.DELETECOURSE}/${id}`,
-       method: "DELETE",
-       
-      })
-    }),
-
-    //  viewUser: builder.query({
-    //    query: (id) => ({
-    //      url:`${URL.VIEWLEED}${id}`,
-    //     method: "GET",
-    //  }),
-    //  }),
-    // editUser: builder.query({
-    //   query: (id,payload) => ({
-    //     url:`${URL.EDITUSER}${id}`,
-    //     method: "PUT",
-    //     body: payload,
-    //   }),
-    // }),
   }),
 });
 
-export const { useLeadaddMutation, useLazyGetUserQuery, useCourseaddMutation,useLazyViewUserQuery,useCourseUserMutation,useLeadeditMutation,useDeleteuserMutation } = api;
+export const { useLoginMutation, useLazyGetUserQuery, useLazyViewUserQuery, useLazyEditUserQuery } = api;

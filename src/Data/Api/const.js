@@ -10,6 +10,9 @@ export const URL = {
   ADDCOURSE:"course/addcourse",
   VIEWCOURSE:"course/getcourse",
   EDITCOURSE:"course/editcourse",
-  DELETECOURSE:"course/deletecourse"
+  DELETECOURSE:"course/deletecourse",
 
+  ADDSTAFF:"telecallers/addtelecaller",
+  VIEWSTAFF:"telecallers/gettelecallers",
+  
 };
