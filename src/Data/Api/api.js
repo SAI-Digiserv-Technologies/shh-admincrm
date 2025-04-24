@@ -12,37 +12,94 @@ export const api = createApi({
       return headers;
     },
   }),
-
   refetchOnMountOrArgChange: true,
   tagTypes: [],
   endpoints: (builder) => ({
-    login: builder.mutation({
+    // 🔹 Staff APIs
+    addStaff: builder.mutation({
       query: (payload) => ({
-        url: URL.LOGIN,
+        url: URL.ADDSTAFF,
         method: "POST",
         body: payload,
       }),
     }),
     viewStaff: builder.query({
       query: () => ({
-        url: URL.GETUSER,
+        url: URL.VIEWSTAFF,
         method: "GET",
+      }),
+    }),
+    particularviewStaff: builder.query({
+      query: (id) => ({
+        url: `${URL.PARTICULARVIEWSTAFF}/${id}`,
+        method: "GET",
+      }),
+    }),
+    editStaff: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `${URL.EDITSTAFF}/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
+
+    // 🔹 Lead APIs
+    Leadadd: builder.mutation({
+      query: (payload) => ({
+        url: URL.ADDLEEDS,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+    leadedit: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `${URL.LEAD_EDIT}/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
+
+    // 🔹 Course APIs
+    courseadd: builder.mutation({
+      query: (payload) => ({
+        url: URL.ADDCOURSE,
+        method: "POST",
+        body: payload,
       }),
     }),
     viewUser: builder.query({
-      query: (id) => ({
-        url:`${URL.VIEWUSER}${id}`,
+      query: () => ({
+        url: URL.VIEWCOURSE,
         method: "GET",
       }),
     }),
-    editUser: builder.query({
-      query: (id,payload) => ({
-        url:`${URL.EDITUSER}${id}`,
+    courseUser: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `${URL.EDITCOURSE}/${id}`,
         method: "PUT",
         body: payload,
+      }),
+    }),
+    deleteuser: builder.mutation({
+      query: (id) => ({
+        url: `${URL.DELETECOURSE}/${id}`,
+        method: "DELETE",
       }),
     }),
   }),
 });
 
-export const { useLoginMutation, useLazyGetUserQuery, useLazyViewUserQuery, useLazyEditUserQuery } = api;
+// ✅ Hooks Export
+export const {
+  useAddStaffMutation,
+  useLazyViewStaffQuery,
+  useLazyParticularviewStaffQuery,
+  useEditStaffMutation,
+  useLeadaddMutation,
+  useLeadeditMutation,
+  useCourseaddMutation,
+  useLazyViewUserQuery,
+  useCourseUserMutation,
+  useDeleteuserMutation,
+  
+} = api;
