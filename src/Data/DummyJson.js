@@ -162,7 +162,7 @@ export const leadsList = [
   {
     id: 1,
     name: "John Doe",
-    
+
     course: {
       course: "Digital marketing",
       amount: "25000",
@@ -298,7 +298,7 @@ export const followupleadsList = [
     },
     status: "Follow Ups",
   },
- 
+
   { id: "005", name: "Sankari", course: "JavaScript", status: "Switched Off" },
   { id: "006", name: "Michael Brown", course: "Django", status: "Follow Ups" },
   { id: "007", name: "Sarah Wilson", course: "Vue.js", status: "Discontinue" },
@@ -483,17 +483,17 @@ export const PaymentUpdatesListStatus = [
 ];
 
 export const PaymentUpdateList = [
-  { id: 1, name: "John Doe", course: "React Basics", amount: "25000",PaidAmount:"10000",BalanceAmount:"15000",Status:"Partially paid" },
-  { id: 2, name: "John Doe", course: "React Basics", amount: "25000",PaidAmount:"10000",BalanceAmount:"15000",Status:"Fully paid" },
-  { id: 3, name: "John Doe", course: "React Basics", amount: "25000",PaidAmount:"10000",BalanceAmount:"15000",Status:"Partially paid" },
-  
-  
-    { id: 4, name: "John Doe", course: "React Basics", amount: "25000",PaidAmount:"10000",BalanceAmount:"15000",Status:"Fully paid" },
-    { id: 5, name: "John Doe", course: "React Basics", amount: "25000",PaidAmount:"10000",BalanceAmount:"15000",Status:"Partially paid" },
-    { id: 6, name: "John Doe", course: "React Basics", amount: "25000",PaidAmount:"10000",BalanceAmount:"15000",Status:"Fully paid" },
-    
-  
- 
+  { id: 1, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Partially paid" },
+  { id: 2, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Fully paid" },
+  { id: 3, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Partially paid" },
+
+
+  { id: 4, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Fully paid" },
+  { id: 5, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Partially paid" },
+  { id: 6, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Fully paid" },
+
+
+
 ];
 
 export const paymentList = [
@@ -503,7 +503,7 @@ export const paymentList = [
     paymentNumber: "SGCPIN0001",
     date: "22/05/2025",
     amount: "10,000",
-    ModeOfPayment:"Bank"
+    ModeOfPayment: "Bank"
   },
   {
     id: 2,
@@ -511,7 +511,7 @@ export const paymentList = [
     paymentNumber: "SGCPIN0002",
     date: "22/05/2025",
     amount: "10,000",
-    ModeOfPayment:"UPI"
+    ModeOfPayment: "UPI"
   },
   {
     id: 3,
@@ -519,7 +519,7 @@ export const paymentList = [
     paymentNumber: "SGCPIN0003",
     date: "22/05/2025",
     amount: "10,000",
-    ModeOfPayment:"Net Banking"
+    ModeOfPayment: "Net Banking"
   },
   {
     id: 4,
@@ -527,7 +527,7 @@ export const paymentList = [
     paymentNumber: "SGCPIN0004",
     date: "22/05/2025",
     amount: "10,000",
-    ModeOfPayment:"Caritd Card"
+    ModeOfPayment: "Caritd Card"
   },
   {
     id: 5,
@@ -535,7 +535,7 @@ export const paymentList = [
     paymentNumber: "SGCPIN0005",
     date: "22/05/2025",
     amount: "10,000",
-    ModeOfPayment:"UPI"
+    ModeOfPayment: "UPI"
   },
   {
     id: 6,
@@ -543,15 +543,15 @@ export const paymentList = [
     paymentNumber: "SGCPIN0006",
     date: "22/05/2025",
     amount: "10,000",
-    ModeOfPayment:"UPI"
+    ModeOfPayment: "UPI"
   },
 ];
 
 
 
 export const courselist = [
-  { id: "001", coursename: "Digital Marketing", amount:"25,000", duration:'3 months'},
-  { id: "002", coursename: "Fullstact", amount:"25,000", duration:'3 months'},
+  { id: "001", coursename: "Digital Marketing", amount: "25,000", duration: '3 months' },
+  { id: "002", coursename: "Fullstact", amount: "25,000", duration: '3 months' },
 ];
 
 export const leadsListss = [
@@ -611,43 +611,43 @@ export const usersList = [
 export const LeadList = [
   {
     id: 1,
-    LeadID:3242,
+    LeadID: 3242,
     Studentname: "Sujatha",
     phone: "+1 123-456-7890",
     Course: "Digital Marketting",
     AssignedTo: "Sankari",
     City: "Chennai",
-    Status:"Not Interested"
+    Status: "Not Interested"
   },
   {
     id: 2,
-    LeadID:3242,
+    LeadID: 3242,
     Studentname: "Sujatha",
     phone: "+1 123-456-7890",
     Course: "Digital Marketting",
     AssignedTo: "Sankari",
     City: "Chennai",
-    Status:"Follow Up"
+    Status: "Follow Up"
   },
   {
     id: 3,
-    LeadID:3242,
+    LeadID: 3242,
     Studentname: "Sujatha",
     phone: "+1 123-456-7890",
     Course: "Digital Marketting",
     AssignedTo: "Sankari",
     City: "Chennai",
-    Status:"Close Follow Up"
+    Status: "Close Follow Up"
   },
   {
     id: 4,
-    LeadID:3242,
+    LeadID: 3242,
     Studentname: "Sujatha",
     phone: "+1 123-456-7890",
     Course: "Digital Marketting",
     AssignedTo: "Sankari",
     City: "Chennai",
-    Status:"Enrollment"
+    Status: "Enrollment"
   },
 ];
 export const staffstatus = [
@@ -659,37 +659,77 @@ export const staffstatus = [
     id: 2,
     name: "Tele-Counsoler",
   },
-  // {
-  //   id: 5,
-  //   name: "Payment Proof",
-  //   navi: "/telecallers/payment-proof",
-  //   active_icon: payment_blue,
-  //   inactive_icon: payment_white,
-  //   sub: [
-  //     {
-  //       list: "/telecallers/payment-proof/add",
-  //     },
-  //     {
-  //       list: "/telecallers/payment-proof/view",
-  //     },
-  //   ],
-  // },
-  
+  {
+    id: 5,
+    name: "Payment Proof",
+    navi: "/telecallers/payment-proof",
+    active_icon: payment_blue,
+    inactive_icon: payment_white,
+    sub: [
+      {
+        list: "/telecallers/payment-proof/add",
+      },
+      {
+        list: "/telecallers/payment-proof/view",
+      },
+    ],
+  },
+
 ];
 
 export const sourcelist = [
-  
-  { id: "001", sourcename: "Facebook"},
-  { id: "002", sourcename: "Youtube"},
-  { id: "003", sourcename: "Website"},
-  { id: "003", sourcename: "Instagram"},
+
+  { id: "001", sourcename: "Facebook" },
+  { id: "002", sourcename: "Youtube" },
+  { id: "003", sourcename: "Website" },
+  { id: "003", sourcename: "Instagram" },
 ];
 export const staffrolelist = [
-  
-  { id: "001", rolename: "Tele-counselor"},
-  { id: "002", rolename: "Telecaller"},
- 
- 
+
+  { id: "001", rolename: "Tele-counselor" },
+  { id: "002", rolename: "Telecaller" },
+
+
+];
+
+
+export const leadsformtatus = [
+  {
+    id: 1,
+    name: "Not interested",
+  },
+  {
+    id: 2,
+    name: "Not responsing",
+  },
+  {
+    id: 3,
+    name: "Not reachable",
+  },
+  {
+    id: 4,
+    name: "Switched Off",
+  },
+  {
+    id: 5,
+    name: "Follow Ups",
+  },
+  {
+    id: 6,
+    name: "Close Follow Ups",
+  },
+  {
+    id: 7,
+    name: "Discontinue",
+  },
+  {
+    id: 8,
+    name: "Interested",
+  },
+  {
+    id: 9,
+    name: "Enquiry",
+  },
 ];
 export const leadaddform = [
   {
@@ -813,9 +853,36 @@ export const leadaddform = [
     placeholder: "Assigned To",
   },
 ];
+export const transactionidlist = [
+  {
+    id: 1,
+    Transaction: "UPI",
+
+  },
+  {
+    id: 2,
+    Transaction: "Net Banking",
+
+  },
+  {
+    id: 3,
+    Transaction: "Bank To Bank",
+
+  },
+  {
+    id: 4,
+    Transaction: "C/D Card",
+
+  },
+
+
+];
 
 
 
- 
+
+
+
+
 
 

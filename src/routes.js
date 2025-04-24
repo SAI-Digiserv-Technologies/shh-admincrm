@@ -38,6 +38,8 @@ import AdminProfileScreen from "./Screens/AdminProfileScreen";
 import SrcScreen from "./Screens/SrcScreen";
 import useUser from "./Data/Local/userDetail";
 import PaymentScreen from "./Screens/PaymentScreen";
+import TransactionScreen from "./Screens/TransactionScreen";
+
 
 const ReactRoute = () => {
   const { user, setUser } = useUser()
@@ -76,7 +78,7 @@ const ReactRoute = () => {
           <Route path="/adminprofile" element={<AdminProfileScreen />} />
           <Route path="/source" element={<SrcScreen />} />
           <Route path="/payment" element={<PaymentScreen />} />
-
+          <Route path="/transaction" element={<TransactionScreen />} />
         </Route>}
         </Routes>
    

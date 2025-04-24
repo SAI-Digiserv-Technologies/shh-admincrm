@@ -5,7 +5,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import { DeleteForeverOutlined, DeleteForeverSharp } from "@mui/icons-material";
 import { courselist } from "../../Data/DummyJson";
 
-const LeadCourseList = () => {
+const LeadCourseList = ({data , handleShow}) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({}); 
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,8 +37,8 @@ const LeadCourseList = () => {
 
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = courselist.slice(indexOfFirstLead, indexOfLastLead);
-  const totalPages = Math.ceil(courselist.length / leadsPerPage);
+  const currentLeads = data.slice(indexOfFirstLead, indexOfLastLead);
+  const totalPages = Math.ceil(data.length / leadsPerPage);
 
   return (
     <>
@@ -58,10 +58,10 @@ const LeadCourseList = () => {
             </tr>
           </thead>
           <tbody>
-            {currentLeads.map((lead) => (
-              <tr key={lead.id} style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.id}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.coursename}</td>
+            {currentLeads.map((lead, index) => (
+              <tr key={index} style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}>
+                <td className="text-center border-0 py-2 px-2 primary3 f5">{index+1}</td>
+                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.addcourse}</td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.amount}</td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.duration}</td>
                
@@ -70,8 +70,11 @@ const LeadCourseList = () => {
                 {/* ACTION BUTTONS */}
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex ac-jc gap-3">
-                    <button  
-                    className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button onClick={() =>{
+                      handleShow(lead);
+
+                    }}
+                     className="border-0 bg-primary3 white rounded-2 action-box">
                       <ModeEditOutlinedIcon className="fs-xxl-20" />
                     </button>
                     <button className="border-0 bg-primary3 white rounded-2 action-box">

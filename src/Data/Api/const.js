@@ -21,5 +21,11 @@ export const URL = {
   PAYMENTDETAILS:"payments/addpayment",
   PAYMENTPROOF:"telepay/telecaller/view",
   MODEOFAMOUNT:"amount/getamount",
+  LEAD_EDIT: "lead/editlead",
+  // DELETELEED:"lead/delete",
+  ADDCOURSE:"course/addcourse",
+  VIEWCOURSE:"course/getcourse",
+  EDITCOURSE:"course/editcourse"
+
 };
 

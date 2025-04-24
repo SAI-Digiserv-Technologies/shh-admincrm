@@ -31,6 +31,7 @@ export const api = createApi({
         body: payload,
       }),
     }),
+<<<<<<< HEAD
 
     Login: builder.mutation({
       query: (payload) => ({
@@ -124,12 +125,15 @@ export const api = createApi({
 
       })
     }),
+=======
+>>>>>>> 133efe0b1699448d85555cd4c52ffb8fe8fb9788
     getUser: builder.query({
       query: () => ({
         url: URL.VIEWLEED,
         method: "GET",
       }),
     }),
+<<<<<<< HEAD
 
     paymentsdetail: builder.mutation({
       query: (payload) => ({
@@ -158,3 +162,55 @@ export const api = createApi({
 export const { useLoginMutation, useRolesMutation, useLazyViewrolesQuery, useEditrolesMutation, useAddStaffMutation, useLazyViewStaffQuery, useSourceaddMutation, useCourseaddMutation, useLazySourcegetQuery, useLazyGetUserQuery, useLeadaddMutation, useSourceeditMutation, useDeleterolesMutation, useSourcedeleteMutation, usePaymentsdetailMutation, useLazyPaymentProofQuery, useLazyModeofamountQuery } = api;
 
 
+=======
+    leadedit: builder.mutation({
+      query: ({ payload, id }) => ({
+        url: `${URL.LEAD_EDIT}/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
+    
+  
+
+
+  //  course api
+    courseadd:builder.mutation({
+      query: (payload) => ({
+      url: URL.ADDCOURSE,
+       method: "POST",
+       body: payload,
+      })
+    }),
+    viewUser: builder.query({
+      query: () => ({
+        url: URL.VIEWCOURSE,
+        method: "GET",
+      }),
+    }),
+    courseUser:builder.mutation({
+      query:({payload,id}) => ({
+      url:`${URL.EDITCOURSE}/${id}`,
+       method: "PUT",
+       body: payload,
+      })
+    }),
+
+    //  viewUser: builder.query({
+    //    query: (id) => ({
+    //      url:`${URL.VIEWLEED}${id}`,
+    //     method: "GET",
+    //  }),
+    //  }),
+    // editUser: builder.query({
+    //   query: (id,payload) => ({
+    //     url:`${URL.EDITUSER}${id}`,
+    //     method: "PUT",
+    //     body: payload,
+    //   }),
+    // }),
+  }),
+});
+
+export const { useLeadaddMutation, useLazyGetUserQuery, useCourseaddMutation,useLazyViewUserQuery,useCourseUserMutation,useLeadeditMutation } = api;
+>>>>>>> 133efe0b1699448d85555cd4c52ffb8fe8fb9788

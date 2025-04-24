@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { LeadList as usersList } from "../../Data/DummyJson"; // Renamed import to match usage
+import { useNavigate } from "react-router-dom";
 
-const LeadList = ({data}) => {
+const LeadList = ({ data }) => {
+  const navigate = useNavigate()
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedRole, setSelectedRole] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -76,6 +78,9 @@ const LeadList = ({data}) => {
               return (
                 <tr
                   key={user.id}
+                  onClick={() => {
+                    navigate('/leadmanagedetail', { state: { type: "edit", data: user } })
+                  }}
                   className="hover-row"
                   style={{
                     backgroundColor: openDropdown === user.id ? "#0b146b59" : "#ffffff59",

@@ -13,31 +13,26 @@ const Leadmanage = () => {
     navigate("/leadmanagedetail", { state: { type: "add", field, value } });
     setOpenDropdown(null);
   };
-
-
-  const fieldOptions = {
+const fieldOptions = {
     Course: ["React", "Angular", "Node.js"],
     Sourse: ["Google Ads", "Facebook", "Referral"],
     AssignedTo: ["Staff A", "Staff B", "Staff C"],
     Status: ["Not Interested", "Follow Up", "Converted"],
   };
-
-  const handleleadview = () => {
+ const handleleadview = () => {
     leadviewapi()
       .unwrap().then(res => {
         console.log("viewing", res);
         setLeadlists(res?.data);
-
-      }).catch((err) => {
+ }).catch((err) => {
         console.log("error", err);
-      })
-
-  };
-  useEffect(() => {
+ })
+ };
+  useEffect(() =>{
     handleleadview();
-  }, [])
 
-  return (
+  })
+return (
     <div className="lead-head">
       <div className="lead-h d-flex ac-jb">
         <p className=" mb-0 f7 primary3 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani">
