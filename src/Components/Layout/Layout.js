@@ -11,7 +11,7 @@ const Layout = () => {
   const [menuactive, setMenuActive] = useState(true);
   const [load, setLoad] = useState(false);
 
-  const [logoutpop, setLogoutPop] = useState(false);
+  // const [logoutpop, setLogoutPop] = useState(false);
 
   const toggleFun = () => {
     setMenuActive(!menuactive);

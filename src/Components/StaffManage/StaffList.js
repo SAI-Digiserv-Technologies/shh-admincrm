@@ -5,6 +5,8 @@ import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutl
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import Switch from "@mui/material/Switch";
 import { usersList } from "../../Data/DummyJson";
+import { useNavigate } from "react-router-dom";
+import { type } from "@amcharts/amcharts4/core";
  
 const StaffList = ({res}) => {
     const [openDropdown, setOpenDropdown] = useState(null);
@@ -14,7 +16,7 @@ const StaffList = ({res}) => {
     const [statusToggle, setStatusToggle] = useState({});
 
 
-
+const navigate =useNavigate()
 
  
     useEffect(() => {
@@ -67,12 +69,12 @@ const StaffList = ({res}) => {
                             <th className="py-3 px-2">Phone Number</th>
                             <th className="py-3 px-2">Role</th>
                             <th className="py-3 px-2">Status</th>
-                            <th className="py-3 px-2">Action</th>
+                            {/* <th className="py-3 px-2">Action</th> */}
                         </tr>
                     </thead>
                     <tbody>
                         {currentUsers.map((user) => (
-                            <tr key={user.id} style={{ background: openDropdown === user.id ? "#0b146b59" : "#ffffff59" }}>
+                            <tr onClick={()=>{ navigate("/staffform/detail", {state:{type:"detail", data:user}}) }} key={user.id} style={{ background: openDropdown === user.id ? "#0b146b59" : "#ffffff59" }}>
                                 <td className="text-center border-0 py-2 px-2">{user.name}</td>
                                 <td className="text-center border-0 py-2 px-2">{user.email}</td>
                                 <td className="text-center border-0 py-2 px-2">{user.phone}</td>
@@ -102,7 +104,7 @@ const StaffList = ({res}) => {
                                     />
  
                                 </td>
-                                <td className="text-center border-0 py-3 px-2">
+                                {/* <td className="text-center border-0 py-3 px-2">
                                     <div className="d-flex ac-jc gap-3">
                                         <button className="border-0 bg-primary3 white rounded-2 action-box">
                                             <ModeEditOutlinedIcon className="fs-xxl-20" />
@@ -111,7 +113,7 @@ const StaffList = ({res}) => {
                                             <RemoveRedEyeOutlinedIcon className="fs-xxl-20" />
                                         </button>
                                     </div>
-                                </td>
+                                </td> */}
                             </tr>
                         ))}
                     </tbody>

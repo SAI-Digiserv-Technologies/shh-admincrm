@@ -36,6 +36,7 @@ import LeadmanagementScreen from "./Screens/LeadmanageScreeen";
 import EnquiryScreen from "./Screens/EnquiryScreen";
 import AdminProfileScreen from "./Screens/AdminProfileScreen";
 import SrcScreen from "./Screens/SrcScreen";
+import StaffDetails from "./Screens/StaffDetails";
 
 const ReactRoute = () => {
   return (
@@ -57,6 +58,7 @@ const ReactRoute = () => {
         <Route path="/followup/details" element={<FollowupDetailScreen />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/staffform" element={<StaffForm />} />
+        <Route path="/staffform/detail" element={<StaffDetails />} />
         <Route path="/staffrole" element={<StaffRoleScreen />} />
         <Route path="/telecaller" element={<Telecallerprofile />} />
         <Route path="/telecallerprofile" element={<Telecallerprofilepage />} />

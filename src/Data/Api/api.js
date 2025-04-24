@@ -15,6 +15,7 @@ export const api = createApi({
 
   refetchOnMountOrArgChange: true,
   tagTypes: [],
+  //staf post
   endpoints: (builder) => ({
     addStaff: builder.mutation({
       query: (payload) => ({
@@ -23,26 +24,30 @@ export const api = createApi({
         body: payload,
       }),
     }),
+    //staff get
     viewStaff: builder.query({
       query: () => ({
         url: URL.VIEWSTAFF,
         method: "GET",
       }),
     }),
-  //  viewStaff: builder.query({
-  //    query: (id) => ({
-  //      url:`${URL.VIEWSTAFF}${id}`,
-  //       method: "GET",
-  //    }),
-  //    }),
-    // editUser: builder.query({
-    //   query: (id,payload) => ({
-    //     url:`${URL.EDITUSER}${id}`,
-    //     method: "PUT",
-    //     body: payload,
-    //   }),
-    // }),
+
+    //staff parti get
+   particularviewStaff: builder.query({
+     query: (id) => ({
+       url:`${URL. PARTICULARVIEWSTAFF}${id}`,
+        method: "GET",
+     }),
+     }),
+     //staff edit put
+    editStaff: builder.mutation({
+      query: (id,payload) => ({
+        url:`${URL.EDITSTAFF}${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
   }),
 });
 
-export const { useAddStaffMutation, useLazyViewStaffQuery } = api;
+export const { useAddStaffMutation, useLazyViewStaffQuery, useLazyParticularviewStaffQuery, useEditStaffMutation} = api;

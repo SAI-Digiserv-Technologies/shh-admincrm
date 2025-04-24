@@ -56,6 +56,9 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
           className={`${
             menuactive ? "rounded-2" : "rounded-5 mx-md-3 mx-2 py-1 px-2"
           } pro-cont d-flex ac-js`}
+          onClick={()=>{
+            navigate("/adminprofile")
+          }}
         >
           <div className="pro-img d-flex ac-jc">
             <img src={pro_icon} alt="Profile" />
@@ -185,3 +188,4 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
 };
  
 export default SideNavbar;
+ 

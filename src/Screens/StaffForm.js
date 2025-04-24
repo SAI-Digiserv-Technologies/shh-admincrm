@@ -1,12 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { staffstatus } from "../Data/DummyJson";
-import { useAddStaffMutation, useLazyViewStaffQuery } from "../Data/Api/api";
+import { useAddStaffMutation, useLazyParticularviewStaffQuery, } from "../Data/Api/api";
 import { toast } from "react-toastify";
-import { Eye, EyeOff } from "lucide-react";
+import { Edit2Icon, Eye, EyeOff } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 const StaffForm = () => {
-    const [addStaffApi] = useAddStaffMutation();
-    const [editStaffApi] = useLazyViewStaffQuery();
+
+    const location = useLocation()
+    console.log(location, "location");
+    const type = location?.state?.type
+    // console.log(type, "type");
+    const id = location?.state?.data?._id
+    console.log(id,"id");
+    
+const [addStaffApi] = useAddStaffMutation();
+    const [partiViewStaffApi] = useLazyParticularviewStaffQuery();
+   
 
 
     const [messages, setMessages] = useState([]);
@@ -21,6 +31,11 @@ const StaffForm = () => {
     const [staffPhone, setStaffPhone] = useState('');
     const [staffRole, setStaffRole] = useState('');
     const [loading, setLoading] = useState('');
+
+    // edit button state
+    const [editButton, setEditButton] = useState(false)
+
+
 
     const messagesEndRef = useRef(null);
 
@@ -70,29 +85,28 @@ const StaffForm = () => {
         setStaffRole(e.target.value)
     }
 
-     // edit staff api ( put method )
-     const editStafffun = () => {
-        const payload = {
-            "email": staffEmail,
-            "password": password,
-        }
-        const id="67f4e981569f08895efef0f0"
-        setLoading(true)
+   // view staff api (particular get method )
+   const partiviewStafffun = () => {
+    const id="67fe1d557bf3665511f664dd"
+    setLoading(true)
 
-        editStaffApi(id, payload)
-            .unwrap()
-            .then(res => {
-                console.log("res", res);
+    partiViewStaffApi(id)
+        .unwrap()
+        .then(res => {
+            console.log("res", res);
+        setStaffName(res?.name )
+        setStaffEmail(res?.email)
+        setStaffPhone(res?.phone)
+        setStaffRole(res?.role)
+
+        }).catch(err => {
+            console.log("err", err);
 
 
-            }).catch(err => {
-                console.log("err", err);
-
-
-            }).finally(() => {
-                setLoading(false)
-            })
-    }
+        }).finally(() => {
+            setLoading(false)
+        })
+}
 
 
     useEffect(() => {
@@ -117,8 +131,27 @@ const StaffForm = () => {
 
     const toggleShowConfirmPassword = () => setShowConfirmPassword((prev) => !prev);
 
+    
+
+    useEffect(()=>{
+        if(type == "add"){
+            setEditButton(true)
+            console.log("add log");
+            
+        }else{
+            partiviewStafffun()
+            console.log("sank");
+            
+        }
+    },[])
+
+
     return (
-        <div className="detaile-cont">
+        <div className="detaile-cont ">
+            {type == "detail" && !editButton && <button onClick={() => {
+                setEditButton(true)
+               
+            }}> <Edit2Icon  /> </button>}
             <div className="as-jb mt-4 gap-4">
                 <div className="w-70 d-flex inputcont ac-jb flex-column gap-4 pb-5">
                     <div className="left-box-cont">
@@ -210,18 +243,18 @@ const StaffForm = () => {
                                     {passwordError && <p className="text-danger mt-1">{passwordError}</p>}
                                 </div>
                             </div>
-
-                            <div className="cust-sendbtn d-flex ac-jc w-100 p-5">
-                                <button
-                                    className="btn-sub border-0 bg-primary3 white f5 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-12 rounded-3 textani px-4 py-2"
-                                    // disabled={password !== confirmPassword || password === ""}
-                                    onClick={() => {
-                                        addStafffun()
-                                    }}
-                                >
-                                    Add
-                                </button>
-                            </div>
+                            
+                              { editButton &&   <div className="cust-sendbtn d-flex ac-jc w-100 p-5">
+                                    <button
+                                        className="btn-sub border-0 bg-primary3 white f5 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-12 rounded-3 textani px-4 py-2"
+                                        // disabled={password !== confirmPassword || password === ""}
+                                        onClick={() => {
+                                            addStafffun()
+                                        }}
+                                    >
+                                        {type == "add" ? "Add" : "Update"}
+                                    </button>
+                                </div>}
                         </fieldset>
                     </div>
                 </div>
