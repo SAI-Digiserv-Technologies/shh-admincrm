@@ -33,16 +33,16 @@ export const api = createApi({
     }),
 
     //staff parti get
-   particularviewStaff: builder.query({
-     query: (id) => ({
-       url:`${URL. PARTICULARVIEWSTAFF}${id}`,
+    particularviewStaff: builder.query({
+      query: (id) => ({
+        url: `${URL.PARTICULARVIEWSTAFF}${id}`,
         method: "GET",
-     }),
-     }),
-     //staff edit put
+      }),
+    }),
+    //staff edit put
     editStaff: builder.mutation({
-      query: (id,payload) => ({
-        url:`${URL.EDITSTAFF}${id}`,
+      query: (id, payload) => ({
+        url: `${URL.EDITSTAFF}${id}`,
         method: "PUT",
         body: payload,
       }),
@@ -50,4 +50,4 @@ export const api = createApi({
   }),
 });
 
-export const { useAddStaffMutation, useLazyViewStaffQuery, useLazyParticularviewStaffQuery, useEditStaffMutation} = api;
+export const { useAddStaffMutation, useLazyViewStaffQuery, useLazyParticularviewStaffQuery, useEditStaffMutation } = api;
