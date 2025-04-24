@@ -1,26 +1,39 @@
 import React, { useEffect, useRef, useState } from "react";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import { courselist, leadaddform, leadstatus } from "../Data/DummyJson";
+import {
+  courselist,
+  leadaddform,
+  leadsformtatus,
+  leadstatus,
+} from "../Data/DummyJson";
 import { calendar_icon, time_icon } from "../assets/images";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { City, State } from "country-state-city";
 import PostalCodes from "postal-codes-js";
 import PageLoad from "../Components/Pageload/Pageload";
-import { useLocation } from "react-router-dom";
-import { useLazyGetUserQuery, useLeadaddMutation, useLoginMutation } from "../Data/Api/api";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+
+  useLeadaddMutation,
+  useLeadeditMutation,
+} from "../Data/Api/api";
 import { toast } from "react-toastify";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 const LeadManageDetailScreen = () => {
-  const [leadaddapi] = useLeadaddMutation();
-
-
   const location = useLocation();
-  console.log("location", location);
+  const navigate = useNavigate();
+  const type = location?.state?.type;
+  const routData = location?.state?.data;
+  console.log("locatiroutDataon", location, routData);
+
+  const scrollRef = useRef(null);
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef(null);
+  const [fullData, setFulldata] = useState(null);
   const [formFeald, setFormFeald] = useState({
     name: "",
     email: "",
@@ -40,10 +53,13 @@ const LeadManageDetailScreen = () => {
     enrollement_date: "",
     interested_course: "",
   });
-
+  const [editbtn, setEditbtn] = useState(false);
   const [errors, setErrors] = useState({});
-  const [loading, setLoadin] = useState(true);
+  const [loading, setLoadin] = useState(false);
 
+  // Api
+  const [leadaddApi] = useLeadaddMutation();
+  const [leadeditApi] = useLeadeditMutation();
   const handleSendMessage = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     if (newMessage.trim() !== "") {
@@ -51,8 +67,6 @@ const LeadManageDetailScreen = () => {
       setNewMessage(""); // Clear input
     }
   };
-
-  console.log("formFealdstates", formFeald);
 
   const states = State.getStatesOfCountry("IN");
   const cities = formFeald?.state?.isoCode
@@ -63,8 +77,6 @@ const LeadManageDetailScreen = () => {
   //   state: formFeald?.state?.name,
   // });
   // console.log("pin", pin);
-
-  console.log("citformFealdies", cities, formFeald);
 
   // const fetchPincode = async (city) => {
   //   console.log("citcitycityy", city);
@@ -130,6 +142,26 @@ const LeadManageDetailScreen = () => {
           errorMsg = "source is required!";
         }
         break;
+      //
+      case "degree":
+        if (!stringValue && (formFeald?.passedout || formFeald?.college_name)) {
+          errorMsg =
+            "Degree is required when Passout year or College name is entered!";
+        }
+        break;
+
+      case "passedout":
+        if (formFeald?.degree && !stringValue) {
+          errorMsg = "Passout year is required when Degree is entered!";
+        }
+        break;
+
+      case "college_name":
+        if (formFeald?.degree && !stringValue) {
+          errorMsg = "College name is required when Degree is entered!";
+        }
+        break;
+      //
       case "status":
         if (!stringValue) {
           errorMsg = "status is required!";
@@ -187,6 +219,8 @@ const LeadManageDetailScreen = () => {
     return !errorMsg;
   };
 
+  console.log("formFeald", formFeald);
+
   const editMessage = (index) => {
     const updatedMessage = prompt("Edit your message:", messages[index]); // Show a prompt for editing
     if (updatedMessage !== null) {
@@ -207,69 +241,118 @@ const LeadManageDetailScreen = () => {
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      const payload = {
-        // "name": "jeeva",
-        // "email": "jeeva@gmail.com",
-        // "phonenumber": "8868555662",
-        // "status": "Enquiry",
-        // "source": "Instagram",
-        // "assignedto": "Sujatha",
-        // "interested_course": "Digital Marketing",
-        // "degree": "Bsc Computer Science",
-        // "passedout": 2022,
-        // "college_name": "dfsdfdsf",
-        // "address": "uahsihfiu",
-        // "state": "Tamil Nadu",
-        // "city": "Chennai",
-        // "pincode": "600022"
-        "name": formFeald?.name,
-        "email": formFeald?.email,
-        "phonenumber": formFeald?.phoneno,
-        "status": formFeald?.status,
-        "source": formFeald?.source,
-        "assignedto": formFeald?.assignto,
-        "interested_course": formFeald?.interested_course,
-        "degree": formFeald?.degree,
-        "passedout": formFeald?.passedout,
-        "college_name": formFeald?.college_name,
-        "address": formFeald?.address,
-        "state": formFeald?.state,
-        "city": formFeald?.city,
-        "pincode": formFeald?.pincode
-
+      console.log("SuccccformFeald", formFeald);
+      let payload = {
+        name: formFeald?.name,
+        email: formFeald?.email,
+        phonenumber: formFeald?.phoneno,
+        status: formFeald?.status,
+        source: formFeald?.source,
+        assignedto: formFeald?.assignto,
+        interested_course: formFeald?.interested_course,
+        degree: formFeald?.degree,
+        passedout: formFeald?.passedout,
+        college_name: formFeald?.college_name,
+        address: formFeald?.address,
+        state: formFeald?.state,
+        city: formFeald?.city,
+        pincode: formFeald?.pincode,
+        followupdate: "",
+        followuptime: "",
+        enrollement_date: "",
+      };
+      if (formFeald?.status === "Follow Ups") {
+        payload.followupdate = formFeald?.followupdate;
+        payload.followuptime = formFeald?.followuptime;
       }
-      leadaddapi(payload)
-        .unwrap().then(res => {
-          console.log("success", res)
-        }).catch((err) => {
-          console.log("errthrougimg", err)
-        })
-      // console.log("SuccccformFeald", formFeald);
+      if (formFeald?.status === "Enrollement") {
+        payload.enrollement_date = formFeald?.enrollement_date;
+      }
+
+      console.log("payload", payload);
+      setLoadin(true);
+      if (type == "edit") {
+        const id = routData?._id;
+        leadeditApi({ payload, id })
+          .unwrap()
+          .then((res) => {
+            console.log("EditRes", res);
+            toast.success(res?.message || "Lead updated successfully");
+            // navigate(-1);
+            setEditbtn(true);
+          })
+          .catch((err) => {
+            console.log("Reserr", err);
+            toast.error(err?.data?.error || "BAD_REQUEST");
+          })
+          .finally(() => {
+            setLoadin(false);
+            scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+          });
+      } else {
+        leadaddApi(payload)
+          .unwrap()
+          .then((res) => {
+            console.log("Res", res);
+            toast.success(res?.message || "Lead created successfully");
+            navigate(-1);
+          })
+          .catch((err) => {
+            console.log("Reserr", err);
+            toast.error(err?.data?.error || "BAD_REQUEST");
+          })
+          .finally(() => {
+            setLoadin(false);
+            scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+          });
+      }
     }
-
-  }
-
- 
-  const dataGetFun = () => {
-    setLoadin(false);
   };
+
+
   useEffect(() => {
-    setTimeout(() => {
-      dataGetFun();
-    }, 1000);
+    if (type == "edit") {
+      setEditbtn(true);
+
+    }
   }, []);
 
 
+
   return (
-    <div className="detaile-cont">
+    <div ref={scrollRef} className="detaile-cont">
       {loading && <PageLoad />}
-      <div className="d-flex as-jb mt-4 gap-4 det-layer">
+      {type == "edit" && (
+        <div className="w-100 d-flex ac-je">
+          <button
+            onClick={() => {
+              navigate("//leadmanage", {
+                state: { type: "view", data: routData },
+              });
+            }}
+            className="f3 px-1 bg-primarys rounded-2 border-0 px-3 py-1  fs-xxl-17  fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13 textani white mb-0"
+          >
+            Payment Proof
+          </button>
+        </div>
+      )}
+      <div className="d-flex as-jb mt-1 gap-4 det-layer">
         <div className="w-70 d-flex inputcont ac-jb flex-column gap-4 pb-5">
           <div className="left-box-cont ">
-            <fieldset className="out-input rounded-5 d-flex ac-jc  ps-md-5 pe-md-5 px-3 pt-4 pb-5">
+            <fieldset className="out-input rounded-5 d-flex ac-jc  ps-md-5 pe-md-5 px-3 pt-4 pb-5 position-relative">
               <legend className="f3 px-1 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani black mb-0">
                 Personal Details
               </legend>
+              {type == "edit" && editbtn && (
+                <button
+                  onClick={() => {
+                    setEditbtn(false);
+                  }}
+                  className="edit_conts rounded-5 d-flex ac-jc border-0 "
+                >
+                  <ModeEditOutlineOutlinedIcon className=" fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani white mb-0" />
+                </button>
+              )}
               <div className="d-flex w-100 ac-jb flex-wrap gap-3">
                 {/* <div className="w-45">
                   <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
@@ -278,7 +361,6 @@ const LeadManageDetailScreen = () => {
                   <input className="w-100 rounded-2 px-2" />
                 </div> */}
                 {leadaddform?.map((item) => {
-                  console.log("statesstates", item?.list);
                   return (
                     <>
                       {item?.type == "dropdown" ? (
@@ -288,6 +370,7 @@ const LeadManageDetailScreen = () => {
                           </p>
                           <div className="lead_drop position-relative">
                             <select
+                              disabled={type == "edit" && editbtn}
                               value={formFeald?.[item?.formFeald] || ""}
                               onChange={(e) => {
                                 fealdOnChange(item?.formFeald, e.target.value);
@@ -323,6 +406,7 @@ const LeadManageDetailScreen = () => {
                           </p>
                           <div className="lead_drop position-relative">
                             <select
+                              disabled={type == "edit" && editbtn}
                               value={formFeald?.city?.name || ""}
                               // onChange={(e) => {
                               //   fealdOnChange(item?.formFeald, e.target.value);
@@ -365,6 +449,7 @@ const LeadManageDetailScreen = () => {
                           </p>
                           <div className="lead_drop position-relative">
                             <select
+                              disabled={type == "edit" && editbtn}
                               value={formFeald?.state?.name || ""}
                               // onChange={(e) => {
                               //   fealdOnChange("state", e.target.value);
@@ -406,6 +491,7 @@ const LeadManageDetailScreen = () => {
                             {item?.lable}
                           </p>
                           <input
+                            disabled={type == "edit" && editbtn}
                             type={item?.type}
                             value={formFeald?.[item?.formFeald]}
                             onChange={(e) => {
@@ -440,28 +526,55 @@ const LeadManageDetailScreen = () => {
                     Status
                   </p>
                   <div className="lead_drop position-relative">
-                    <select
-                      value={formFeald?.status}
-                      onChange={(e) => {
-                        fealdOnChange("status", e.target.value);
-                      }}
-                      className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
-                    >
-                      <option value="" disabled hidden selected>
-                        Select Status
-                      </option>
-                      {leadstatus?.map((item) => {
-                        return (
-                          <option
-                            key={item.id}
-                            className="light_gray w-100 rounded-2 px-2"
-                            value={item.name}
-                          >
-                            {item.name}
-                          </option>
-                        );
-                      })}
-                    </select>
+                    {type == "edit" && fullData?.status == "Enrollement" ? (
+                      <select
+                        disabled
+                        value={fullData?.status}
+                        // onChange={(e) => {
+                        //   fealdOnChange("status", e.target.value);
+                        // }}
+                        className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
+                      >
+                        <option value="" disabled hidden selected>
+                          Select Status
+                        </option>
+                        {courselist?.map((item) => {
+                          return (
+                            <option
+                              key={item?.id}
+                              className="light_gray w-100 rounded-2 px-2"
+                              value={item.name}
+                            >
+                              {item?.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    ) : (
+                      <select
+                        disabled={type == "edit" && editbtn}
+                        value={formFeald?.status}
+                        onChange={(e) => {
+                          fealdOnChange("status", e.target.value);
+                        }}
+                        className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
+                      >
+                        <option value="" disabled hidden selected>
+                          Select Status
+                        </option>
+                        {leadsformtatus?.map((item) => {
+                          return (
+                            <option
+                              key={item?.id}
+                              className="light_gray w-100 rounded-2 px-2"
+                              value={item?.name}
+                            >
+                              {item?.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    )}
                     {errors?.status && (
                       <div className="error">
                         <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
@@ -476,28 +589,55 @@ const LeadManageDetailScreen = () => {
                     Interested Course
                   </p>
                   <div className="lead_drop position-relative">
-                    <select
-                      value={formFeald?.interested_course}
-                      onChange={(e) => {
-                        fealdOnChange("interested_course", e.target.value);
-                      }}
-                      className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
-                    >
-                      <option value="" disabled hidden selected>
-                        Select Interested Course
-                      </option>
-                      {courselist?.map((item) => {
-                        return (
-                          <option
-                            key={item.id}
-                            className="light_gray w-100 rounded-2 px-2"
-                            value={item.coursename}
-                          >
-                            {item.coursename}
-                          </option>
-                        );
-                      })}
-                    </select>
+                    {fullData?.status == "Enrollement" ? (
+                      <select
+                        disabled
+                        value={fullData?.interested_course}
+                        // onChange={(e) => {
+                        //   fealdOnChange("interested_course", e.target.value);
+                        // }}
+                        className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
+                      >
+                        <option value="" disabled hidden selected>
+                          Select Interested Course
+                        </option>
+                        {courselist?.map((item) => {
+                          return (
+                            <option
+                              key={item.id}
+                              className="light_gray w-100 rounded-2 px-2"
+                              value={item.name}
+                            >
+                              {item.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    ) : (
+                      <select
+                        disabled={type == "edit" && editbtn}
+                        value={formFeald?.interested_course}
+                        onChange={(e) => {
+                          fealdOnChange("interested_course", e.target.value);
+                        }}
+                        className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
+                      >
+                        <option value="" disabled hidden selected>
+                          Select Interested Course
+                        </option>
+                        {courselist?.map((item) => {
+                          return (
+                            <option
+                              key={item.id}
+                              className="light_gray w-100 rounded-2 px-2"
+                              value={item.coursename}
+                            >
+                              {item.coursename}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    )}
                     {errors?.interested_course && (
                       <div className="error">
                         <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
@@ -518,6 +658,7 @@ const LeadManageDetailScreen = () => {
                           <img src={calendar_icon} />
                         </div>
                         <input
+                          disabled={type == "edit" && editbtn}
                           type="date"
                           className="w-100 f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani"
                           placeholder="Date"
@@ -533,6 +674,7 @@ const LeadManageDetailScreen = () => {
                           <img src={time_icon} />
                         </div>
                         <input
+                          disabled={type == "edit" && editbtn}
                           className="w-100 f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani"
                           placeholder="Time"
                           value={formFeald?.followuptime}
@@ -560,31 +702,47 @@ const LeadManageDetailScreen = () => {
                       <div className="insideinpput d-flex ac-jc">
                         <img src={calendar_icon} />
                       </div>
-                      <input
-                        type={"date"}
-                        value={formFeald?.enrollement_date}
-                        onChange={(e) => {
-                          fealdOnChange("enrollement_date", e.target.value);
-                        }}
-                        placeholder="Conversion Date"
-                        className="w-100  f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani"
-                      />
+                      {fullData?.status == "Enrollement" ? (
+                        <input
+                          disabled
+                          type={"date"}
+                          value={fullData?.enrollement_date}
+                          // onChange={(e) => {
+                          //   fealdOnChange("enrollement_date", e.target.value);
+                          // }}
+                          placeholder="Conversion Date"
+                          className="w-100  f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani"
+                        />
+                      ) : (
+                        <input
+                          disabled={type == "edit" && editbtn}
+                          type={"date"}
+                          value={formFeald?.enrollement_date}
+                          onChange={(e) => {
+                            fealdOnChange("enrollement_date", e.target.value);
+                          }}
+                          placeholder="Conversion Date"
+                          className="w-100  f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani"
+                        />
+                      )}
                     </div>
                   </div>
                 )}
               </div>
             </fieldset>
           </div>
-          <div className="cust-sendbtn d-flex ac-jc w-100">
-            <button
-              onClick={() => {
-                handleSubmit();
-              }}
-              className="btn-sub border-0 bg-primary3 white f4 fs-xxl-18 fs-xl-18 fs-lg-17 fs-sm-16 fs-xs-15 rounded-3 textani"
-            >
-              Submit
-            </button>
-          </div>
+          {!editbtn && (
+            <div className="cust-sendbtn d-flex ac-jc w-100">
+              <button
+                onClick={() => {
+                  handleSubmit();
+                }}
+                className="btn-sub border-0 bg-primary3 white f4 fs-xxl-18 fs-xl-18 fs-lg-17 fs-sm-16 fs-xs-15 rounded-3 textani"
+              >
+                {type == "add" ? "Submit" : "Update"}
+              </button>
+            </div>
+          )}
         </div>
 
       </div>

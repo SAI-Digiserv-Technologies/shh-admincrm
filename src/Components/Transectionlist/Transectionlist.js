@@ -3,23 +3,21 @@ import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { DeleteForeverOutlined } from "@mui/icons-material";
+import { transactionidlist } from "../../Data/DummyJson";
 
 // Dummy data
-const staffrolelist = [
-  { id: 1,TransactionMethod : "Admin" },
-  { id: 2, TransactionMethod: "Manager" },
-  { id: 3, TransactionMethod: "HR" },
-  { id: 4, TransactionMethod: "Developer" },
-  { id: 5, TransactionMethod: "Designer" },
-  { id: 6, TransactionMethod: "Tester" },
-  { id: 7, TransactionMethod: "Sales" },
-  { id: 8, TransactionMethod: "Support" },
+const Transactionidlist = [
+  { id: 1, transaction: "Net Banking" },
+  { id: 2, transaction: "Bank to Bank" },
+  { id: 3, transaction: "UPI" },
+  { id: 4, transaction: "C/D card" },
+  
 ];
 
-const StaffRoleList = () => {
+const Transactionlist = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState(staffrolelist);
+  const [data, setData] = useState(Transactionidlistt);
   const [editRoleId, setEditRoleId] = useState(null);
   const [editedRoleName, setEditedRoleName] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -80,15 +78,15 @@ const StaffRoleList = () => {
           <thead>
             <tr>
               <th className="py-3 px-2">S.no</th>
-              <th className="py-3 px-2">Transaction Method</th>
-              <th className="py-3 px-2">Options</th>
+              <th className="py-3 px-2">Role Name</th>
+              <th className="py-3 px-2">Action</th>
             </tr>
           </thead>
           <tbody>
             {currentLeads.map((lead) => (
               <tr key={lead.id} style={{ background: "#ffffff59" }}>
                 <td className="text-center py-2 px-2">{lead.id}</td>
-                <td className="text-center py-2 px-2">{lead.rolename}</td>
+                <td className="text-center py-2 px-2">{lead.transaction}</td>
                 <td className="text-center py-2 px-2">
                   <div className="d-flex justify-content-center gap-2">
                     <button
@@ -251,4 +249,4 @@ const StaffRoleList = () => {
   );
 };
 
-export default StaffRoleList;
+export default Transactionlist;

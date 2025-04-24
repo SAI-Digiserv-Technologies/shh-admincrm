@@ -23,12 +23,45 @@ export const api = createApi({
         body: payload,
       }),
     }),
-     getUser: builder.query({
+    getUser: builder.query({
       query: () => ({
         url: URL.VIEWLEED,
-         method: "GET",
-       }),
-     }),
+        method: "GET",
+      }),
+    }),
+    leadedit: builder.mutation({
+      query: ({ payload, id }) => ({
+        url: `${URL.LEAD_EDIT}/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
+    
+  
+
+
+  //  course api
+    courseadd:builder.mutation({
+      query: (payload) => ({
+      url: URL.ADDCOURSE,
+       method: "POST",
+       body: payload,
+      })
+    }),
+    viewUser: builder.query({
+      query: () => ({
+        url: URL.VIEWCOURSE,
+        method: "GET",
+      }),
+    }),
+    courseUser:builder.mutation({
+      query:({payload,id}) => ({
+      url:`${URL.EDITCOURSE}/${id}`,
+       method: "PUT",
+       body: payload,
+      })
+    }),
+
     //  viewUser: builder.query({
     //    query: (id) => ({
     //      url:`${URL.VIEWLEED}${id}`,
@@ -45,4 +78,4 @@ export const api = createApi({
   }),
 });
 
-export const { useLeadaddMutation, useLazyGetUserQuery } = api;
+export const { useLeadaddMutation, useLazyGetUserQuery, useCourseaddMutation,useLazyViewUserQuery,useCourseUserMutation,useLeadeditMutation } = api;
