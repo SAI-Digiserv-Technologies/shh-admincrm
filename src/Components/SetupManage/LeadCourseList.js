@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-import { DeleteForeverOutlined, DeleteForeverSharp } from "@mui/icons-material";
-import { courselist } from "../../Data/DummyJson";
+import { DeleteForeverSharp } from "@mui/icons-material";
+import Staffpopup from "../Coursepopup/Coursepopup"; // Make sure this path is correct
 
-const LeadCourseList = ({data , handleShow, handledelete}) => {
+const LeadCourseList = ({ data, handleShow, handledelete }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState({}); 
+  const [selectedStatus, setSelectedStatus] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedLead, setSelectedLead] = useState(null);
+
   const leadsPerPage = 5;
 
   useEffect(() => {
@@ -30,7 +33,7 @@ const LeadCourseList = ({data , handleShow, handledelete}) => {
   const handleStatusChange = (leadId, status) => {
     setSelectedStatus((prevStatuses) => ({
       ...prevStatuses,
-      [leadId]: status, // ✅ FIXED: Update status for specific lead
+      [leadId]: status,
     }));
     setOpenDropdown(null);
   };
@@ -45,39 +48,45 @@ const LeadCourseList = ({data , handleShow, handledelete}) => {
       {openDropdown !== null && (
         <button onClick={() => handleDropdownClick(null)} className="droppopp border-0" />
       )}
-      
+
       <div className="table-container rounded-3 mt-2">
         <table className="responsive-table rounded-3">
           <thead>
             <tr>
               <th className="py-3 px-2">S.no</th>
-              <th className="py-3 px-2"> Course Name</th>
-              <th className="py-3 px-2"> Amount</th>
-              <th className="py-3 px-2"> Duration</th>
+              <th className="py-3 px-2">Course Name</th>
+              <th className="py-3 px-2">Amount</th>
+              <th className="py-3 px-2">Duration</th>
               <th className="py-3 px-2">Action</th>
             </tr>
           </thead>
           <tbody>
             {currentLeads.map((lead, index) => (
-              <tr key={index} style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{index+1}</td>
+              <tr
+                key={lead.id || index}
+                style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}
+              >
+                <td className="text-center border-0 py-2 px-2 primary3 f5">{index + 1}</td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.addcourse}</td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.amount}</td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.duration}</td>
-               
-               {/* ACTION BUTTONS */}
+
+                {/* ACTION BUTTONS */}
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex ac-jc gap-3">
-                    <button onClick={() =>{
-                      handleShow(lead)
-
-                    }}
-                     className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button
+                      onClick={() => handleShow(lead)}
+                      className="border-0 bg-primary3 white rounded-2 action-box"
+                    >
                       <ModeEditOutlinedIcon className="fs-xxl-20" />
                     </button>
-                    <button onClick={()=>{
-                      handledelete(lead)
-                    }} className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button
+                      onClick={() => {
+                        setSelectedLead(lead);
+                        setShowPopup(true);
+                      }}
+                      className="border-0 bg-primary3 white rounded-2 action-box"
+                    >
                       <DeleteForeverSharp className="fs-xxl-20" />
                     </button>
                   </div>
@@ -108,6 +117,17 @@ const LeadCourseList = ({data , handleShow, handledelete}) => {
           <ArrowForwardIosOutlinedIcon />
         </button>
       </div>
+
+      {/* CONFIRMATION POPUP */}
+      <Staffpopup
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        onConfirm={() => {
+          handledelete(selectedLead);
+          setShowPopup(false);
+        }}
+        name={selectedLead?.addcourse}
+      />
     </>
   );
 };
