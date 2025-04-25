@@ -58,5 +58,9 @@ export const time_icon = require("./time_icon.png");
 export const speakericon = require("./speakericon.png");
 export const addproof_icon = require("./addproof_icon.png");
 export const profile_dum = require("./profile_dum.png");
+export const notfound = require("./notfound.png");
+export const network_err = require("./network_err.webp");
+
+
 
 

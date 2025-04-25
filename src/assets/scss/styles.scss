@@ -1166,3 +1166,26 @@ legend {
   }
 }
 // LeadDetaile end
+
+.notfound_cont {
+  height: 100vh;
+  width: 100vw;
+  .not_img {
+    height: 70vh;
+    width: 70vh;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .notfound_cont {
+    height: 70vh;
+
+    button {
+      background: #00225d;
+      height: 43px;
+      width: 170px;
+    }
+  }
+}

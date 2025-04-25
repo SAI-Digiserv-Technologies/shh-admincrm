@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../Data/Api/api";
 import { toast } from "react-toastify";
 import useUser from "../Data/Local/userDetail";
+import PageLoad from "../Components/Loading/PageLoad";
+import useToken from "../Data/Local/userToken";
 
 
 const LoginScreen = () => {
@@ -12,13 +14,19 @@ const LoginScreen = () => {
     email: "",
     password: "",
   });
-  const {user, setUser} = useUser()
+  const { user, setUser } = useUser()
+  const { token, setToken } = useToken();
+
   console.log("ndsmmds", user);
-  
+
 
   const [errors, setErrors] = useState({});
   const [passwordshow, setPasswordShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const [LoginApi] = useLoginMutation();
+
+
   // const [LoginApi]  = use
   const fealdOnChange = (field, value) => {
     console.log("field, value", field, value);
@@ -72,6 +80,7 @@ const LoginScreen = () => {
       validateInput(field, formFeald[field])
     );
     if (isValid) {
+      setLoading(true)
       const payload = {
         email: formFeald?.email,
         password: formFeald?.password
@@ -80,105 +89,111 @@ const LoginScreen = () => {
         .unwrap()
         .then((res) => {
           console.log("login successfully", res);
-          toast.success(res?.message);
+          toast.success(res?.message || "Login successful");
           setUser(res)
+          setToken(res?.admin?.token)
           window.location.reload()
+          navigate("/admindashboard");
         }).catch((err) => {
           console.log("Login error", err);
-  
+          toast.error(err?.data?.message || "BAD_REQUEST")
+        }).finally(() => {
+          setLoading(false)
         })
     };
-      navigate("/admindashboard");
-    }
-   
+  }
+
 
   return (
-    <div className="login-cont">
-      <div className="form-layer w-md-40 w-90 rounded-5 flex-column d-flex ac-jc">
-        <div className="w-100 px-5 d-flex ac-jc flex-column">
-          <div className="logo-cont">
-            <img src={shh_logo} alt="logo" />
-          </div>
-          <p className="f7 dark_primary fs-xxl-28 fs-xl-28 fs-lg-20 fs-sm-18 fs-xs-18 textani mb-0">
-            Login
-          </p>
-          <p className="f4 primary2 text-center fs-xxl-20 fs-xl-20 fs-lg-18 fs-sm-15 fs-xs-14 w-100 textani mb-0">
-            Login to your account
-          </p>
-        </div>
-        <div className="w-md-70 w-90">
-          <div className="input-form w-100 mt-3">
-            <p className="f6 primary2 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani mb-1">
-              E-mail Address
-            </p>
-            <input
-              placeholder="Email"
-              value={formFeald?.email}
-              onChange={(e) => fealdOnChange("email", e.target.value)}
-              className="rounded-1 px-2 w-100 f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani "
-            />
-            <div className="error">
-              <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
-                {errors?.email}
-              </p>
+    <>
+      {loading && <PageLoad />}
+      <div className="login-cont">
+        <div className="form-layer w-md-40 w-90 rounded-5 flex-column d-flex ac-jc">
+          <div className="w-100 px-5 d-flex ac-jc flex-column">
+            <div className="logo-cont">
+              <img src={shh_logo} alt="logo" />
             </div>
-          </div>
-          <div className="input-form w-100 mt-3">
-            <p className="f6 primary2 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani mb-1">
-              Password
+            <p className="f7 dark_primary fs-xxl-28 fs-xl-28 fs-lg-20 fs-sm-18 fs-xs-18 textani mb-0">
+              Login
             </p>
-            <input
-              type={!passwordshow ? "password" : "text"}
-              value={formFeald?.password}
-              onChange={(e) => fealdOnChange("password", e.target.value)}
-              placeholder="Password"
-              className="rounded-1 px-2 pe-5 w-100 f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani "
-            />
-            <div className="error">
-              <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
-                {errors?.password}
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                setPasswordShow(!passwordshow);
-              }}
-              className="passicon log border-0 bg-transparent "
-            >
-              <img alt="password" src={passwordshow ? view : no_view} />
-            </button>
+            <p className="f4 primary2 text-center fs-xxl-20 fs-xl-20 fs-lg-18 fs-sm-15 fs-xs-14 w-100 textani mb-0">
+              Login to your account
+            </p>
           </div>
-          <div className="d-flex w-100 ac-jb  d-flex tranc mt-3">
-            <div className=" check-cont d-flex ac-js gap-2">
-              <button className="check rounded-2 d-flex ac-jc tranc">
-                <img alt="check" src={check} />
+          <div className="w-md-70 w-90">
+            <div className="input-form w-100 mt-3">
+              <p className="f6 primary2 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani mb-1">
+                E-mail Address
+              </p>
+              <input
+                placeholder="Email"
+                value={formFeald?.email}
+                onChange={(e) => fealdOnChange("email", e.target.value)}
+                className="rounded-1 px-2 w-100 f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani "
+              />
+              <div className="error">
+                <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
+                  {errors?.email}
+                </p>
+              </div>
+            </div>
+            <div className="input-form w-100 mt-3">
+              <p className="f6 primary2 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani mb-1">
+                Password
+              </p>
+              <input
+                type={!passwordshow ? "password" : "text"}
+                value={formFeald?.password}
+                onChange={(e) => fealdOnChange("password", e.target.value)}
+                placeholder="Password"
+                className="rounded-1 px-2 pe-5 w-100 f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani "
+              />
+              <div className="error">
+                <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
+                  {errors?.password}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  setPasswordShow(!passwordshow);
+                }}
+                className="passicon log border-0 bg-transparent "
+              >
+                <img alt="password" src={passwordshow ? view : no_view} />
               </button>
-              <p className="primary2 mb-0 f3 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani">
-                Remember me
+            </div>
+            <div className="d-flex w-100 ac-jb  d-flex tranc mt-3">
+              <div className=" check-cont d-flex ac-js gap-2">
+                <button className="check rounded-2 d-flex ac-jc tranc">
+                  <img alt="check" src={check} />
+                </button>
+                <p className="primary2 mb-0 f3 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani">
+                  Remember me
+                </p>
+              </div>
+              <p
+                onClick={() => {
+                  navigate("/otp-resetpassword");
+                }}
+                className="primary2 cp mb-0 f6 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani"
+              >
+                Reset Password?
               </p>
             </div>
-            <p
-              onClick={() => {
-                navigate("/otp-resetpassword");
-              }}
-              className="primary2 cp mb-0 f6 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani"
-            >
-              Reset Password?
-            </p>
-          </div>
-          <div className="w-100 d-flex ac-jc mt-4">
-            <button
-              onClick={() => {
-                submitHandler();
-              }}
-              className=" white border-0 btns rounded-5 px-md-5 px-5 f2 fs-xxl-16 fs-xl-16 fs-lg-15 fs-sm-13 fs-xs-13 textani"
-            >
-              Login In
-            </button>
+            <div className="w-100 d-flex ac-jc mt-4">
+              <button
+                onClick={() => {
+                  submitHandler();
+                }}
+                className=" white border-0 btns rounded-5 px-md-5 px-5 f2 fs-xxl-16 fs-xl-16 fs-lg-15 fs-sm-13 fs-xs-13 textani"
+              >
+                Login In
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
