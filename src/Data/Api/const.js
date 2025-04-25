@@ -30,8 +30,20 @@ export const URL = {
   MODEOFAMOUNTEDIT: "amount/editamount",
   MODEOFAMOUNTDELETE: "amount/deleteamount",
   EDITSTAFF: "/telecallers/edittelecallers/",
-  VIEWSTAFF: "telecallers/gettelecallers",
+  // VIEWSTAFF: "telecallers/gettelecallers",
   PARTICULARVIEWSTAFF: "telecallers/telecallers/",
+  ADDLEEDS:"lead/addleadmanage",
+  VIEWLEED:"lead/getlead",
+  LEAD_EDIT: "lead/editlead",
+  // DELETELEED:"lead/delete",
+  ADDCOURSE:"course/addcourse",
+  VIEWCOURSE:"course/getcourse",
+  EDITCOURSE:"course/editcourse",
+  DELETECOURSE:"course/deletecourse",
+
+  // ADDSTAFF:"telecallers/addtelecaller",
+  // VIEWSTAFF:"telecallers/gettelecallers",
+  
 };
 
 

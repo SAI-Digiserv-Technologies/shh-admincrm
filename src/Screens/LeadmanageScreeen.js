@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StaffList from "../Components/StaffManage/StaffList";
 import LeadList from "../Components/LeadManage/LeadeList";
-import { useLazyGetUserQuery } from "../Data/Api/api";
+import { useLazyViewUserQuery } from "../Data/Api/api";
 
 const Leadmanage = () => {
   const navigate = useNavigate();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [leadlists, setLeadlists] = useState([])
-  const [leadviewapi] = useLazyGetUserQuery();
+  const [leadviewapi] = useLazyViewUserQuery();
   const handleOptionClick = (field, value) => {
     navigate("/leadmanagedetail", { state: { type: "add", field, value } });
     setOpenDropdown(null);

@@ -4,6 +4,7 @@ import LeadCourseList from "../Components/SetupManage/LeadCourseList";
 import {
   useCourseaddMutation,
   useCourseUserMutation,
+  useDeleteuserMutation,
   useLazyViewUserQuery,
 } from "../Data/Api/api";
 import { toast } from "react-toastify";
@@ -21,6 +22,7 @@ const LeadCourseScreen = () => {
   const [courseadd] = useCourseaddMutation();
   const [courseupdate] = useCourseUserMutation();
   const [courseview] = useLazyViewUserQuery();
+  const[Coursedelete]=useDeleteuserMutation();
 
   const handleClose = () => {
     setShow(false);
@@ -81,6 +83,23 @@ const LeadCourseScreen = () => {
         });
     }
   };
+
+const handledelete=(item)=>{
+  const id = item?._id
+
+  console.log("kkaksdfk", id);
+  
+  Coursedelete(id)
+  .unwrap()
+  .then((res)=>{
+    console.log("course deleted", res); 
+    handleview();
+  }).catch((err)=>{
+    console.log("course not deleted", err);
+    
+  })
+
+}
 
   const handleview = () => {
     courseview()
@@ -170,7 +189,7 @@ const LeadCourseScreen = () => {
             + New Course
           </Button>
         </div>
-        <LeadCourseList data={leadcourse} handleShow={handleShow} />
+        <LeadCourseList data={leadcourse} handleShow={handleShow} handledelete={handledelete} />
       </div>
     </div>
   );

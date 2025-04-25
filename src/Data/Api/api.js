@@ -13,7 +13,6 @@ export const api = createApi({
       return headers;
     },
   }),
-
   refetchOnMountOrArgChange: true,
   tagTypes: [],
   endpoints: (builder) => ({
@@ -154,8 +153,30 @@ export const api = createApi({
       })
     }),
 
+    particularviewStaff: builder.query({
+      query: (id) => ({
+        url: `${URL.PARTICULARVIEWSTAFF}/${id}`,
+        method: "GET",
+      }),
+    }),
+    editStaff: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `${URL.EDITSTAFF}/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
+
+    // 🔹 Lead APIs
+    Leadadd: builder.mutation({
+      query: (payload) => ({
+        url: URL.ADDLEEDS,
+        method: "POST",
+        body: payload,
+      }),
+    }),
     leadedit: builder.mutation({
-      query: ({ payload, id }) => ({
+      query: ({ id, payload }) => ({
         url: `${URL.LEAD_EDIT}/${id}`,
         method: "PUT",
         body: payload,
@@ -177,6 +198,7 @@ export const api = createApi({
         method: "POST",
         body: payload,
       })
+
     }),
     viewUser: builder.query({
       query: () => ({
@@ -228,36 +250,56 @@ export const api = createApi({
       }),
     }),
 
-
-
-
+    courseUser: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `${URL.EDITCOURSE}/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
+    deleteuser: builder.mutation({
+      query: (id) => ({
+        url: `${URL.DELETECOURSE}/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
-});
+})
 
+
+
+// ✅ Hooks Export
 export const {
+  useAddStaffMutation,
+  useLazyViewStaffQuery,
+  useLazyParticularviewStaffQuery,
+  useEditStaffMutation,
+  useLeadaddMutation,
+  useLeadeditMutation,
+  useCourseaddMutation,
+  useLazyViewUserQuery,
+  useCourseUserMutation,
+  useDeleteuserMutation,
   useLoginMutation,
   useRolesMutation,
   useLazyViewrolesQuery,
   useEditrolesMutation,
-  useAddStaffMutation,
-  useLazyViewStaffQuery,
+
   useSourceaddMutation,
   useLazySourcegetQuery,
   useLazyGetUserQuery,
-  useLeadaddMutation,
+
   useSourceeditMutation,
   useDeleterolesMutation,
   useSourcedeleteMutation,
   usePaymentsdetailMutation,
   useLazyPaymentProofQuery,
   useLazyModeofamountQuery,
-  useCourseaddMutation,
-  useLazyViewUserQuery,
-  useCourseUserMutation,
-  useLeadeditMutation,
+
+
   useTransactionpostMutation,
   useAmounteditMutation,
   usePaymentDeleteMutation,
-  useLazyParticularviewStaffQuery,
-  useEditStaffMutation
+
+
 } = api;
