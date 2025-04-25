@@ -1189,3 +1189,13 @@ legend {
     }
   }
 }
+
+.img_cont {
+  height: 259px;
+  width: 350px;
+  img {
+    height: 100%;
+    width: 70%;
+    object-fit: contain;
+  }
+}

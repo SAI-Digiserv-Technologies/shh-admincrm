@@ -45,7 +45,7 @@ import PageNotFoundScreen from "./Screens/PageNotFoundScreen";
 
 const ReactRoute = () => {
   const { user, setUser } = useUser()
-  console.log("ndsmmds", user);
+  // console.log("ndsmmds", user);
 
   return (
     <Routes>

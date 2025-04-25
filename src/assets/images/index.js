@@ -9,6 +9,8 @@ export const check = require("./check.png");
 export const loginbg = require("./loginbg.png");
 export const shh_logo = require("./shh_logo.png");
 export const round_logo = require("./round_logo.png");
+export const emty_comp = require("./emty_comp.png");
+
 
 // reset password
 export const resetgirl = require("./resetgirl.png");

@@ -90,28 +90,28 @@ const LeadList = ({ data }) => {
                   <td className="text-center border-0 py-2 px-2">{user.lead_id}</td>
                   <td className="text-center border-0 py-2 px-2">{user.name}</td>
                   <td className="text-center border-0 py-2 px-2">{user.phonenumber}</td>
-                  <td className="text-center border-0 py-2 px-2">{user.interested_course}</td>
-                  <td className="text-center border-0 py-2 px-2">{user.assignedto}</td>
-                  <td className="text-center border-0 py-2 px-2">{user.City}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.interested_course?.addcourse}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.assignedto || "-"}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.city?.name}</td>
                   <td className="text-center border-0 py-2 px-2">
                     {user.status === "Not Interested" ? (
-                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#FF1818] f4 rounded-3 border-0 px-3 py-2 textani">
+                      <button className="refil-text w-100 mb-0 white d-flex ac-jc bg-[#FF1818] f4 rounded-3 border-0 px-3 py-2 textani">
                         Not Interested
                       </button>
                     ) : user.status === "Follow Up" ? (
-                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#FDCA73] f4 rounded-3 border-0 px-3 py-2 textani ">
+                      <button className="refil-text w-100 mb-0 white d-flex ac-jc bg-[#FDCA73] f4 rounded-3 border-0 px-3 py-2 textani ">
                         Follow Up
                       </button>
                     ) : user.status === "Close Follow Up" ? (
-                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#9AC2EA] f4 rounded-3 border-0 px-3 py-2 textani">
+                      <button className="refil-text w-100 mb-0 white d-flex ac-jc bg-[#9AC2EA] f4 rounded-3 border-0 px-3 py-2 textani">
                         Close Follow Up
                       </button>
                     ) : user.status === "Enrolment" ? (
-                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#2AFF00] f4 rounded-3 border-0 px-3 py-2 textani">
+                      <button className="refil-text w-100 mb-0 white d-flex ac-jc bg-[#2AFF00] f4 rounded-3 border-0 px-3 py-2 textani">
                         Enrolment
                       </button>
                     ) : (
-                      <button className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 px-3 py-2 textani">
+                      <button className="refil-text w-100 mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 px-3 py-2 textani">
                         {user.status}
                       </button>
                     )}

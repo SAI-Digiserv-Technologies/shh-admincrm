@@ -1,7 +1,9 @@
 import React from "react";
 import { springicon } from "../../assets/images";
 
-const LeadReport = () => {
+const LeadReport = ({ dashLeadData }) => {
+  console.log('dashLeadData', dashLeadData);
+
   return (
     <div className="leed-report bg-transparent">
       <div className="springcont-top ">
@@ -25,20 +27,20 @@ const LeadReport = () => {
               </p>
               <div>
                 <p className="f8 merun fs-xxl-40 fs-xl-17 fs-lg-15 fs-sm-14 fs-xs-13 textani mb-0 text-end">
-                  25
+                  {dashLeadData?.Tdypending}
                 </p>
               </div>
             </div>
             <div className="min-box2 w-100 rounded-3 p-3">
               <p className="f6 primary3 fs-xxl-17 fs-xl-17 fs-lg-15 fs-sm-14 fs-xs-13 textani mb-0">
-                Pending
+                Enrolled
               </p>
               <p className="f6 primary3 fs-xxl-17 fs-xl-17 fs-lg-15 fs-sm-14 fs-xs-13 textani mb-0">
                 Leads
               </p>
               <div>
                 <p className="f8 primary3 fs-xxl-40 fs-xl-17 fs-lg-15 fs-sm-14 fs-xs-13 textani mb-0 text-end">
-                  25
+                  {dashLeadData?.Tdyconverted}
                 </p>
               </div>
             </div>
@@ -52,7 +54,7 @@ const LeadReport = () => {
             </p>
             <div>
               <p className="f8 dark_green fs-xxl-40 fs-xl-17 fs-lg-15 fs-sm-14 fs-xs-13 textani mb-0 text-end">
-                100
+              {dashLeadData?.updatesLeads}
               </p>
             </div>
           </div>
