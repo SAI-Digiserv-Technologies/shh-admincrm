@@ -2,6 +2,7 @@ import React from 'react'
 import PaymentReceipt from '../Components/PaymentManage/PaymentReceipt'
 
 const PaymentDetails = () => {
+
   return (
     <div className="lead-head">
     <div className="lead-h d-flex ac-jb">

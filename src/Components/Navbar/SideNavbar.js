@@ -44,7 +44,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
               </li>
               <div
                 onClick={() => {
-                  navigate("/telecallers/profile");
+                  navigate("/adminprofile");
                 }}
                 className={`${
                   menuactive ? "rounded-2" : "rounded-5 mx-md-3 mx-2 py-1 px-2"

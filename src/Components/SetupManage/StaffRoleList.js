@@ -5,10 +5,11 @@ import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutl
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { DeleteForeverOutlined } from "@mui/icons-material";
 
-const StaffRoleList = () => {
+const StaffRoleList = ({ data, handleShow, handleDelete }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState({}); 
+  const [selectedStatus, setSelectedStatus] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+
   const leadsPerPage = 5;
 
   useEffect(() => {
@@ -23,6 +24,8 @@ const StaffRoleList = () => {
     };
   }, []);
 
+
+
   const handleDropdownClick = (leadId) => {
     setOpenDropdown(openDropdown === leadId ? null : leadId);
   };
@@ -30,22 +33,24 @@ const StaffRoleList = () => {
   const handleStatusChange = (leadId, status) => {
     setSelectedStatus((prevStatuses) => ({
       ...prevStatuses,
-      [leadId]: status, // ✅ FIXED: Update status for specific lead
+      [leadId]: status,
     }));
     setOpenDropdown(null);
   };
 
+ 
+
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = staffrolelist.slice(indexOfFirstLead, indexOfLastLead);
-  const totalPages = Math.ceil(staffrolelist.length / leadsPerPage);
+  const currentLeads = data.slice(indexOfFirstLead, indexOfLastLead);
+  const totalPages = Math.ceil(data.length / leadsPerPage);
 
   return (
     <>
       {openDropdown !== null && (
         <button onClick={() => handleDropdownClick(null)} className="droppopp border-0" />
       )}
-      
+
       <div className="table-container rounded-3 mt-2">
         <table className="responsive-table rounded-3">
           <thead>
@@ -56,22 +61,25 @@ const StaffRoleList = () => {
             </tr>
           </thead>
           <tbody>
-            {currentLeads.map((lead) => (
-              <tr key={lead.id} style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.id}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.rolename}</td>
-               
-               
-
+            {currentLeads.map((lead, index) => (
+              <tr key={index} style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}>
+                <td className="text-center border-0 py-2 px-2 primary3 f5">{indexOfFirstLead + index + 1}</td>
+                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.addroles}</td>
                 {/* ACTION BUTTONS */}
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex ac-jc gap-3">
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button onClick={() => {
+                      handleShow(lead)
+                    }} className="border-0 bg-primary3 white rounded-2 action-box">
                       <ModeEditOutlinedIcon className="fs-xxl-20" />
                     </button>
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button
+                      onClick={() => handleDelete(lead)}
+                      className="border-0 bg-primary3 white rounded-2 action-box"
+                    >
                       <DeleteForeverOutlined className="fs-xxl-20" />
                     </button>
+
                   </div>
                 </td>
               </tr>
@@ -80,8 +88,7 @@ const StaffRoleList = () => {
         </table>
       </div>
 
-      {/* PAGINATION */}
-      <div className="pagination d-flex justify-content-center mt-3">
+      {leadsPerPage < data.length && <div className="pagination d-flex justify-content-center mt-3">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
@@ -99,7 +106,7 @@ const StaffRoleList = () => {
         >
           <ArrowForwardIosOutlinedIcon />
         </button>
-      </div>
+      </div>}
     </>
   );
 };

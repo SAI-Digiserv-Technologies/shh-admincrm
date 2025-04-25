@@ -989,18 +989,19 @@ $bg-color: #f4f4f4;
 }
 
 // End
+.cust-sendbtn {
+  height: 100px;
+  .btn-sub {
+    height: 40px;
+    width: 180px;
+  }
+}
 
 // Detail start
 .detaile-cont {
   .det-layer {
     .not-cont {
-      .cust-sendbtn {
-        height: 100px;
-        .btn-sub {
-          height: 40px;
-          width: 180px;
-        }
-      }
+     
       .text-cont {
         // border: 10px solid $light_blue;
         // box-shadow: 0 0 5px $light_blue;
@@ -1019,6 +1020,24 @@ $bg-color: #f4f4f4;
             inset -5px 5px 4px -3px $light_blue;
           .listlayer {
             -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            position: relative;
+            .btn-contss {
+              position: absolute;
+              top: -10px;
+              right: -5px;
+              button {
+                height: 25px;
+                width: 25px;
+                &.del {
+                  background: $red;
+                  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+                }
+                &.edit {
+                  background: $primary;
+                  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+                }
+              }
+            }
           }
         }
         .text-areacont {
@@ -1058,11 +1077,31 @@ $bg-color: #f4f4f4;
     }
   }
 }
+ 
+fieldset {
+  border: 1px solid $light_blue !important;
+  position: relative;
+  // height: 330px;
+  input {
+    height: 43px;
+    border: solid 2px $light_blue;
+    box-shadow: 0 0 5px $light_blue;
+    background: $white;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+legend {
+  float: none !important;
+  width: auto !important;
+}
+ 
 
 fieldset {
   border: 1px solid $light_blue !important;
   position: relative;
-  height: 330px;
+  // height: 330px;
   input {
     height: 43px;
     border: solid 2px $light_blue;

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { check, no_view, shh_logo, view } from "../assets/images";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../Data/Api/api";
+import { toast } from "react-toastify";
+import useUser from "../Data/Local/userDetail";
+
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -8,10 +12,14 @@ const LoginScreen = () => {
     email: "",
     password: "",
   });
+  const {user, setUser} = useUser()
+  console.log("ndsmmds", user);
+  
 
   const [errors, setErrors] = useState({});
   const [passwordshow, setPasswordShow] = useState(false);
-
+  const [LoginApi] = useLoginMutation();
+  // const [LoginApi]  = use
   const fealdOnChange = (field, value) => {
     console.log("field, value", field, value);
     setFormFeald((state) => ({
@@ -51,9 +59,7 @@ const LoginScreen = () => {
       default:
         break;
     }
-
     console.log("errorMsg", errorMsg);
-
     setErrors((prevErrors) => ({
       ...prevErrors,
       [field]: errorMsg,
@@ -61,15 +67,31 @@ const LoginScreen = () => {
 
     return !errorMsg;
   };
-
   const submitHandler = () => {
     const isValid = Object.keys(formFeald).every((field) =>
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      navigate("/telecallers/dashboard");
+      const payload = {
+        email: formFeald?.email,
+        password: formFeald?.password
+      }
+      LoginApi(payload)
+        .unwrap()
+        .then((res) => {
+          console.log("login successfully", res);
+          toast.success(res?.message);
+          setUser(res)
+          window.location.reload()
+        }).catch((err) => {
+          console.log("Login error", err);
+  
+        })
+    };
+      navigate("/admindashboard");
     }
-  };
+   
+
   return (
     <div className="login-cont">
       <div className="form-layer w-md-40 w-90 rounded-5 flex-column d-flex ac-jc">

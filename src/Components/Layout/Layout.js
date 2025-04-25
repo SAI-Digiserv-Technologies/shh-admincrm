@@ -3,20 +3,39 @@ import { Outlet, useNavigate } from "react-router-dom";
 import SideNavbar from "../Navbar/SideNavbar";
 import TopHeader from "./TopHeader";
 import { topsetting } from "../../assets/images";
-
+import Logoutpoppup from "../Logoutpopup/Logoutpopup";
+import PageLoad from "../Loading/PageLoad";
+ 
 const Layout = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [menuactive, setMenuActive] = useState(true);
   const [load, setLoad] = useState(false);
-
-  // const [logoutpop, setLogoutPop] = useState(false);
-
+ 
+  const [logoutpop, setLogoutPop] = useState(false);
+ 
   const toggleFun = () => {
     setMenuActive(!menuactive);
   };
-
+ 
+ 
+  const poppupHandle = (type) => {
+    console.log("PageLoad", type);
+    if (type == "yes") {
+      setLoad(true);
+      setTimeout(() => {
+        setLoad(false);
+        setLogoutPop(false);
+        navigate("/");
+      }, 1500);
+    } else if (type == "no") {
+      setLogoutPop(false);
+    } else if (type == "clike") {
+      setLogoutPop(true);
+    }
+  };
+ 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -27,22 +46,21 @@ const Layout = () => {
       }
       setLastScrollY(currentScrollY);
     };
-
+ 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
   return (
     <div className="layer">
       <div className="containersss">
-        {/* {logoutpop && (
-            <Poppup
-              type="logout"
-              cont=" Are you sure you want to Logout ?"
-              poppupHandle={poppupHandle}
-            />
-          )} */}
-        {/* {load && <PageLoad />} */}
-
+        {logoutpop &&
+          <Logoutpoppup
+            type="logout"
+            cont=" Are you sure you want to Logout ?"
+            poppupHandle={poppupHandle}
+          />}
+        {load && <PageLoad/>}
+ 
         <SideNavbar
           setMenuActive={setMenuActive}
           toggleFun={toggleFun}
@@ -63,5 +81,7 @@ const Layout = () => {
     </div>
   );
 };
-
+ 
 export default Layout;
+ 
+ 

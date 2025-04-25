@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { LeadList as usersList } from "../../Data/DummyJson"; // Renamed import to match usage
+import { useNavigate } from "react-router-dom";
 
-const LeadList = () => {
+const LeadList = ({ data }) => {
+  const navigate = useNavigate()
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedRole, setSelectedRole] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,15 +44,15 @@ const LeadList = () => {
   };
 
   const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= Math.ceil(usersList.length / usersPerPage)) {
+    if (newPage >= 1 && newPage <= Math.ceil(data.length / usersPerPage)) {
       setCurrentPage(newPage);
     }
   };
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = usersList.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(usersList.length / usersPerPage);
+  const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(data.length / usersPerPage);
 
   return (
     <>
@@ -76,38 +78,41 @@ const LeadList = () => {
               return (
                 <tr
                   key={user.id}
+                  onClick={() => {
+                    navigate('/leadmanagedetail', { state: { type: "edit", data: user } })
+                  }}
                   className="hover-row"
                   style={{
                     backgroundColor: openDropdown === user.id ? "#0b146b59" : "#ffffff59",
                   }}
                 >
                   <td className="text-center border-0 py-4 px-3">{indexOfFirstUser + index + 1}</td>
-                  <td className="text-center border-0 py-2 px-2">{user.LeadID}</td>
-                  <td className="text-center border-0 py-2 px-2">{user.Studentname}</td>
-                  <td className="text-center border-0 py-2 px-2">{user.phone}</td>
-                  <td className="text-center border-0 py-2 px-2">{user.Course}</td>
-                  <td className="text-center border-0 py-2 px-2">{user.AssignedTo}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.lead_id}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.name}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.phonenumber}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.interested_course}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.assignedto}</td>
                   <td className="text-center border-0 py-2 px-2">{user.City}</td>
                   <td className="text-center border-0 py-2 px-2">
-                    {user.Status === "Not Interested" ? (
+                    {user.status === "Not Interested" ? (
                       <button className="refil-text mb-0 white d-flex ac-jc bg-[#FF1818] f4 rounded-3 border-0 px-3 py-2 textani">
                         Not Interested
                       </button>
-                    ) : user.Status === "Follow Up" ? (
+                    ) : user.status === "Follow Up" ? (
                       <button className="refil-text mb-0 white d-flex ac-jc bg-[#FDCA73] f4 rounded-3 border-0 px-3 py-2 textani ">
                         Follow Up
                       </button>
-                    ) : user.Status === "Close Follow Up" ? (
+                    ) : user.status === "Close Follow Up" ? (
                       <button className="refil-text mb-0 white d-flex ac-jc bg-[#9AC2EA] f4 rounded-3 border-0 px-3 py-2 textani">
                         Close Follow Up
                       </button>
-                    ) : user.Status === "Enrolment" ? (
+                    ) : user.status === "Enrolment" ? (
                       <button className="refil-text mb-0 white d-flex ac-jc bg-[#2AFF00] f4 rounded-3 border-0 px-3 py-2 textani">
                         Enrolment
                       </button>
                     ) : (
                       <button className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 px-3 py-2 textani">
-                        {user.Status}
+                        {user.status}
                       </button>
                     )}
                   </td>
