@@ -77,86 +77,109 @@ export const SideNavList = [
     navi: "/admindashboard",
     active_icon: dash_blue,
     inactive_icon: dash_white,
+    sub: [
+      {
+        list: "/",
+      },
+    ],
   },
   {
     id: 2,
-    name: "Leads",
-    navi: "/leadmanage",
-    active_icon: leads_blue,
-    inactive_icon: leads_white,
-  },
-  {
-    id: 3,
-    name: "Follow-ups",
-    navi: "/followup",
-    active_icon: followup_blue,
-    inactive_icon: followup_white
-  },
-  {
-    id: 4,
-    name: "Close Follow-ups",
-    navi: "/closefollowup",
-    active_icon: closefollowup_blue,
-    inactive_icon: closefollowup_white
-  },
-  {
-    id: 5,
     name: "Staffs",
     navi: "/staff",
     active_icon: follow_blue,
     inactive_icon: follow_white,
-  },
-  {
-    id: 6,
-    name: "Finance",
-    navi: "/",
-    active_icon: payment_blue,
-    inactive_icon: payment_white,
     sub: [
-      { name: "Payment", list: "/payment" },
-      { name: "Invoice", list: "/invoice" },
-      { name: "Payment Proof", list: "/paymentproof" }
-    ]
+      {
+        list: "/staffform/detail",
+      },
+      {
+        list: "/staffform/add",
+      },
+      {
+        list: "/staf-report",
+      },
+    ],
   },
   {
-    id: 7,
-    name: "Reports",
-    navi: "/",
-    active_icon: perfomance_blue,
-    inactive_icon: perfomance_white,
-    sub: [
-      { name: "All Leads", list: "/report" }
-    ]
-  },
-  {
-    id: 8,
-    name: "Setup",
-    navi: "/",
-    active_icon: setup_blue,
-    inactive_icon: setup_white,
-    sub: [
-      { name: "Lead", list: "/" },
-      { name: "Staff", list: "/staff" },
-      { name: "Role", list: "/role" }
-    ]
-  },
-  {
-    id: 9,
-    name: "Reminder",
-    navi: "/reminder",
-    active_icon: notification_blue,
-    inactive_icon: notification_white,
-  },
-  {
-    id: 10,
+    id: 3,
     name: "Enquiries",
     navi: "/enquiries",
     active_icon: enquiries_blue,
     inactive_icon: enquiries_white,
   },
+  {
+    id: 4,
+    name: "Leads",
+    navi: "/leadmanage",
+    active_icon: leads_blue,
+    inactive_icon: leads_white,
+  },
+  // {
+  //   id: 3,
+  //   name: "Follow-ups",
+  //   navi: "/followup",
+  //   active_icon: followup_blue,
+  //   inactive_icon: followup_white,
+  // },
+  // {
+  //   id: 4,
+  //   name: "Close Follow-ups",
+  //   navi: "/closefollowup",
+  //   active_icon: closefollowup_blue,
+  //   inactive_icon: closefollowup_white,
+  // },
+
+  {
+    id: 5,
+    name: "Payments",
+    navi: "/payment-updates",
+    active_icon: payment_blue,
+    inactive_icon: payment_white,
+    sub: [
+      { list: "/payment-updates" },
+      { list: "/payment-updates/payment-list" },
+      { list: "/payment-updates/payment-list/payment-detalis" },
+    ],
+  },
+  {
+    id: 6,
+    name: "Payment Proofs",
+    navi: "/paymentproof",
+    active_icon: perfomance_blue,
+    inactive_icon: perfomance_white,
+    sub: [{ list: "/payment/detail" }],
+  },
+
+  // {
+  //   id: 7,
+  //   name: "Reports",
+  //   navi: "/",
+  //   active_icon: perfomance_blue,
+  //   inactive_icon: perfomance_white,
+  //   sub: [{ name: "All Leads", list: "/report" }],
+  // },
+
+  // {
+  //   id: 8,
+  //   name: "Setup",
+  //   navi: "/",
+  //   active_icon: setup_blue,
+  //   inactive_icon: setup_white,
+  //   sub: [
+  //     { name: "Lead", list: "/" },
+  //     { name: "Staff", list: "/staff" },
+  //     { name: "Role", list: "/role" },
+  //   ],
+  // },
+  // {
+  //   id: 9,
+  //   name: "Reminder",
+  //   navi: "/reminder",
+  //   active_icon: notification_blue,
+  //   inactive_icon: notification_white,
+  // },
 ];
-
-
 
 export const leadsList = [
   {
@@ -427,7 +450,6 @@ export const enquiryleadList = [
   },
 ];
 
-
 export const leadstatus = [
   {
     id: 1,
@@ -483,75 +505,133 @@ export const PaymentUpdatesListStatus = [
 ];
 
 export const PaymentUpdateList = [
-  { id: 1, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Partially paid" },
-  { id: 2, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Fully paid" },
-  { id: 3, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Partially paid" },
+  {
+    id: 1,
+    name: "John Doe",
+    course: "React Basics",
+    amount: "25000",
+    PaidAmount: "10000",
+    BalanceAmount: "15000",
+    Status: "Partially paid",
+  },
+  {
+    id: 2,
+    name: "John Doe",
+    course: "React Basics",
+    amount: "25000",
+    PaidAmount: "10000",
+    BalanceAmount: "15000",
+    Status: "Fully paid",
+  },
+  {
+    id: 3,
+    name: "John Doe",
+    course: "React Basics",
+    amount: "25000",
+    PaidAmount: "10000",
+    BalanceAmount: "15000",
+    Status: "Partially paid",
+  },
 
-
-  { id: 4, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Fully paid" },
-  { id: 5, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Partially paid" },
-  { id: 6, name: "John Doe", course: "React Basics", amount: "25000", PaidAmount: "10000", BalanceAmount: "15000", Status: "Fully paid" },
-
-
-
+  {
+    id: 4,
+    name: "John Doe",
+    course: "React Basics",
+    amount: "25000",
+    PaidAmount: "10000",
+    BalanceAmount: "15000",
+    Status: "Fully paid",
+  },
+  {
+    id: 5,
+    name: "John Doe",
+    course: "React Basics",
+    amount: "25000",
+    PaidAmount: "10000",
+    BalanceAmount: "15000",
+    Status: "Partially paid",
+  },
+  {
+    id: 6,
+    name: "John Doe",
+    course: "React Basics",
+    amount: "25000",
+    PaidAmount: "10000",
+    BalanceAmount: "15000",
+    Status: "Fully paid",
+  },
 ];
 
 export const paymentList = [
   {
     id: 1,
     name: "John Doe",
-    paymentNumber: "SGCPIN0001",
-    date: "22/05/2025",
-    amount: "10,000",
-    ModeOfPayment: "Bank"
+    course: "Full Stack Development",
+    amount: 10000,
+    paidAmount: 5000,
+    balanceAmount: 5000,
+    status: "Partially Paid",
   },
   {
     id: 2,
-    name: "John Doe",
-    paymentNumber: "SGCPIN0002",
-    date: "22/05/2025",
-    amount: "10,000",
-    ModeOfPayment: "UPI"
+    name: "Jane Smith",
+    course: "Data Science",
+    amount: 15000,
+    paidAmount: 15000,
+    balanceAmount: 0,
+    status: "Paid",
   },
   {
     id: 3,
-    name: "John Doe",
-    paymentNumber: "SGCPIN0003",
-    date: "22/05/2025",
-    amount: "10,000",
-    ModeOfPayment: "Net Banking"
+    name: "Michael Johnson",
+    course: "UI/UX Design",
+    amount: 12000,
+    paidAmount: 4000,
+    balanceAmount: 8000,
+    status: "Pending",
   },
   {
     id: 4,
-    name: "John Doe",
-    paymentNumber: "SGCPIN0004",
-    date: "22/05/2025",
-    amount: "10,000",
-    ModeOfPayment: "Caritd Card"
+    name: "Emily Brown",
+    course: "Cyber Security",
+    amount: 20000,
+    paidAmount: 20000,
+    balanceAmount: 0,
+    status: "Paid",
   },
   {
     id: 5,
-    name: "John Doe",
-    paymentNumber: "SGCPIN0005",
-    date: "22/05/2025",
-    amount: "10,000",
-    ModeOfPayment: "UPI"
+    name: "William Davis",
+    course: "Machine Learning",
+    amount: 18000,
+    paidAmount: 8000,
+    balanceAmount: 10000,
+    status: "Partially Paid",
   },
   {
     id: 6,
-    name: "John Doe",
-    paymentNumber: "SGCPIN0006",
-    date: "22/05/2025",
-    amount: "10,000",
-    ModeOfPayment: "UPI"
+    name: "Olivia Wilson",
+    course: "Cloud Computing",
+    amount: 22000,
+    paidAmount: 12000,
+    balanceAmount: 10000,
+    status: "Pending",
   },
 ];
 
-
-
 export const courselist = [
-  { id: "001", coursename: "Digital Marketing", amount: "25,000", duration: '3 months' },
-  { id: "002", coursename: "Fullstact", amount: "25,000", duration: '3 months' },
+  {
+    id: "001",
+    coursename: "Digital Marketing",
+    amount: "25,000",
+    duration: "3 months",
+  },
+  {
+    id: "002",
+    coursename: "Fullstact",
+    amount: "25,000",
+    duration: "3 months",
+  },
 ];
 
 export const leadsListss = [
@@ -617,7 +697,7 @@ export const LeadList = [
     Course: "Digital Marketting",
     AssignedTo: "Sankari",
     City: "Chennai",
-    Status: "Not Interested"
+    Status: "Not Interested",
   },
   {
     id: 2,
@@ -627,7 +707,7 @@ export const LeadList = [
     Course: "Digital Marketting",
     AssignedTo: "Sankari",
     City: "Chennai",
-    Status: "Follow Up"
+    Status: "Follow Up",
   },
   {
     id: 3,
@@ -637,7 +717,7 @@ export const LeadList = [
     Course: "Digital Marketting",
     AssignedTo: "Sankari",
     City: "Chennai",
-    Status: "Close Follow Up"
+    Status: "Close Follow Up",
   },
   {
     id: 4,
@@ -647,7 +727,7 @@ export const LeadList = [
     Course: "Digital Marketting",
     AssignedTo: "Sankari",
     City: "Chennai",
-    Status: "Enrollment"
+    Status: "Enrollment",
   },
 ];
 export const staffstatus = [
@@ -674,24 +754,18 @@ export const staffstatus = [
       },
     ],
   },
-  
 ];
 
 export const sourcelist = [
-
   { id: "001", sourcename: "Facebook" },
   { id: "002", sourcename: "Youtube" },
   { id: "003", sourcename: "Website" },
   { id: "003", sourcename: "Instagram" },
 ];
 export const staffrolelist = [
-
   { id: "001", rolename: "Tele-counselor" },
   { id: "002", rolename: "Telecaller" },
-
-
 ];
-
 
 export const leadsformtatus = [
   {
@@ -759,41 +833,6 @@ export const leadaddform = [
     type: "dropdown",
     lable: "Source",
     placeholder: "Source",
-    list: [
-      // {
-      //   id: 1,
-      //   name: "Select Source",
-      //   dissable: true,
-      // },
-      {
-        id: 1,
-        name: "Website",
-      },
-      {
-        id: 2,
-        name: "Instagram",
-      },
-      {
-        id: 3,
-        name: "Facebook",
-      },
-      {
-        id: 4,
-        name: "LinkedIn",
-      },
-      {
-        id: 5,
-        name: "YouTube",
-      },
-      {
-        id: 6,
-        name: "Reference",
-      },
-      {
-        id: 7,
-        name: "Advertisement",
-      },
-    ],
   },
   {
     id: 5,
@@ -848,7 +887,7 @@ export const leadaddform = [
   {
     id: 12,
     formFeald: "assignto",
-    type: "text",
+    type: "dropdown",
     lable: "Assigned To",
     placeholder: "Assigned To",
   },
@@ -857,32 +896,83 @@ export const transactionidlist = [
   {
     id: 1,
     Transaction: "UPI",
-
   },
   {
     id: 2,
     Transaction: "Net Banking",
-
   },
   {
     id: 3,
     Transaction: "Bank To Bank",
-
   },
   {
     id: 4,
     Transaction: "C/D Card",
-
   },
-
-
 ];
 
+export const profileFieald = [
+  {
+    id: 1,
+    formFeald: "name",
+    type: "text",
+    lable: "Student Name",
+    placeholder: "Name",
+  },
+  {
+    id: 2,
+    formFeald: "email",
+    type: "text",
+    lable: "E-mail Address",
+    placeholder: "E-mail Address",
+  },
+  {
+    id: 3,
+    formFeald: "phoneno",
+    type: "text",
+    lable: "Phone Number",
+    placeholder: "Phone Number",
+  },
+  {
+    id: 4,
+    formFeald: "role",
+    type: "select",
+    lable: "Role",
+    placeholder: "Role",
+  },
+];
 
-
-
-
-
-
-
-
+export const leadliststatus = [
+  {
+    id: 1,
+    name: "Not interested",
+  },
+  {
+    id: 2,
+    name: "Not responsing",
+  },
+  {
+    id: 3,
+    name: "Not reachable",
+  },
+  {
+    id: 4,
+    name: "Switched Off",
+  },
+  {
+    id: 5,
+    name: "Close Follow Ups",
+  },
+  {
+    id: 6,
+    name: "Discontinue",
+  },
+  {
+    id: 7,
+    name: "Interested",
+  },
+  {
+    id: 8,
+    name: "Enquiry",
+  },
+];

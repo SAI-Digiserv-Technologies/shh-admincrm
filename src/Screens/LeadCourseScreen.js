@@ -6,8 +6,11 @@ import {
   useCourseUserMutation,
   useDeleteuserMutation,
   useLazyViewUserQuery,
+  useTransactionpostMutation,
 } from "../Data/Api/api";
 import { toast } from "react-toastify";
+import EmptyComp from "../Components/Empty/EmptyComp";
+import PageLoad from "../Components/Loading/PageLoad";
 
 const LeadCourseScreen = () => {
   const [show, setShow] = useState(false);
@@ -17,12 +20,12 @@ const LeadCourseScreen = () => {
   const [coursedata, setCourseData] = useState(null);
   const [leadcourse, setLeadcourse] = useState([]);
   const [editmode, setEditMode] = useState(false);
-
+  const [loading, setLoading] = useState(true);
 
   const [courseadd] = useCourseaddMutation();
   const [courseupdate] = useCourseUserMutation();
   const [courseview] = useLazyViewUserQuery();
-  const[Coursedelete]=useDeleteuserMutation();
+  const [Coursedelete] = useDeleteuserMutation();
 
   const handleClose = () => {
     setShow(false);
@@ -50,6 +53,7 @@ const LeadCourseScreen = () => {
   };
 
   const handleSave = () => {
+    setLoading(true);
     const payload = {
       addcourse: courseName,
       amount,
@@ -62,54 +66,66 @@ const LeadCourseScreen = () => {
         .unwrap()
         .then((res) => {
           toast.success(res?.message);
-          handleClose();
           handleview();
+          handleClose();
         })
         .catch((err) => {
           console.error("Update error:", err);
           toast.error(err?.data?.error || "Failed to update course");
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } else {
       courseadd(payload)
         .unwrap()
         .then((res) => {
           toast.success(res?.message);
-          handleClose();
           handleview();
+          handleClose();
         })
         .catch((err) => {
           console.error("Add error:", err);
           toast.error(err?.data?.error || "Failed to add course");
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   };
 
-const handledelete=(item)=>{
-  const id = item?._id
-
-  console.log("kkaksdfk", id);
-  
-  Coursedelete(id)
-  .unwrap()
-  .then((res)=>{
-    console.log("course deleted", res); 
-    handleview();
-  }).catch((err)=>{
-    console.log("course not deleted", err);
-    
-  })
-
-}
+  const handledelete = (item) => {
+    setLoading(true);
+    const id = item?._id;
+    console.log("kkaksdfk", id);
+    Coursedelete(id)
+      .unwrap()
+      .then((res) => {
+        console.log("course deleted", res);
+        handleview();
+      })
+      .catch((err) => {
+        console.log("course not deleted", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const handleview = () => {
+    setLoading(true);
     courseview()
       .unwrap()
       .then((res) => {
+        console.log("courssres", res);
         setLeadcourse(res?.data);
       })
       .catch((err) => {
         console.error("Fetch error:", err);
         toast.error("Failed to load courses");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -119,6 +135,7 @@ const handledelete=(item)=>{
 
   return (
     <div>
+      {loading && <PageLoad />}
       {/* Modal */}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton />
@@ -174,22 +191,31 @@ const handledelete=(item)=>{
 
       {/* Course Header and List */}
       <div>
-        <div
-          className="d-flex w-100 lead-h ac-jb"
-          style={{ alignItems: "flex-end" }}
-        >
-          <p className="mb-0 f7 primary3 textani">Course</p>
+        <div className="d-flex w-100 lead-h ac-je mb-1 ">
           <Button
             className="refil-text mb-0 white d-flex ac-jc f4 rounded-3 border-0 textani"
             style={{ backgroundColor: "#00225D", borderColor: "#00225D" }}
-            onClick={() =>{ handleShow()
-              setEditMode(false)
+            onClick={() => {
+              handleShow();
+              setEditMode(false);
             }}
           >
-            + New Course
+            + New Coursess
           </Button>
         </div>
-        <LeadCourseList data={leadcourse} handleShow={handleShow} handledelete={handledelete} />
+        {!loading && (
+          <>
+            {leadcourse?.length == 0 ? (
+              <EmptyComp text={"Course Not Found"} />
+            ) : (
+              <LeadCourseList
+                data={leadcourse}
+                handleShow={handleShow}
+                handledelete={handledelete}
+              />
+            )}
+          </>
+        )}
       </div>
     </div>
   );

@@ -40,13 +40,16 @@ const LeadCourseList = ({ data, handleShow, handledelete }) => {
 
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = data.slice(indexOfFirstLead, indexOfLastLead);
-  const totalPages = Math.ceil(data.length / leadsPerPage);
+  const currentLeads = data?.slice(indexOfFirstLead, indexOfLastLead);
+  const totalPages = Math?.ceil(data?.length / leadsPerPage);
 
   return (
     <>
       {openDropdown !== null && (
-        <button onClick={() => handleDropdownClick(null)} className="droppopp border-0" />
+        <button
+          onClick={() => handleDropdownClick(null)}
+          className="droppopp border-0"
+        />
       )}
 
       <div className="table-container rounded-3 mt-2">
@@ -61,15 +64,26 @@ const LeadCourseList = ({ data, handleShow, handledelete }) => {
             </tr>
           </thead>
           <tbody>
-            {currentLeads.map((lead, index) => (
+            {currentLeads?.map((lead, index) => (
               <tr
                 key={lead.id || index}
-                style={{ background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59" }}
+                style={{
+                  background:
+                    openDropdown === lead.id ? "#0b146b59" : "#ffffff59",
+                }}
               >
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{index + 1}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.addcourse}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.amount}</td>
-                <td className="text-center border-0 py-2 px-2 primary3 f5">{lead.duration}</td>
+                <td className="text-center border-0 py-2 px-2 primary3 f5">
+                  {index + 1}
+                </td>
+                <td className="text-center border-0 py-2 px-2 primary3 f5">
+                  {lead.addcourse}
+                </td>
+                <td className="text-center border-0 py-2 px-2 primary3 f5">
+                  {lead.amount}
+                </td>
+                <td className="text-center border-0 py-2 px-2 primary3 f5">
+                  {lead.duration}
+                </td>
 
                 {/* ACTION BUTTONS */}
                 <td className="text-center border-0 py-3 px-2">
@@ -98,25 +112,33 @@ const LeadCourseList = ({ data, handleShow, handledelete }) => {
       </div>
 
       {/* PAGINATION */}
-      <div className="pagination d-flex justify-content-center mt-3">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className={`${currentPage === 1 ? "opacity-25" : "opacity-100"} px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
-        >
-          <ArrowBackIosNewOutlinedIcon />
-        </button>
-        <span className="px-3 py-1 mx-1">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-          disabled={currentPage === totalPages}
-          className={`${currentPage === totalPages ? "opacity-25" : "opacity-100"} px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
-        >
-          <ArrowForwardIosOutlinedIcon />
-        </button>
-      </div>
+      {data?.length > leadsPerPage && (
+        <div className="pagination d-flex justify-content-center mt-3">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className={`${
+              currentPage === 1 ? "opacity-25" : "opacity-100"
+            } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+          >
+            <ArrowBackIosNewOutlinedIcon />
+          </button>
+          <span className="px-3 py-1 mx-1">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className={`${
+              currentPage === totalPages ? "opacity-25" : "opacity-100"
+            } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+          >
+            <ArrowForwardIosOutlinedIcon />
+          </button>
+        </div>
+      )}
 
       {/* CONFIRMATION POPUP */}
       <Staffpopup

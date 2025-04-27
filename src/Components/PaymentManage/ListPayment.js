@@ -1,136 +1,190 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+
+import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { paymentList } from "../../Data/DummyJson";
+import { useNavigate } from "react-router-dom";
 
-const ListPayment = () => {
+const ListPayment = ({ historyData }) => {
+  const incoiceRef = useRef(null);
+
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState("status");
+
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 5;
+
   const navigate = useNavigate();
 
-  const totalPages = Math.ceil(paymentList.length / leadsPerPage);
-
-  // Pagination Logic
-  const currentLeads = paymentList.slice(
-    (currentPage - 1) * leadsPerPage,
-    currentPage * leadsPerPage
-  );
-
-  // Function to determine button color based on payment mode
-  const getPaymentModeColor = (mode) => {
-    switch (mode.toLowerCase()) {
-      case "bank":
-        return { backgroundColor: "#f3ff70", color: "#000" }; // Yellow
-      case "upi":
-        return { backgroundColor: "#7cf2ff", color: "#000" }; // Light Blue
-      case "net banking":
-        return { backgroundColor: "#70ff87", color: "#000" }; // Green
-      case "credit card":
-        return { backgroundColor: "#ff69b4", color: "#000" }; // **Pink (Hot Pink)**
-      default:
-        return { backgroundColor: "#ccc", color: "#000" }; // Default Gray
-    }
+  const handleDropdownClick = (leadId) => {
+    setOpenDropdown(openDropdown === leadId ? null : leadId);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".table-drop")) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  const handleStatusChange = (leadId, status) => {
+    setSelectedStatus((prevStatuses) => ({
+      ...prevStatuses,
+      [leadId]: status, // Update status for the specific lead
+    }));
+    setOpenDropdown(null); // Close dropdown after selection
+  };
+
+  const indexOfLastLead = currentPage * leadsPerPage;
+  const indexOfFirstLead = indexOfLastLead - leadsPerPage;
+  const currentLeads = historyData?.slice(indexOfFirstLead, indexOfLastLead);
+
+  const totalPages = Math.ceil(historyData?.length / leadsPerPage);
+
+  console.log("currentLeads", currentLeads);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {};
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
     <>
+      {openDropdown !== null && (
+        <button
+          onClick={() => {
+            handleDropdownClick(null);
+          }}
+          className="droppopp border-0 "
+        />
+      )}
       <div className="table-container rounded-3 mt-2">
         <table className="responsive-table rounded-3">
-          <thead>
-            <tr>
+          <thead className="">
+            <tr className="">
               <th className="py-3 px-2">S.No</th>
-              <th className="py-3 px-2">Name</th>
-              <th className="py-3 px-2">Payment Number</th>
+              <th className="py-3 px-2">Transition ID</th>
+              <th className="py-3 px-2">Mode Of Payment</th>
+              <th className="py-3 px-2">Amount Received</th>
               <th className="py-3 px-2">Date</th>
-              <th className="py-3 px-2">Amount</th>
-              <th className="py-3 px-2">Mode</th>
-              <th className="py-3 px-2">Action</th>
+              {/* <th className="py-3 px-2">Action</th> */}
             </tr>
           </thead>
-          <tbody>
-            {currentLeads.map((lead, index) => (
-              <tr key={lead.id}>
-                <td className="text-center border-0 py-2 px-2">
-                  {index + 1 + (currentPage - 1) * leadsPerPage}
+          <tbody className="">
+            {currentLeads?.map((lead, index) => (
+              <tr
+                onClick={() => {
+                  navigate("/payment-updates/payment-list/payment-detalis", {
+                    state: { data: lead },
+                  });
+                }}
+                className="cp"
+                style={
+                  openDropdown === lead.id
+                    ? {
+                        background: "#0b146b59",
+                      }
+                    : {
+                        background: "#ffffff59",
+                      }
+                }
+                key={index}
+              >
+                <td
+                  className="text-center border-0 py-3 px-2 primary3 f5"
+                  data-label="Lead ID"
+                >
+                  {index + 1 + indexOfFirstLead}
                 </td>
-                <td className="text-center border-0 py-2 px-2">{lead.name}</td>
-                <td className="text-center border-0 py-2 px-2">{lead.paymentNumber}</td>
-                <td className="text-center border-0 py-2 px-2">{lead.date}</td>
-                <td className="text-center border-0 py-2 px-2">{lead.amount}</td>
-
-                {/* Payment Mode Button */}
-                <td className="text-center border-0 py-2 px-2">
-                  <button
-                    className="rounded-pill border-0 text-center"
-                    style={{
-                      ...getPaymentModeColor(lead.ModeOfPayment),
-                      minWidth: "120px",
-                      height: "35px",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {lead.ModeOfPayment}
-                  </button>
+                <td
+                  className="text-center b_order-0 py-3 px-2 primary3 f5"
+                  data-label="Lead ID"
+                >
+                  {lead.transitionId}
                 </td>
-
-                {/* Action Button */}
-                <td className="text-center border-0 py-3 px-2">
-                  <button
-                    onClick={() =>
-                      navigate("/telecallers/payment-updates/payment-list/payment-detalis")
-                    }
-                    className="border-0 rounded-2 text-center"
-                    style={{
-                      backgroundColor: "#00225d", // Dark Blue
-                      color: "white",
-                      width: "40px",
-                      height: "40px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <RemoveRedEyeOutlinedIcon className="fs-xxl-20" />
-                  </button>
+                {/* <td
+                  className="text-center border-0 py-2 px-2 primary3 f5"
+                  data-label="Name"
+                >
+                  {lead.name}
+                </td> */}
+                <td
+                  className="text-center border-0 py-3 px-2 primary3 f5"
+                  data-label="Course"
+                >
+                  {lead?.mode_of_amount}
                 </td>
+                <td
+                  className="text-center border-0 py-3 px-2 primary3 f5"
+                  data-label="Status"
+                >
+                  {lead?.paid_amount}
+                </td>
+                <td
+                  className="text-center border-0 py-3 px-2 primary3 f5"
+                  data-label="Status"
+                >
+                  {/* {new Date(lead?.createdAt).toISOString().split("T")[0] || "-"} */}
+                </td>
+                {/* <td
+                  className="text-center border-0 py-3 px-2"
+                  data-label="Action"
+                >
+                  <div className="d-flex ac-jc gap-3">
+                    <button
+                      onClick={() => {
+                        navigate(
+                          "/telecallers/payment-updates/payment-list/payment-detalis",
+                          { state: { data: lead } }
+                        );
+                      }}
+                      className="border-0 bg-primary3 white rounded-2 action-box"
+                    >
+                      <RemoveRedEyeOutlinedIcon className="fs-xxl-20" />
+                    </button>
+                  </div>
+                </td> */}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      {/* Pagination */}
-      <div className="pagination d-flex justify-content-center mt-3">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className={`${
-            currentPage === 1 ? "opacity-50" : "opacity-100"
-          } px-3 py-1 mx-1 border-0 rounded text-white`}
-          style={{ backgroundColor: "#00225d" }} // Dark Blue
-        >
-          <ArrowBackIosNewOutlinedIcon />
-        </button>
-        <span className="px-3 py-1 mx-1">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() =>
-            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-          }
-          disabled={currentPage === totalPages}
-          className={`${
-            currentPage === totalPages ? "opacity-50" : "opacity-100"
-          } px-3 py-1 mx-1 border-0 rounded text-white`}
-          style={{ backgroundColor: "#00225d" }} // Dark Blue
-        >
-          <ArrowForwardIosOutlinedIcon />
-        </button>
-      </div>
+      {currentLeads?.length > leadsPerPage && (
+        <div className="pagination d-flex justify-content-center mt-3">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className={`${
+              currentPage === 1 ? "opacity-25" : "opacity-100"
+            } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+          >
+            <ArrowBackIosNewOutlinedIcon />
+          </button>
+          <span className="px-3 py-1 mx-1">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className={`${
+              currentPage == totalPages ? "opacity-25" : "opacity-100"
+            } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+          >
+            <ArrowForwardIosOutlinedIcon />
+          </button>
+        </div>
+      )}
     </>
   );
 };

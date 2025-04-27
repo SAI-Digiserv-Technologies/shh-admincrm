@@ -8,11 +8,24 @@ export const api = createApi({
     baseUrl: BASE_URL,
     // credentials: "include",
     prepareHeaders: async (headers, { getState, endpoint }) => {
-      headers.set("Content-Type", "application/json");
+      let token = localStorage.getItem("token");
+
+      if (token) {
+        const newToc = token.replace(/^"(.*)"$/, "$1");
+        console.log("user_detailskss", token, endpoint, newToc);
+
+        headers.set("Authorization", `Bearer ${newToc}`);
+      }
+
+      if (endpoint !== "editStaff") {
+        headers.set("Content-Type", "application/json");
+      }
+
       headers.set("Accept", "application/json");
       return headers;
     },
   }),
+
   refetchOnMountOrArgChange: true,
   tagTypes: [],
   endpoints: (builder) => ({
@@ -36,7 +49,7 @@ export const api = createApi({
         url: URL.LOGIN,
         method: "POST",
         body: payload,
-      })
+      }),
     }),
 
     roles: builder.mutation({
@@ -44,31 +57,29 @@ export const api = createApi({
         url: URL.ROLE,
         method: "POST",
         body: payload,
-
-      })
+      }),
     }),
     viewroles: builder.query({
       query: () => ({
         url: URL.VIEWROLES,
         method: "GET",
-
-      })
+      }),
     }),
 
     Editroles: builder.mutation({
       query: ({ payload, id }) => ({
         url: `${URL.EDITROLES}/${id}`,
         method: "PUT",
-        body: payload
-      })
+        body: payload,
+      }),
     }),
+
     deleteroles: builder.mutation({
       query: (id) => ({
         url: `${URL.DELETEROLES}/${id}`,
         method: "DELETE",
-      })
+      }),
     }),
-
 
     viewStaff: builder.query({
       query: () => ({
@@ -81,8 +92,8 @@ export const api = createApi({
       query: (id, payload) => ({
         url: `${URL.STAFFEDIT}/${id}`,
         method: "PUT",
-        body: payload
-      })
+        body: payload,
+      }),
     }),
 
     sourceadd: builder.mutation({
@@ -90,29 +101,26 @@ export const api = createApi({
         url: URL.SOURCEPOST,
         method: "POST",
         body: payload,
-      })
+      }),
     }),
     sourceget: builder.query({
       query: () => ({
         url: URL.SOURCEGET,
         method: "GET",
-
-      })
+      }),
     }),
     sourceedit: builder.mutation({
       query: ({ payload, id }) => ({
         url: `${URL.SOURCEEDIT}/${id}`,
         method: "PUT",
-        body: payload
-
-      })
+        body: payload,
+      }),
     }),
     sourcedelete: builder.mutation({
       query: (id) => ({
         url: `${URL.DELETESOURCE}/${id}`,
         method: "DELETE",
-
-      })
+      }),
     }),
 
     courseadd: builder.mutation({
@@ -120,12 +128,26 @@ export const api = createApi({
         url: URL.COURSEADD,
         method: "POST",
         body: payload,
-
-      })
+      }),
     }),
+
     getUser: builder.query({
       query: () => ({
         url: URL.VIEWLEED,
+        method: "GET",
+      }),
+    }),
+
+    getUserview: builder.query({
+      query: (id) => ({
+        url: `${URL.VIEWLEED}/${id}`,
+        method: "GET",
+      }),
+    }),
+
+    profileView: builder.query({
+      query: (id) => ({
+        url: `${URL.PROFILE_VIEW}${id}`,
         method: "GET",
       }),
     }),
@@ -134,23 +156,22 @@ export const api = createApi({
       query: (payload) => ({
         url: URL.PAYMENTDETAILS,
         method: "POST",
-        body: payload
-      })
+        body: payload,
+      }),
     }),
     Modeofamount: builder.query({
       query: () => ({
         url: URL.MODEOFAMOUNT,
         method: "GET",
-      })
+      }),
     }),
 
     amountedit: builder.mutation({
       query: ({ payload, id }) => ({
         url: `${URL.MODEOFAMOUNTEDIT}/${id}`,
         method: "PUT",
-        body: payload
-
-      })
+        body: payload,
+      }),
     }),
 
     particularviewStaff: builder.query({
@@ -159,11 +180,12 @@ export const api = createApi({
         method: "GET",
       }),
     }),
+
     editStaff: builder.mutation({
-      query: ({ id, payload }) => ({
-        url: `${URL.EDITSTAFF}/${id}`,
+      query: ({ formdata, id }) => ({
+        url: `${URL.EDITSTAFF}${id}`,
         method: "PUT",
-        body: payload,
+        body: formdata,
       }),
     }),
 
@@ -188,7 +210,7 @@ export const api = createApi({
         url: URL.MODEOFAMOUNTPOST,
         method: "POST",
         body: payload,
-      })
+      }),
     }),
 
     //  course api
@@ -197,8 +219,7 @@ export const api = createApi({
         url: URL.ADDCOURSE,
         method: "POST",
         body: payload,
-      })
-
+      }),
     }),
     viewUser: builder.query({
       query: () => ({
@@ -211,30 +232,30 @@ export const api = createApi({
         url: `${URL.EDITCOURSE}/${id}`,
         method: "PUT",
         body: payload,
-      })
+      }),
     }),
 
     PaymentProof: builder.query({
       query: () => ({
         url: URL.PAYMENTPROOF,
         method: "GET",
-      })
+      }),
     }),
 
     PaymentDelete: builder.mutation({
       query: (id) => ({
         url: `${URL.MODEOFAMOUNTDELETE}/${id}`,
         method: "DELETE",
-      })
-    }),
-
-    editStaff: builder.mutation({
-      query: (id, payload) => ({
-        url: `${URL.EDITSTAFF}${id}`,
-        method: "PUT",
-        body: payload,
       }),
     }),
+
+    // editStaff: builder.mutation({
+    //   query: (id, payload) => ({
+    //     url: `${URL.EDITSTAFF}${id}`,
+    //     method: "PUT",
+    //     body: payload,
+    //   }),
+    // }),
 
     viewStaff: builder.query({
       query: () => ({
@@ -257,50 +278,126 @@ export const api = createApi({
         body: payload,
       }),
     }),
+
+    profileUpdate: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `${URL.PROFILE_UPDATE}/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+    }),
+
     deleteuser: builder.mutation({
       query: (id) => ({
         url: `${URL.DELETECOURSE}/${id}`,
         method: "DELETE",
       }),
     }),
+
+    // Logout
+    logout: builder.mutation({
+      query: () => ({
+        url: URL.LOGOUT,
+        method: "POST",
+      }),
+    }),
+
+    // Lead view
+    lead_view: builder.query({
+      query: (id) => ({
+        url: `${URL.LEAD_LIST}/${id}`,
+        method: "GET",
+      }),
+    }),
+
+    // Source list
+    source_list: builder.query({
+      query: () => ({
+        url: URL.SOURCEGET,
+        method: "GET",
+      }),
+    }),
+
+    course_list: builder.query({
+      query: () => ({
+        url: URL.VIEWCOURSE,
+        method: "GET",
+      }),
+    }),
+
+    all_proof_list: builder.query({
+      query: () => ({
+        url: URL.ALL_PROOF,
+        method: "GET",
+      }),
+    }),
+
+    // OTP Send
+    send_otp: builder.mutation({
+      query: (payload) => ({
+        url: URL.SEND_OTP,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
+    // Verify Send
+    verify_otp: builder.mutation({
+      query: (payload) => ({
+        url: URL.VERIFY_OTP,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
+    // ResetPassword Send
+    reset_password: builder.mutation({
+      query: ({ payload, email }) => ({
+        url: `${URL.RESET_PASSWORD}/${email}`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
-})
-
-
+});
 
 // ✅ Hooks Exportcvhjj
 export const {
+  useLazyLead_viewQuery,
   useAddStaffMutation,
+  useLazyCourse_listQuery,
+  useLazySource_listQuery,
   useLazyViewStaffQuery,
+  useLazyAll_proof_listQuery,
   useLazyParticularviewStaffQuery,
   useEditStaffMutation,
   useLeadaddMutation,
-  
   useLeadeditMutation,
   useCourseaddMutation,
   useLazyViewUserQuery,
   useCourseUserMutation,
   useDeleteuserMutation,
+  useLazyProfileViewQuery,
   useLoginMutation,
   useRolesMutation,
   useLazyViewrolesQuery,
   useEditrolesMutation,
-
   useSourceaddMutation,
   useLazySourcegetQuery,
   useLazyGetUserQuery,
-
   useSourceeditMutation,
   useDeleterolesMutation,
   useSourcedeleteMutation,
   usePaymentsdetailMutation,
   useLazyPaymentProofQuery,
   useLazyModeofamountQuery,
-
-
   useTransactionpostMutation,
   useAmounteditMutation,
   usePaymentDeleteMutation,
-
-
+  useLogoutMutation,
+  useLazyGetUserviewQuery,
+  useProfileUpdateMutation,
+  useSend_otpMutation,
+  useVerify_otpMutation,
+  useReset_passwordMutation,
 } = api;

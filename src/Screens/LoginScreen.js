@@ -7,25 +7,22 @@ import useUser from "../Data/Local/userDetail";
 import PageLoad from "../Components/Loading/PageLoad";
 import useToken from "../Data/Local/userToken";
 
-
 const LoginScreen = () => {
   const navigate = useNavigate();
   const [formFeald, setFormFeald] = useState({
     email: "",
     password: "",
   });
-  const { user, setUser } = useUser()
+  const { user, setUser } = useUser();
   const { token, setToken } = useToken();
 
   console.log("ndsmmds", user);
-
 
   const [errors, setErrors] = useState({});
   const [passwordshow, setPasswordShow] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [LoginApi] = useLoginMutation();
-
 
   // const [LoginApi]  = use
   const fealdOnChange = (field, value) => {
@@ -80,29 +77,30 @@ const LoginScreen = () => {
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      setLoading(true)
+      setLoading(true);
       const payload = {
         email: formFeald?.email,
-        password: formFeald?.password
-      }
+        password: formFeald?.password,
+      };
       LoginApi(payload)
         .unwrap()
         .then((res) => {
           console.log("login successfully", res);
           toast.success(res?.message || "Login successful");
-          setUser(res)
-          setToken(res?.admin?.token)
-          window.location.reload()
+          setUser(res);
+          setToken(`${res?.admin?.token}`);
+          window.location.reload();
           navigate("/admindashboard");
-        }).catch((err) => {
-          console.log("Login error", err);
-          toast.error(err?.data?.message || "BAD_REQUEST")
-        }).finally(() => {
-          setLoading(false)
         })
-    };
-  }
-
+        .catch((err) => {
+          console.log("Login error", err);
+          toast.error(err?.data?.message || "BAD_REQUEST");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
 
   return (
     <>

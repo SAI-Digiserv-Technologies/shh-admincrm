@@ -9,14 +9,20 @@ import {
 import { SideNavList } from "../../Data/DummyJson";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
+const SideNavbar = ({
+  menuactive,
+  toggleFun,
+  setMenuActive,
+  poppupHandle,
+  profileData,
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
- 
+
   const [activeIndex, setActiveIndex] = useState(0);
   const pathname = location?.pathname;
   console.log("pathname", pathname);
- 
+
   const onNavclike = (item) => {
     if (item?.navi == "logout") {
       poppupHandle("clike");
@@ -24,7 +30,7 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
       navigate(item?.navi);
     }
   };
- 
+
   return (
     <>
       <div
@@ -55,10 +61,11 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
                 </div>
                 <div className="textss">
                   <p className="mb-0 orange f4 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani">
-                    Sujatha <span className="white">Venkatesh</span>
+                    {profileData?.name}
+                    {/* <span className="white">Venkatesh</span> */}
                   </p>
                   <p className="mb-0 white f2 fs-xxl-14 fs-xl-14 fs-lg-13 fs-sm-12 fs-xs-12 textani">
-                    Telecaller
+                    {profileData?.role}
                   </p>
                 </div>
               </div>
@@ -193,7 +200,5 @@ const SideNavbar = ({ menuactive, toggleFun, setMenuActive, poppupHandle }) => {
     </>
   );
 };
- 
+
 export default SideNavbar;
- 
- 

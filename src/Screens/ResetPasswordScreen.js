@@ -8,20 +8,34 @@ import {
   Thorus_Knot,
   view,
 } from "../assets/images";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useReset_passwordMutation } from "../Data/Api/api";
+import { toast } from "react-toastify";
+import useUser from "../Data/Local/userDetail";
+import useToken from "../Data/Local/userToken";
+import PageLoad from "../Components/Loading/PageLoad";
 
 const ResetPasswordScreen = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const email = location?.state?.email;
   const [formFeald, setFormFeald] = useState({
     password: "",
     confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const [passwordShow, setPasswordShow] = useState({
     password: false,
     confirmPassword: false,
   });
+
+  const { user, setUser } = useUser();
+  const { token, setToken } = useToken();
+
+  // Api
+  const [resetpasswordApi] = useReset_passwordMutation();
 
   const fealdOnChange = (field, value) => {
     console.log("field, value", field, value);
@@ -77,7 +91,27 @@ const ResetPasswordScreen = () => {
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      navigate("/telecallers/dashboard");
+      setLoading(true);
+      const payload = {
+        newPassword: formFeald?.confirmPassword,
+      };
+      resetpasswordApi({ payload: payload, email: email })
+        .unwrap()
+        .then((res) => {
+          console.log("resRes", res);
+          toast.success(res?.message || "Password reset successfully");
+          setUser(null);
+          setToken(null);
+          navigate("/");
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log("Err", err);
+          toast.error(err?.data?.message || "BAD_REQUEST");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   };
 
@@ -90,6 +124,7 @@ const ResetPasswordScreen = () => {
 
   return (
     <div className="resetpass-cont d-flex ac-jc">
+      {loading && <PageLoad />}
       <div className="top-img tranc">
         <img alt="Thorus_Knot" src={Thorus_Knot} />
       </div>

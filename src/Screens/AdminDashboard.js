@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { calendericon, leadicon, sandclock, speakericon } from "../assets/images";
+import {
+  calendericon,
+  leadicon,
+  sandclock,
+  speakericon,
+} from "../assets/images";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import PieChartcomp from "../Components/Dashboard/PieChartcomp";
 import LeadReport from "../Components/Dashboard/LeadReport";
@@ -9,7 +14,6 @@ import { useLazyGetUserQuery } from "../Data/Api/api";
 import PageLoad from "../Components/Loading/PageLoad";
 
 const AdminDashboard = () => {
-
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [dashLeadData, setDashLeadData] = useState({
@@ -22,89 +26,89 @@ const AdminDashboard = () => {
     Tdyconverted: 0,
     updatesLeads: 0,
   });
-  const [leedview] = useLazyGetUserQuery()
+  const [leedview] = useLazyGetUserQuery();
 
   const getapi = () => {
-    leedview().unwrap().then((res) => {
-      console.log("Res", res);
-      // AllData
-      const fulldata = res?.data;
-      console.log('resfulldata', fulldata, res?.data);
+    leedview()
+      .unwrap()
+      .then((res) => {
+        console.log("Res", res);
+        // AllData
+        const fulldata = res?.data;
+        console.log("resfulldata", fulldata, res?.data);
 
-      const allPendingLeads = fulldata.filter(
-        (lead) => lead.status == "Enquiry"
-      );
-      const allenrolledLeads = fulldata.filter(
-        (lead) => lead.status == "Enrollement"
-      );
+        const allPendingLeads = fulldata.filter(
+          (lead) => lead.status == "Enquiry"
+        );
+        const allenrolledLeads = fulldata.filter(
+          (lead) => lead.status == "Enrollement"
+        );
 
-      const allfollowLeads = fulldata.filter(
-        (lead) => lead.status == "Follow Ups"
-      );
+        const allfollowLeads = fulldata.filter(
+          (lead) => lead.status == "Follow Ups"
+        );
 
-      console.log("allfollowLeads", allfollowLeads);
+        console.log("allfollowLeads", allfollowLeads);
 
+        const today = new Date();
+        const todayDateOnly = today.toISOString().split("T")[0];
+        // Updated
+        const updatesLeads = fulldata?.filter((lead) => {
+          const leadDate = new Date(lead?.updatedAt)
+            .toISOString()
+            .split("T")[0];
+          return leadDate === todayDateOnly;
+        });
 
-      const today = new Date();
-      const todayDateOnly = today.toISOString().split("T")[0];
-      // Updated
-      const updatesLeads = fulldata?.filter((lead) => {
-        const leadDate = new Date(lead?.updatedAt)
-          .toISOString()
-          .split("T")[0];
-        return leadDate === todayDateOnly;
+        // Today only start
+        const todaysLeads = res?.data?.filter((lead) => {
+          const leadDate = new Date(lead?.createdAt)
+            .toISOString()
+            .split("T")[0];
+          return leadDate === todayDateOnly;
+        });
+        const TdyPendingdLeads = todaysLeads.filter(
+          (lead) => lead.status == "Enquiry"
+        );
+        const enrolledLeads = updatesLeads.filter(
+          (lead) => lead.status == "Enrollement"
+        );
+        // Today only end
+        console.log("TodayFull lead", todaysLeads);
+        console.log("TdyPending lead", TdyPendingdLeads);
+        console.log("Tdyenrolled lead", enrolledLeads);
+        console.log("Full lead", fulldata);
+        console.log("Pending lead", allPendingLeads);
+        console.log("enrolled lead", allenrolledLeads);
+        console.log("updatesLeads", updatesLeads);
+
+        setDashLeadData({
+          pending: allPendingLeads?.length,
+          converted: allenrolledLeads?.length,
+          upcommin: fulldata?.length,
+          allfollow: allfollowLeads?.length,
+          aria: fulldata,
+          Tdypending: TdyPendingdLeads?.length,
+          Tdyconverted: enrolledLeads?.length,
+          updatesLeads: updatesLeads?.length,
+        });
+      })
+      .catch((err) => {
+        console.log("response not gentrated", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-
-      // Today only start
-      const todaysLeads = res?.data?.filter((lead) => {
-        const leadDate = new Date(lead?.createdAt).toISOString().split("T")[0];
-        return leadDate === todayDateOnly;
-      });
-      const TdyPendingdLeads = todaysLeads.filter(
-        (lead) => lead.status == "Enquiry"
-      );
-      const enrolledLeads = updatesLeads.filter(
-        (lead) => lead.status == "Enrollement"
-      );
-      // Today only end
-      console.log("TodayFull lead", todaysLeads);
-      console.log("TdyPending lead", TdyPendingdLeads);
-      console.log("Tdyenrolled lead", enrolledLeads);
-      console.log("Full lead", fulldata);
-      console.log("Pending lead", allPendingLeads);
-      console.log("enrolled lead", allenrolledLeads);
-      console.log("updatesLeads", updatesLeads);
-
-      setDashLeadData({
-        pending: allPendingLeads?.length,
-        converted: allenrolledLeads?.length,
-        upcommin: fulldata?.length,
-        allfollow: allfollowLeads?.length,
-        aria: fulldata,
-        Tdypending: TdyPendingdLeads?.length,
-        Tdyconverted: enrolledLeads?.length,
-        updatesLeads: updatesLeads?.length,
-      });
-    }).catch((err) => {
-      console.log("response not gentrated", err);
-
-    }).finally(() => {
-      setLoading(false)
-    })
-
-  }
+  };
   useEffect(() => {
-    getapi()
-  }, [])
+    getapi();
+  }, []);
   return (
     <div>
       {loading && <PageLoad />}
 
       <div className="topbox-const  gap-3">
-
-
         <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
-
           <div>
             <p className=" mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
               Total
@@ -119,12 +123,11 @@ const AdminDashboard = () => {
           <div className="imgcont d-flex ac-jc">
             <img src={speakericon} />
           </div>
-          <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
+          {/* <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
             <EastOutlinedIcon className="primary3" />
-          </button>
+          </button> */}
         </div>
         <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
-
           <div>
             <p className=" mb-0 f5 fs-xxl-22 fs-xl-22 fs-lg-20 fs-sm-18 fs-xs-18 textani white">
               Enrolled
@@ -139,9 +142,9 @@ const AdminDashboard = () => {
           <div className="imgcont d-flex ac-jc">
             <img src={sandclock} />
           </div>
-          <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
+          {/* <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
             <EastOutlinedIcon className="primary3" />
-          </button>
+          </button> */}
         </div>
         <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
           <div>
@@ -158,9 +161,9 @@ const AdminDashboard = () => {
           <div className="imgcont d-flex ac-jc">
             <img src={leadicon} />
           </div>
-          <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
+          {/* <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
             <EastOutlinedIcon className="primary3" />
-          </button>
+          </button> */}
         </div>
         <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
           <div>
@@ -177,9 +180,9 @@ const AdminDashboard = () => {
           <div className="imgcont d-flex ac-jc">
             <img src={calendericon} />
           </div>
-          <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
+          {/* <button className="iconabsolute border-0 d-flex ac-jc rounded-5">
             <EastOutlinedIcon className="primary3" />
-          </button>
+          </button> */}
         </div>
       </div>
       <div className="d-flex w-100 flex-md-row ac-jb flex-column py-3">

@@ -5,11 +5,15 @@ import { DeleteForeverOutlined } from "@mui/icons-material";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { useLazySourcegetQuery } from "../../Data/Api/api";
+import Staffpopup from "../StaffManage/Staffpopup";
 
-const SourceList = ({ data , handleShow, handleDelete}) => {
+const SourceList = ({ data, handleShow, handleDelete }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedSource, setSelectedSource] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+
   const leadsPerPage = 5;
 
   useEffect(() => {
@@ -62,9 +66,10 @@ const SourceList = ({ data , handleShow, handleDelete}) => {
           <tbody>
             {currentLeads.map((lead, index) => (
               <tr
-                key={`${lead.id}-${index}`} 
+                key={`${lead.id}-${index}`}
                 style={{
-                  background: openDropdown === lead.id ? "#0b146b59" : "#ffffff59",
+                  background:
+                    openDropdown === lead.id ? "#0b146b59" : "#ffffff59",
                 }}
               >
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
@@ -75,15 +80,21 @@ const SourceList = ({ data , handleShow, handleDelete}) => {
                 </td>
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex ac-jc gap-3">
-                    <button onClick={() =>{
-                      handleShow(lead)
-                    }}
-                     className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button
+                      onClick={() => {
+                        handleShow(lead);
+                      }}
+                      className="border-0 bg-primary3 white rounded-2 action-box"
+                    >
                       <ModeEditOutlinedIcon className="fs-xxl-20" />
                     </button>
-                    <button onClick={() =>
-                      handleDelete(lead)
-                    } className="border-0 bg-primary3 white rounded-2 action-box">
+                    <button
+                      onClick={() => {
+                        setSelectedSource(lead);
+                        setShowPopup(true);
+                      }}
+                      className="border-0 bg-primary3 white rounded-2 action-box"
+                    >
                       <DeleteForeverOutlined className="fs-xxl-20" />
                     </button>
                   </div>
@@ -91,32 +102,48 @@ const SourceList = ({ data , handleShow, handleDelete}) => {
               </tr>
             ))}
           </tbody>
-
         </table>
       </div>
 
       {/* PAGINATION */}
-      <div className="pagination d-flex justify-content-center mt-3">
-        <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-          className={`${currentPage === 1 ? "opacity-25" : "opacity-100"
+      {data?.length > leadsPerPage && (
+        <div className="pagination d-flex justify-content-center mt-3">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className={`${
+              currentPage === 1 ? "opacity-25" : "opacity-100"
             } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
-        >
-          <ArrowBackIosNewOutlinedIcon />
-        </button>
-        <span className="px-3 py-1 mx-1">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-          disabled={currentPage === totalPages}
-          className={`${currentPage === totalPages ? "opacity-25" : "opacity-100"
+          >
+            <ArrowBackIosNewOutlinedIcon />
+          </button>
+          <span className="px-3 py-1 mx-1">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className={`${
+              currentPage === totalPages ? "opacity-25" : "opacity-100"
             } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
-        >
-          <ArrowForwardIosOutlinedIcon />
-        </button>
-      </div>
+          >
+            <ArrowForwardIosOutlinedIcon />
+          </button>
+        </div>
+      )}
+
+      <Staffpopup
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        onConfirm={() => {
+          if (showPopup) {
+            handleDelete(selectedSource);
+          }
+        }}
+        name={selectedSource?.sourcename}
+      />
     </>
   );
 };
