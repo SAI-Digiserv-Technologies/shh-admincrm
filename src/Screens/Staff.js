@@ -54,9 +54,9 @@ const Staff = () => {
               >
                 + Add Staf
               </button>
-              <button className="refil-box d-flex ac-jc bg-primary3 rounded-3 border-0">
+              {/* <button className="refil-box d-flex ac-jc bg-primary3 rounded-3 border-0">
                 <img src={refileicon} />
-              </button>
+              </button> */}
             </div>
           </div>
           {staffLists?.length == 0 ? (

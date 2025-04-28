@@ -22,6 +22,10 @@
   justify-content: center;
 }
 
+input:disabled {
+  opacity: 0.7;
+}
+
 .logpoppup {
   position: fixed;
   top: 0;

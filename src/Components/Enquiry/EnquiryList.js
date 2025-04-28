@@ -109,55 +109,55 @@ const LeadeList = ({ leadlist }) => {
               >
                 <td
                   data-label="S.No"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {indexOfFirstLead + index + 1}
                 </td>
                 <td
                   data-label="Lead ID"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {lead?.lead_id || "-"}
                 </td>
                 <td
                   data-label="Name"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {lead?.name || "-"}
                 </td>
                 <td
                   data-label="Email ID"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {lead?.email || "-"}
                 </td>
                 <td
                   data-label="Walk in"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {new Date(lead?.createdAt).toISOString().split("T")[0] || "-"}
                 </td>
                 <td
                   data-label="Passing Year"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {lead?.passedout || "-"}
                 </td>
                 <td
                   data-label="Contact"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {lead?.phonenumber || "-"}
                 </td>
                 <td
                   data-label="Source"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {lead?.source || "-"}
                 </td>
                 <td
                   data-label="Course"
-                  className="text-center py-2 px-2 primary3 f5"
+                  className="text-center py-2 px-2 primary3 f4"
                 >
                   {lead?.interested_course?.addcourse || "-"}
                 </td>

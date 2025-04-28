@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChartWithReport from "../Components/Reports/ChartWithReport ";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import {
@@ -8,17 +8,52 @@ import {
   sandclock,
   speakericon,
 } from "../assets/images";
+import { useLazyGetUserQuery } from "../Data/Api/api";
 
 const AllReportScreen = () => {
+  const [loading, setLoading] = useState(true);
+  const [leadList, setLeadList] = useState([]);
+
+  // Api
+  const [leedview] = useLazyGetUserQuery();
+
+  const getAlleadFun = () => {
+    setLoading(true);
+    leedview()
+      .unwrap()
+      .then((res) => {
+        console.log("leres", res);
+        const data = res?.data;
+        setLeadList(data);
+      })
+      .catch((err) => {
+        console.log("Err", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getAlleadFun();
+  }, []);
+
+  const enrolledLead = leadList?.filter(
+    (lead) => lead?.status == "Enrollement"
+  );
+  const allfollowLeads = leadList.filter((lead) => lead.status == "Follow Ups");
+
+  const allPendingLeads = leadList.filter((lead) => lead.status == "Enquiry");
+
   return (
     <div>
       <div className="w-100 d-flex ac-je mb-2">
         {/* <p className="mb-0 f7 primary1 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani">
           Sankari
         </p> */}
-        <button className="refil-box d-flex ac-jc bg-primary3 rounded-3 border-0">
+        {/* <button className="refil-box d-flex ac-jc bg-primary3 rounded-3 border-0">
           <img src={refileicon} />
-        </button>
+        </button> */}
       </div>
       <div className="topbox-const  gap-3 mb-4">
         <div className="bash-box rounded-3 p-md-3 p-2 bg-primary3 d-flex gap-4">
@@ -30,7 +65,7 @@ const AllReportScreen = () => {
               Leads
             </p>
             <p className="mt-md-4 mt-2 mb-0 f7 fs-xxl-29 fs-xl-29 fs-lg-28 fs-sm-25 fs-xs-22 textani white">
-              1
+              {leadList?.length}
             </p>
           </div>
           <div className="imgcont d-flex ac-jc">
@@ -49,7 +84,7 @@ const AllReportScreen = () => {
               Leads
             </p>
             <p className="mt-md-4 mt-2 mb-0 f7 fs-xxl-29 fs-xl-29 fs-lg-28 fs-sm-25 fs-xs-22 textani white">
-              10
+              {enrolledLead?.length}
             </p>
           </div>
           <div className="imgcont d-flex ac-jc">
@@ -68,7 +103,7 @@ const AllReportScreen = () => {
               Leads
             </p>
             <p className="mt-md-4 mt-2 mb-0 f7 fs-xxl-29 fs-xl-29 fs-lg-28 fs-sm-25 fs-xs-22 textani white">
-              4
+              {allfollowLeads?.length}
             </p>
           </div>
           <div className="imgcont d-flex ac-jc">
@@ -87,7 +122,7 @@ const AllReportScreen = () => {
               walk in
             </p>
             <p className="mt-md-4 mt-2 mb-0 f7 fs-xxl-29 fs-xl-29 fs-lg-28 fs-sm-25 fs-xs-22 textani white">
-              24
+              {allPendingLeads?.length}
             </p>
           </div>
           <div className="imgcont d-flex ac-jc">
@@ -98,7 +133,7 @@ const AllReportScreen = () => {
           </button> */}
         </div>
       </div>
-      <ChartWithReport />
+      <ChartWithReport leadList={leadList} />
     </div>
   );
 };

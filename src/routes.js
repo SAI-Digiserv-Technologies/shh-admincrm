@@ -121,6 +121,7 @@ const ReactRoute = () => {
             <Route path="/enquiries" element={<EnquiryScreen />} />
             <Route path="/enquiries/add" element={<LeadAddScreen />} />
             <Route path="/enquiries/details" element={<LeadAddScreen />} />
+            <Route path="/leadmanage/details" element={<LeadAddScreen />} />
             {/* <Route path="/adminprofile" element={<AdminProfileScreen />} /> */}
             <Route path="/adminprofile" element={<ProfileScreen />} />
             <Route path="/source" element={<SrcScreen />} />

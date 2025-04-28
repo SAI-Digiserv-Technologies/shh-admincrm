@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageLoad from "../Components/Loading/PageLoad";
 import { useLocation, useNavigate } from "react-router-dom";
 import { proof_img } from "../assets/images";
+import {
+  useLazyPaymentproofviewQuery,
+  usePaymentaddMutation,
+} from "../Data/Api/api";
+import { toast } from "react-toastify";
 
 const PaymentAddScreen = () => {
   const location = useLocation();
@@ -9,7 +14,11 @@ const PaymentAddScreen = () => {
   const type = location?.state?.type;
   const routData = location?.state?.data;
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [paymentData, setPaymentData] = useState(null);
+
+  console.log("routData", routData);
+  const leadID = routData?.data;
 
   const [formFeald, setFormFeald] = useState({
     name: "",
@@ -21,6 +30,10 @@ const PaymentAddScreen = () => {
     email: "",
     transactionId: "",
   });
+
+  // Api
+  const [paymentproofView] = useLazyPaymentproofviewQuery();
+  const [paymentAdd] = usePaymentaddMutation();
 
   const fealdOnChange = (field, value) => {
     setFormFeald((state) => ({
@@ -97,51 +110,65 @@ const PaymentAddScreen = () => {
       name: "name",
       type: "text",
       placeholder: "Enter Name",
+      disable: true,
     },
     {
       label: "Course",
       name: "course",
       type: "text",
       placeholder: "Enter Course",
+      disable: true,
+    },
+    {
+      label: "Cource Amount",
+      name: "courceamount",
+      type: "number",
+      placeholder: "Cource Amount",
+      disable: true,
     },
     {
       label: "Amount",
       name: "amount",
       type: "number",
       placeholder: "Enter Amount",
+      disable: false,
     },
     {
       label: "Paid Amount",
       name: "paidAmount",
       type: "number",
       placeholder: "Enter Paid Amount",
+      disable: true,
     },
     {
       label: "Balance Amount",
       name: "balanceAmount",
       type: "number",
       placeholder: "Enter Balance Amount",
+      disable: true,
     },
     {
       label: "Email ID",
       name: "email",
       type: "email",
       placeholder: "Enter Email ID",
+      disable: true,
     },
     {
       label: "Mode",
       name: "mode",
-      type: "select",
-      options: [
-        {
-          value: "Cash on Delivery",
-          label: "Cash on Delivery",
-        },
-        {
-          value: "Online",
-          label: "Online",
-        },
-      ],
+      type: "text",
+      disable: true,
+      // options: [
+      //   {
+      //     value: "Cash on Delivery",
+      //     label: "Cash on Delivery",
+      //   },
+      //   {
+      //     value: "Online",
+      //     label: "Online",
+      //   },
+      // ],
       placeholder: "Select Mode",
     },
     {
@@ -151,6 +178,42 @@ const PaymentAddScreen = () => {
       placeholder: "Enter Transaction ID",
     },
   ];
+
+  const proofViewfun = () => {
+    setLoading(true);
+    const id = routData?._id;
+    console.log("idroutData?._id;", routData, routData?._id);
+    paymentproofView(id)
+      .unwrap()
+      .then((res) => {
+        console.log("proviewres", res);
+        setPaymentData(res?.data);
+        setFormFeald({
+          name: res?.data?.lead?.name,
+          course: res?.data?.lead?.interested_course?.addcourse,
+          courceamount: res?.data?.lead?.interested_course?.amount,
+          amount: "4000",
+          paidAmount: "1000",
+          balanceAmount: "10000",
+          mode: res?.data?.payment_proof?.paymentmethood,
+          email: res?.data?.lead?.email,
+          // transactionId: "",
+        });
+      })
+      .catch((err) => {
+        console.log("Err", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  console.log("paymentData", paymentData);
+
+  const lead = paymentData?.lead;
+  const payment_proof = paymentData?.payment_proof;
+
+  console.log("payment_prleadoof", payment_proof, lead);
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -164,13 +227,40 @@ const PaymentAddScreen = () => {
     });
 
     if (isValid) {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        // navigate("/payment-success", { state: { data: formFeald } }); // Example: Navigate to a success page
-      }, 2000);
+      // setLoading(true);
+      const payload = {
+        leadId: leadID,
+        name: lead?.name,
+        interested_course: lead?.interested_course,
+        amount: formFeald?.amount,
+        paid_amount: formFeald?.paidAmount,
+        balance_amount: formFeald?.balanceAmount,
+        mode_of_amount: payment_proof?.paymentmethood,
+        transaction_id: formFeald?.transactionId || "",
+        payment_status: "Varifid",
+        // remarks: "First installment",
+      };
+      console.log("payload", payload);
+      console.log("payloadlead", lead);
+      console.log("payloadleadpayment_proof", payment_proof);
+      paymentAdd(payload)
+        .unwrap()
+        .then((res) => {
+          console.log("Addres", res);
+          toast.success(res?.message || "Payment saved successfully");
+          navigate(-1);
+        })
+        .catch((err) => {
+          console.log("adderr", err);
+        });
+
+      // navigate("/payment-success", { state: { data: formFeald } }); // Example: Navigate to a success page
     }
   };
+
+  useEffect(() => {
+    proofViewfun();
+  }, []);
 
   return (
     <div className="detaile-cont">
@@ -185,7 +275,7 @@ const PaymentAddScreen = () => {
 
               <div className="d-flex w-100 ac-jb flex-wrap gap-3">
                 {fields.map((field) =>
-                  field.name === "mode" ? (
+                  field.name == "modes" ? (
                     // Mode Field (rendered as a select dropdown)
                     <div
                       className="w-45 position-relative lead_drop"
@@ -218,6 +308,7 @@ const PaymentAddScreen = () => {
                         {field.label}
                       </p>
                       <input
+                        disabled={field?.disable}
                         type={field.type}
                         value={formFeald[field.name]}
                         onChange={(e) =>
@@ -262,7 +353,7 @@ const PaymentAddScreen = () => {
                 width: "100%",
                 objectFit: "contain",
               }}
-              src={proof_img}
+              src={payment_proof?.image || proof_img}
             />
           </div>
         </div>

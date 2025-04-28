@@ -38,6 +38,26 @@ const TopHeader = ({ toggleFun }) => {
       dispatch(saveHeaderTitleSlice("Staf Add"));
     } else if (path == "/staf-report") {
       dispatch(saveHeaderTitleSlice("Staf Report"));
+    } else if (path == "/setup") {
+      dispatch(saveHeaderTitleSlice("Setup"));
+    } else if (path == "/report") {
+      dispatch(saveHeaderTitleSlice("Over All Reports"));
+    } else if (path == "/notification") {
+      dispatch(saveHeaderTitleSlice("Notification"));
+    } else if (path == "/adminprofile") {
+      dispatch(saveHeaderTitleSlice("Profile"));
+    } else if (path == "/enquiries/details") {
+      dispatch(saveHeaderTitleSlice("Enquiries Details"));
+    } else if (path == "/enquiries/add") {
+      dispatch(saveHeaderTitleSlice("Enquiries Add"));
+    } else if (path == "/leadmanage/details") {
+      dispatch(saveHeaderTitleSlice("Lead Details"));
+    } else if (path == "/payment-updates/payment-list") {
+      dispatch(saveHeaderTitleSlice("Payments"));
+    } else if (path == "/payment-updates/payment-list/payment-detalis") {
+      dispatch(saveHeaderTitleSlice("Payment Details"));
+    } else if (path == "/payment/add") {
+      dispatch(saveHeaderTitleSlice("New Payment"));
     } else {
       dispatch(saveHeaderTitleSlice("Not A heading"));
     }

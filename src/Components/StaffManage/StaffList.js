@@ -113,10 +113,18 @@ const StaffList = ({ res }) => {
                 <td
                   className={`${
                     user?.active ? "dark_green" : "red"
-                  } text-center py-2 px-2  f7 py-2`}
+                  } text-center py-2 px-2  f7 py-2 position-relative `}
                 >
+                  <div
+                    style={{
+                      position: "absolute",
+                      // backgroundColor: "red",
+                      width: "100%",
+                      height: "100%",
+                      zindex: 1000000,
+                    }}
+                  />
                   <Switch
-                    disabled
                     // onClick={(e) => e.stopPropagation()}
                     // checked={statusToggle[user.id] || user.status}
                     // onChange={() => handleStatusToggle(user.id)}

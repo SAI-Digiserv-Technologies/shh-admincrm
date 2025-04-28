@@ -150,6 +150,8 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
     }, 500);
   };
 
+  console.log("PaymentUpdateList", PaymentUpdateList);
+
   return (
     <>
       {openDropdown !== null && (
@@ -192,7 +194,7 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
                 </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
                   {/* {lead?.lead_details?.name} */}
-                  {lead?.name}
+                  {lead?.lead_name}
                 </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
                   {/* {lead?.lead_details?.course} */}

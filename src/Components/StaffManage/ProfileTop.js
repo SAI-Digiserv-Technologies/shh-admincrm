@@ -132,7 +132,7 @@ const ProfileTop = ({
           </p> */}
           <button
             onClick={() => {
-              navigate("/staf-report");
+              navigate("/staf-report", { state: { data: fullData } });
             }}
             className="report-btn d-flex ac-jc gap-2 border-0 bg-primary3 white f4 fs-xxl-13 fs-xl-18 fs-lg-17 fs-sm-16 fs-xs-15 rounded-3 textani"
           >

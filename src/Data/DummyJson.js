@@ -148,7 +148,7 @@ export const SideNavList = [
     navi: "/paymentproof",
     active_icon: perfomance_blue,
     inactive_icon: perfomance_white,
-    sub: [{ list: "/payment/detail" }],
+    sub: [{ list: "/payment/detail" }, { list: "/payment/add" }],
   },
 
   // {
@@ -843,7 +843,7 @@ export const leadaddform = [
   },
   {
     id: 6,
-    formFeald: "Passed Out",
+    formFeald: "passedout",
     type: "text",
     lable: "Passed Out",
     placeholder: "Passed Out",
@@ -892,6 +892,95 @@ export const leadaddform = [
     placeholder: "Assigned To",
   },
 ];
+
+export const detailleadaddform = [
+  {
+    id: 1,
+    formFeald: "name",
+    type: "text",
+    lable: "Student Name",
+    placeholder: "Name",
+  },
+  {
+    id: 2,
+    formFeald: "email",
+    type: "text",
+    lable: "E-mail Address",
+    placeholder: "E-mail Address",
+  },
+  {
+    id: 3,
+    formFeald: "phoneno",
+    type: "text",
+    lable: "Phone Number",
+    placeholder: "Phone Number",
+  },
+  {
+    id: 4,
+    formFeald: "source",
+    type: "dropdown",
+    lable: "Source",
+    placeholder: "Source",
+  },
+  {
+    id: 5,
+    formFeald: "degree",
+    type: "text",
+    lable: "Student Degree",
+    placeholder: "Student degree",
+  },
+  {
+    id: 6,
+    formFeald: "passedout",
+    type: "text",
+    lable: "Passed Out",
+    placeholder: "Passed Out",
+  },
+  {
+    id: 7,
+    formFeald: "college_name",
+    type: "text",
+    lable: "College Name",
+    placeholder: "College Name",
+  },
+
+  {
+    id: 8,
+    formFeald: "state",
+    type: "dropdownstate",
+    lable: "State",
+    placeholder: "State",
+  },
+  {
+    id: 9,
+    formFeald: "city",
+    type: "citydropdown",
+    lable: "City",
+    placeholder: "City",
+  },
+  {
+    id: 10,
+    formFeald: "pincode",
+    type: "number",
+    lable: "Pincode",
+    placeholder: "Pincode",
+  },
+  {
+    id: 11,
+    formFeald: "address",
+    type: "text",
+    lable: "Address",
+    placeholder: "Address",
+  },
+  {
+    id: 12,
+    formFeald: "assignto",
+    type: "dropdown",
+    lable: "Assigned To",
+    placeholder: "Assigned To",
+  },
+];
+
 export const transactionidlist = [
   {
     id: 1,

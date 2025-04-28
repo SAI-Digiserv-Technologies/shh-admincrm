@@ -10,7 +10,15 @@ const PieChart = ({ dashLeadData }) => {
 
   const datass = dashLeadData?.aria;
 
-  console.log("datass", datass);
+  // 🔹 Helper to generate random color
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   useEffect(() => {
     if (!datass?.length) return;
@@ -20,22 +28,18 @@ const PieChart = ({ dashLeadData }) => {
 
     chart.responsive.enabled = true;
 
-    // 🔸 Group leads by city and count
+    // 🔹 Group leads by city and count
     const cityCountMap = datass.reduce((acc, item) => {
       const cityName = item.city?.name || "Unknown";
       acc[cityName] = (acc[cityName] || 0) + 1;
       return acc;
     }, {});
 
-    // 🔸 Convert to chart-friendly array with colors
-    chart.data = Object.entries(cityCountMap).map(([city, count], index) => ({
+    // 🔹 Create chart data with random colors
+    chart.data = Object.entries(cityCountMap).map(([city, count]) => ({
       country: city,
       value: count,
-      color: am4core.color(
-        ["#2B29CA", "#EAD430", "#E49A2D", "#C70039", "#28DD72", "#A569BD"][
-          index % 6
-        ]
-      ),
+      color: am4core.color(getRandomColor()),
     }));
 
     let pieSeries = chart.series.push(new am4charts.PieSeries3D());
@@ -45,21 +49,20 @@ const PieChart = ({ dashLeadData }) => {
     pieSeries.labels.template.wrap = true;
     pieSeries.labels.template.maxWidth = 120;
     pieSeries.labels.template.fontSize = 10;
-    pieSeries.labels.template.fill = am4core.color("#000"); // Ensure label visibility
-    pieSeries.labels.template.text = "{category}: {value}"; // Show category & value
+    pieSeries.labels.template.fill = am4core.color("#000");
+    pieSeries.labels.template.text = "{category}: {value}";
     pieSeries.labels.template.horizontalCenter = "middle";
     pieSeries.labels.template.verticalCenter = "middle";
 
-    pieSeries.ticks.template.strokeWidth = 1.5; // Reduce arrow thickness
-    pieSeries.ticks.template.length = 10; // Shorten line height
-    pieSeries.ticks.template.stroke = am4core.color("#000"); // Line color
+    pieSeries.ticks.template.strokeWidth = 1.5;
+    pieSeries.ticks.template.length = 10;
+    pieSeries.ticks.template.stroke = am4core.color("#000");
 
-    // 🔸 Color the slices dynamically
+    // 🔹 Dynamic color for slices
     pieSeries.slices.template.adapter.add("fill", (fill, target) => {
       return target.dataItem ? target.dataItem.dataContext.color : fill;
     });
 
-    // Adjust depth and angle to avoid cutting off labels
     chart.depth = 20;
     chart.angle = 40;
 

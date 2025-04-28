@@ -32,7 +32,9 @@ const LeadAddScreen = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const type = location?.state?.type;
+  const view = location?.state?.view;
   const routData = location?.state?.data;
+  const status = routData?.status;
   console.log("locatiroutDataon", location, routData);
 
   const scrollRef = useRef(null);
@@ -54,7 +56,7 @@ const LeadAddScreen = () => {
     pincode: "",
     address: "",
     assignto: "",
-    status: "",
+    status: status == "Enquiry" || type == "add" ? "Enquiry" : "",
     followupdate: "",
     followuptime: "",
     enrollement_date: "",
@@ -105,10 +107,18 @@ const LeadAddScreen = () => {
   // };
 
   const fealdOnChange = (field, value) => {
-    setFormFeald((state) => ({
-      ...state,
-      [field]: value,
-    }));
+    console.log("value", value);
+    if (field === "assignto") {
+      setFormFeald((state) => ({
+        ...state,
+        assignto: value, // value should be full object (id + name)
+      }));
+    } else {
+      setFormFeald((state) => ({
+        ...state,
+        [field]: value,
+      }));
+    }
     validateInput(field, value);
   };
 
@@ -235,8 +245,6 @@ const LeadAddScreen = () => {
         phonenumber: formFeald?.phoneno,
         status: formFeald?.status,
         source: formFeald?.source,
-        // assignedto: "Sujatha",
-        interested_course: formFeald?.interested_course,
         degree: formFeald?.degree,
         passedout: formFeald?.passedout,
         college_name: formFeald?.college_name,
@@ -248,6 +256,12 @@ const LeadAddScreen = () => {
         followuptime: "",
         enrollement_date: "",
       };
+      if (formFeald?.assignto?._id) {
+        payload.assignedto = formFeald?.assignto?._id;
+      }
+      if (formFeald?.interested_course?.addcourse) {
+        payload.interested_course = formFeald?.interested_course;
+      }
       if (formFeald?.status === "Follow Ups") {
         payload.followupdate = formFeald?.followupdate;
         payload.followuptime = formFeald?.followuptime;
@@ -265,7 +279,7 @@ const LeadAddScreen = () => {
           .then((res) => {
             console.log("EditRes", res);
             toast.success(res?.message || "Lead updated successfully");
-            // navigate(-1);
+            navigate(-1);
             setEditbtn(true);
           })
           .catch((err) => {
@@ -282,7 +296,7 @@ const LeadAddScreen = () => {
           .then((res) => {
             console.log("Res", res);
             toast.success(res?.message || "Lead created successfully");
-            // navigate(-1);
+            navigate(-1);
           })
           .catch((err) => {
             console.log("Reserr", err);
@@ -294,6 +308,13 @@ const LeadAddScreen = () => {
           });
       }
     }
+  };
+  const handleChange = (e) => {
+    const selectedObject = JSON.parse(e.target.value);
+    setFormFeald((prev) => ({
+      ...prev,
+      interested_course: selectedObject,
+    }));
   };
 
   const dataGetFun = () => {
@@ -324,6 +345,7 @@ const LeadAddScreen = () => {
           enrollement_date: res?.enrollement_date,
           interested_course: res?.interested_course,
         });
+
         console.log("formFeald", formFeald);
         getSourceFun();
       })
@@ -374,7 +396,10 @@ const LeadAddScreen = () => {
   console.log("courseList", courseList);
 
   useEffect(() => {
-    if (type == "edit") {
+    if (status == "Enquiry" || type == "add") {
+      fealdOnChange("status", "Enquiry");
+    }
+    if (type == "edit" || type == "view") {
       setEditbtn(true);
       dataGetFun();
       getSourceFun();
@@ -383,12 +408,12 @@ const LeadAddScreen = () => {
     }
   }, []);
 
-  console.log("fullData", fullData, editbtn);
+  console.log("fulcourseListlData", courseList, formFeald?.interested_course);
 
   return (
     <div ref={scrollRef} className="detaile-cont">
       {loading && <PageLoad />}
-      {type == "edit" && !loading && (
+      {/* {type == "edit" && !loading && (
         <div className="w-100 d-flex ac-je">
           <button
             onClick={() => {
@@ -401,7 +426,7 @@ const LeadAddScreen = () => {
             Payment Proof
           </button>
         </div>
-      )}
+      )} */}
       {!loading && (
         <div className="d-flex as-jb mt-1 gap-4 det-layer">
           <div className="w-70 d-flex inputcont ac-jb flex-column gap-4 pb-5">
@@ -410,7 +435,7 @@ const LeadAddScreen = () => {
                 <legend className="f3 px-1 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani black mb-0">
                   Personal Details
                 </legend>
-                {type == "edit" && editbtn && (
+                {type == "edit" && view !== "lead" && editbtn && (
                   <button
                     onClick={() => {
                       setEditbtn(false);
@@ -432,18 +457,35 @@ const LeadAddScreen = () => {
                             <div className="lead_drop position-relative">
                               <select
                                 disabled={type == "edit" && editbtn}
-                                value={formFeald?.[item?.formFeald] || ""}
+                                value={
+                                  item?.formFeald == "assignto"
+                                    ? formFeald?.assignto?._id ||
+                                      formFeald?.assignto // Display the _id for assignto
+                                    : formFeald?.[item?.formFeald] || "" // Display the value for other fields
+                                }
                                 onChange={(e) => {
-                                  fealdOnChange(
-                                    item?.formFeald,
-                                    e.target.value
-                                  );
+                                  if (item?.formFeald == "assignto") {
+                                    const selectedId = e.target.value; // Get the _id of the selected staff member
+                                    const selectedStaf = staflist.find(
+                                      (s) => s._id == selectedId
+                                    ); // Find the full staff object by _id
+                                    console.log("selectedStaf", selectedStaf);
+
+                                    fealdOnChange("assignto", selectedStaf); // Send the full object to update the state
+                                  } else {
+                                    fealdOnChange(
+                                      item?.formFeald,
+                                      e.target.value
+                                    ); // For other fields, just send the value
+                                  }
                                 }}
                                 className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
                               >
-                                <option value="" disabled hidden selected>
-                                  Select {item?.selectplace}
+                                <option value="" disabled hidden>
+                                  Select {item?.formFeald}
                                 </option>
+
+                                {/* Conditional List Rendering */}
                                 {(item?.formFeald == "source"
                                   ? sourceLis
                                   : item?.formFeald == "assignto"
@@ -451,21 +493,19 @@ const LeadAddScreen = () => {
                                   : item?.list
                                 )?.map((option) => (
                                   <option
-                                    key={option?.id}
+                                    key={option?.id || option?._id} // Use id or _id as the key
                                     className="light_gray w-100 rounded-2 px-2"
-                                    value={option?.name || option?.sourcename}
+                                    value={
+                                      item?.formFeald == "assignto"
+                                        ? option?._id // For assignto, send the _id
+                                        : option?.sourcename || option?.name // For others, use sourcename or name
+                                    }
                                   >
-                                    {option?.name || option?.sourcename}
+                                    {option?.name || option?.sourcename}{" "}
+                                    {/* Display name or sourcename */}
                                   </option>
                                 ))}
                               </select>
-                              {errors?.[item?.formFeald] && (
-                                <div className="error">
-                                  <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
-                                    {errors?.[item?.formFeald]}
-                                  </p>
-                                </div>
-                              )}
                             </div>
                           </div>
                         ) : item?.type == "citydropdown" ? (
@@ -621,15 +661,21 @@ const LeadAddScreen = () => {
                         </select>
                       ) : (
                         <select
-                          disabled={type == "edit" && editbtn}
+                          disabled
                           value={formFeald?.status}
                           onChange={(e) => {
-                            fealdOnChange("status", e.target.value);
+                            if (status == "Enquiry" || type == "add") {
+                              fealdOnChange("status", "Enquiry");
+                            } else {
+                              fealdOnChange("status", e.target.value);
+                            }
                           }}
                           className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
                         >
                           <option value="" disabled hidden selected>
-                            Select Status
+                            {status == "Enquiry" || type == "add"
+                              ? "Enquiry"
+                              : "Select Status"}
                           </option>
                           {leadsformtatus?.map((item) => {
                             return (
@@ -661,55 +707,57 @@ const LeadAddScreen = () => {
                       {fullData?.status == "Enrollement" ? (
                         <select
                           disabled
-                          value={fullData?.interested_course}
-                          // onChange={(e) => {
-                          //   fealdOnChange("interested_course", e.target.value);
-                          // }}
+                          value={formFeald?.interested_course?._id || ""}
+                          onChange={(e) => {
+                            const selectedId = e.target.value;
+                            const selectedCourse = courseList.find(
+                              (s) => s._id == selectedId
+                            );
+
+                            fealdOnChange("interested_course", selectedCourse); // ⭐ Store FULL object
+                          }}
                           className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
                         >
-                          <option value="" disabled hidden selected>
+                          <option value="" disabled hidden>
                             Select Interested Course
                           </option>
-                          {courseList?.map((item) => {
-                            return (
-                              <option
-                                key={item?._id}
-                                className="light_gray w-100 rounded-2 px-2"
-                                value={item?.addcourse}
-                              >
-                                {item?.addcourse}
-                              </option>
-                            );
-                          })}
+
+                          {courseList?.map((item) => (
+                            <option
+                              key={item?._id}
+                              value={item._id} // ⭐ Only ID goes inside <option>
+                              className="light_gray w-100 rounded-2 px-2"
+                            >
+                              {item?.addcourse} {/* ⭐ Show course name */}
+                            </option>
+                          ))}
                         </select>
                       ) : (
                         <select
                           disabled={type == "edit" && editbtn}
-                          value={formFeald?.selectedState}
+                          value={formFeald?.interested_course?._id || ""}
                           onChange={(e) => {
-                            // fealdOnChange("interested_course", e.target.value);
-                            const selectedState = courseList.find(
-                              (s) => s.addcourse === e.target.value
+                            const selectedId = e.target.value;
+                            const selectedCourse = courseList.find(
+                              (s) => s._id == selectedId
                             );
-                            fealdOnChange("interested_course", selectedState);
+
+                            fealdOnChange("interested_course", selectedCourse); // ⭐ Store FULL object
                           }}
                           className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
                         >
                           <option value="" disabled hidden selected>
                             Select Interested Course
                           </option>
-                          {courseList?.map((item, index) => {
-                            return (
-                              <option
-                                key={index}
-                                className="light_gray w-100 rounded-2 px-2"
-                                value={item?.addcourse}
-                                // value={item}
-                              >
-                                {item?.addcourse}
-                              </option>
-                            );
-                          })}
+                          {courseList?.map((item) => (
+                            <option
+                              key={item?._id}
+                              value={item._id} // ⭐ Only ID goes inside <option>
+                              className="light_gray w-100 rounded-2 px-2"
+                            >
+                              {item?.addcourse} {/* ⭐ Show course name */}
+                            </option>
+                          ))}
                         </select>
                       )}
                       {errors?.interested_course && (

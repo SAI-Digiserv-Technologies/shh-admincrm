@@ -43,6 +43,8 @@ const Leadmanage = () => {
     handleleadview();
   }, []);
 
+  console.log("leadlists", leadlists);
+
   return (
     <>
       {loading ? (
@@ -52,21 +54,21 @@ const Leadmanage = () => {
       ) : (
         <div className="lead-head">
           <div className="lead-h d-flex ac-je">
-            <button
+            {/* <button
               onClick={() => {
                 navigate("/leadmanagedetail", { state: { type: "add" } });
               }}
               className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani"
             >
               + Add Enquiry
-            </button>
+            </button> */}
           </div>
-          <div className="lead-h d-flex ac-jb">
+          <div className="lead-h d-flex ac-je">
             {/* <p className=" mb-0 f7 primary3 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani">
                 Lead Management
               </p> */}
             <div className="d-flex gap-3 flex-wrap">
-              {Object.keys(fieldOptions).map((field) => (
+              {Object.keys(fieldOptions)?.map((field) => (
                 <div key={field} className="position-relative">
                   <button
                     onClick={() =>
@@ -82,7 +84,7 @@ const Leadmanage = () => {
                       className="dropdown-menu show mt-1"
                       style={{ display: "block" }}
                     >
-                      {fieldOptions[field].map((option, idx) => (
+                      {fieldOptions[field]?.map((option, idx) => (
                         <li key={idx}>
                           <button
                             className="dropdown-item"
@@ -97,14 +99,14 @@ const Leadmanage = () => {
                 </div>
               ))}
 
-              <button
+              {/* <button
                 onClick={() =>
                   navigate("/leadmanagedetail", { state: { type: "add" } })
                 }
                 className="refil-text mb-0 white d-flex ac-jc bg-[#8e005c] f4 rounded-3 border-0 px-3 py-2 textani"
               >
                 + New Lead
-              </button>
+              </button> */}
             </div>
           </div>
           <LeadList data={leadlists} />

@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL, URL } from "./const";
-import PaymentProof from "../../Screens/Paymentproofscreen";
 
 export const api = createApi({
   reducerPath: "api",
@@ -140,7 +139,14 @@ export const api = createApi({
 
     getUserview: builder.query({
       query: (id) => ({
-        url: `${URL.VIEWLEED}/${id}`,
+        url: `${URL.VIEWLEEDView}/${id}`,
+        method: "GET",
+      }),
+    }),
+
+    paymentproofview: builder.query({
+      query: (id) => ({
+        url: `${URL.PROOFVIE}/${id}/paymentproof`,
         method: "GET",
       }),
     }),
@@ -159,6 +165,15 @@ export const api = createApi({
         body: payload,
       }),
     }),
+
+    paymentadd: builder.mutation({
+      query: (payload) => ({
+        url: URL.PAYMENT_ADD,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
     Modeofamount: builder.query({
       query: () => ({
         url: URL.MODEOFAMOUNT,
@@ -310,6 +325,13 @@ export const api = createApi({
       }),
     }),
 
+    tele_lead_list: builder.query({
+      query: (id) => ({
+        url: `${URL.TELE_LEAD_LIST}/${id}`,
+        method: "GET",
+      }),
+    }),
+
     // Source list
     source_list: builder.query({
       query: () => ({
@@ -328,6 +350,13 @@ export const api = createApi({
     all_proof_list: builder.query({
       query: () => ({
         url: URL.ALL_PROOF,
+        method: "GET",
+      }),
+    }),
+
+    paylentslist: builder.query({
+      query: () => ({
+        url: URL.GET_PAYMENT_LIST,
         method: "GET",
       }),
     }),
@@ -400,4 +429,8 @@ export const {
   useSend_otpMutation,
   useVerify_otpMutation,
   useReset_passwordMutation,
+  useLazyTele_lead_listQuery,
+  useLazyPaymentproofviewQuery,
+  useLazyPaylentslistQuery,
+  usePaymentaddMutation,
 } = api;

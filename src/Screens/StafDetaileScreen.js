@@ -301,7 +301,7 @@ const StafDetaileScreen = () => {
                                 fealdOnChange(item?.formFeald, e.target.value);
                               }}
                               disabled={
-                                edit
+                                edit && item?.formFeald !== "email"
                                   ? false
                                   : item?.formFeald == "email" && true
                               }

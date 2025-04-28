@@ -74,88 +74,97 @@ const PaymentProofListScreen = () => {
   }, []);
 
   return (
-    <div className="container mt-4 mb-0 ms-0 me-0">
+    <>
       {loading && <PageLoad />}
-      {!loading && (
-        <>
-          <div className="payment-container rounded-3">
-            {paymentProofs?.length == 0 ? (
-              <EmptyComp text={"Payment Proof Not Found"} />
-            ) : (
-              <div className="payment-list">
-                {paymentProofs?.map((item) => {
-                  const dateObj = new Date(item?.createdAt);
-                  const date = dateObj.toISOString().split("T")[0];
-                  const time = formatAMPM(dateObj);
-                  return (
-                    <div
-                      onClick={() => {
-                        if (item.status == "Pending") {
-                          navigate("/payment/add", {
-                            state: { type: "add", data: item },
-                          });
-                        } else {
-                          navigate("/payment/detail", {
-                            state: { type: "view", data: item },
-                          });
-                        }
-                      }}
-                      key={item.id}
-                      className={`payment-card d-flex ac-jb w-100  ${
-                        !item.status == "Pending" ? "unread" : ""
-                      }`}
-                    >
-                      <div className="d-flex ac-js">
-                        <div className="proofimgs d-flex ac-jc me-3">
-                          <img src={item?.image || proof_img} />
-                        </div>
-                        <div>
-                          <div className="d-flex noti-header justify-content-between align-items-center mb-2">
-                            <div>
-                              <p className="mb-0 mt-0 fw-bold f5 fs-xxl-18 fs-xl-17 fs-lg-15 fs-sm-14 fs-xs-13 primary3 ">
-                                {item.userName}
+      {paymentProofs?.length == 0 ? (
+        <EmptyComp text={"Payment Proof Not Found"} />
+      ) : (
+        <div className="container mt-4 mb-0 ms-0 me-0">
+          {!loading && (
+            <>
+              {paymentProofs?.length > 0 && (
+                <div className="payment-container rounded-3">
+                  {
+                    <div className="payment-list">
+                      {paymentProofs?.map((item) => {
+                        const dateObj = new Date(item?.createdAt);
+                        const date = dateObj.toISOString().split("T")[0];
+                        const time = formatAMPM(dateObj);
+                        return (
+                          <div
+                            onClick={() => {
+                              if (item.status == "Pending") {
+                                navigate("/payment/add", {
+                                  state: { type: "add", data: item },
+                                });
+                              } else {
+                                navigate("/payment/detail", {
+                                  state: { type: "view", data: item },
+                                });
+                              }
+                            }}
+                            key={item.id}
+                            className={`payment-card d-flex ac-jb w-100  ${
+                              !item.status == "Pending" ? "unread" : ""
+                            }`}
+                          >
+                            <div className="d-flex ac-js">
+                              <div className="proofimgs d-flex ac-jc me-3">
+                                <img src={item?.image || proof_img} />
+                              </div>
+                              <div>
+                                <div className="d-flex noti-header justify-content-between align-items-center mb-2">
+                                  <div>
+                                    <p className="mb-0 mt-0 fw-bold f5 fs-xxl-18 fs-xl-17 fs-lg-15 fs-sm-14 fs-xs-13 primary3 ">
+                                      {item.userName}
+                                    </p>
+                                  </div>
+                                </div>
+                                <p className="mb-0 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 f5 black ">
+                                  Payment Method:
+                                  <span className="f3">
+                                    {" "}
+                                    {item.paymentmethood}dd
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                            {/* <p className="mb-1">Transaction ID: {item?.transactionId}</p> */}
+                            <div className="h-100 d-flex flex-column ">
+                              <span
+                                className={`badge d-flex ac-jc f2 fs-xxl-15 fs-xl-15 fs-lg-13 fs-sm-13 fs-xs-12 ${
+                                  item.status === "Pending"
+                                    ? " pending-btn px-3 py-2"
+                                    : "verified-btn px-3 py-2"
+                                }`}
+                              >
+                                {item.status}
+                              </span>
+                              <p className="fs-xxl-13 mt-3 mb-0 fs-xl-13 fs-lg-13 fs-sm-12 fs-xs-11 f3 black d-flex ac-jc">
+                                {date} |
+                                <img
+                                  className="mx-1"
+                                  src={mini_time}
+                                  style={{
+                                    height: "13px",
+                                    width: "13px",
+                                  }}
+                                />
+                                {time}
                               </p>
                             </div>
                           </div>
-                          <p className="mb-0 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 f5 black ">
-                            Payment Method:
-                            <span className="f3"> {item.paymentmethood}dd</span>
-                          </p>
-                        </div>
-                      </div>
-                      {/* <p className="mb-1">Transaction ID: {item?.transactionId}</p> */}
-                      <div className="h-100 d-flex flex-column ">
-                        <span
-                          className={`badge d-flex ac-jc f2 fs-xxl-15 fs-xl-15 fs-lg-13 fs-sm-13 fs-xs-12 ${
-                            item.status === "Pending"
-                              ? " pending-btn px-3 py-2"
-                              : "verified-btn px-3 py-2"
-                          }`}
-                        >
-                          {item.status}
-                        </span>
-                        <p className="fs-xxl-13 mt-3 mb-0 fs-xl-13 fs-lg-13 fs-sm-12 fs-xs-11 f3 black d-flex ac-jc">
-                          {date} |
-                          <img
-                            className="mx-1"
-                            src={mini_time}
-                            style={{
-                              height: "13px",
-                              width: "13px",
-                            }}
-                          />
-                          {time}
-                        </p>
-                      </div>
+                        );
+                      })}
                     </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </>
+                  }
+                </div>
+              )}
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
