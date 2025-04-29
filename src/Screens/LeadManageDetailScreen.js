@@ -12,11 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { City, State } from "country-state-city";
 import PostalCodes from "postal-codes-js";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-
-  useLeadaddMutation,
-  useLeadeditMutation,
-} from "../Data/Api/api";
+import { useLeadaddMutation, useLeadeditMutation } from "../Data/Api/api";
 import { toast } from "react-toastify";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import PageLoad from "../Components/Loading/PageLoad";
@@ -152,7 +148,15 @@ const LeadManageDetailScreen = () => {
 
       case "passedout":
         if (formFeald?.degree && !stringValue) {
-          errorMsg = "Passout year is required when Degree is entered!";
+          errorMsg = "Passed Out year is required when Degree is entered!";
+        } else if (stringValue) {
+          const currentYear = new Date().getFullYear(); // Get current year like 2025
+          const yearRegex = /^(19|20)\d{2}$/;
+          if (!yearRegex.test(stringValue)) {
+            errorMsg = "Please enter a valid 4-digit year.";
+          } else if (parseInt(stringValue) > currentYear) {
+            errorMsg = "Passed Out year cannot be in the future.";
+          }
         }
         break;
 
@@ -179,7 +183,9 @@ const LeadManageDetailScreen = () => {
         break;
       case "pincode":
         if (!stringValue) {
-          errorMsg = "pincode is required!";
+          errorMsg = "Pincode is required!";
+        } else if (!/^\d{6}$/.test(stringValue)) {
+          errorMsg = "Pincode must be exactly 6 digits!";
         }
         break;
       case "address":
@@ -309,15 +315,11 @@ const LeadManageDetailScreen = () => {
     }
   };
 
-
   useEffect(() => {
     if (type == "edit") {
       setEditbtn(true);
-
     }
   }, []);
-
-
 
   return (
     <div className="detaile-cont">
@@ -730,7 +732,6 @@ const LeadManageDetailScreen = () => {
             </div>
           )}
         </div>
-
       </div>
     </div>
   );

@@ -22,8 +22,96 @@
   justify-content: center;
 }
 
+// LeadDetaile start
+.lead_drop {
+  select {
+    height: 43px !important;
+    border: solid 2px #cbb4b4 !important;
+    box-shadow: 0 0 5px #cbb4b4 !important;
+    background: #ffffff !important;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.two_inputs {
+  .insideinpput {
+    height: 25px;
+    width: 25px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  .input_one {
+    .v-line {
+      height: 70%;
+      width: 2px;
+      background: #cbb4b4;
+    }
+    height: 43px;
+    border: solid 2px #cbb4b4;
+    box-shadow: 0 0 5px #cbb4b4;
+    background: #ffffff;
+    input {
+      border: 0 !important;
+      box-shadow: 0 0 5px #fff;
+      height: 40px !important;
+    }
+    // input[type="date"]::-webkit-calendar-picker-indicator {
+    //   display: none;
+    //   -webkit-appearance: none;
+    // }
+
+    /* Hide calendar icon for Firefox */
+    // input[type="date"] {
+    //   appearance: none;
+    //   -moz-appearance: textfield;
+    // }
+  }
+}
+.input_twoss {
+  .insideinpput {
+    height: 25px;
+    width: 25px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+  input {
+    border: 0 !important;
+    box-shadow: 0 0 5px #fff;
+    height: 40px !important;
+  }
+  // input[type="date"]::-webkit-calendar-picker-indicator {
+  //   display: none;
+  //   -webkit-appearance: none;
+  // }
+
+  // /* Hide calendar icon for Firefox */
+  // input[type="date"] {
+  //   appearance: none;
+  //   -moz-appearance: textfield;
+  // }
+  height: 43px;
+  border: solid 2px #cbb4b4;
+  box-shadow: 0 0 5px #cbb4b4;
+  background: #ffffff;
+}
+// LeadDetaile end
+
 input:disabled {
-  opacity: 0.7;
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+select:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
 }
 
 .logpoppup {
@@ -2147,3 +2235,17 @@ $white: white;
   }
 }
 // Notification Screen end
+
+.clear-filters-btn {
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+.clear-filters-btn:hover {
+  background-color: #c82333;
+}

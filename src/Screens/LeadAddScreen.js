@@ -159,7 +159,15 @@ const LeadAddScreen = () => {
 
       case "passedout":
         if (formFeald?.degree && !stringValue) {
-          errorMsg = "Passout year is required when Degree is entered!";
+          errorMsg = "Passed Out year is required when Degree is entered!";
+        } else if (stringValue) {
+          const currentYear = new Date().getFullYear(); // Get current year like 2025
+          const yearRegex = /^(19|20)\d{2}$/;
+          if (!yearRegex.test(stringValue)) {
+            errorMsg = "Please enter a valid 4-digit year.";
+          } else if (parseInt(stringValue) > currentYear) {
+            errorMsg = "Passed Out year cannot be in the future.";
+          }
         }
         break;
 
@@ -185,7 +193,9 @@ const LeadAddScreen = () => {
         break;
       case "pincode":
         if (!stringValue) {
-          errorMsg = "pincode is required!";
+          errorMsg = "Pincode is required!";
+        } else if (!/^\d{6}$/.test(stringValue)) {
+          errorMsg = "Pincode must be exactly 6 digits!";
         }
         break;
       case "address":
@@ -231,7 +241,7 @@ const LeadAddScreen = () => {
     return !errorMsg;
   };
 
-  console.log("formFeald", formFeald);
+  console.log("formFealerrorsd", formFeald, errors);
 
   const handleSubmit = () => {
     const isValid = Object.keys(formFeald).every((field) =>
@@ -325,25 +335,25 @@ const LeadAddScreen = () => {
       .unwrap()
       .then((res) => {
         console.log("viewRes", res);
-        setFulldata(res);
+        setFulldata(res?.lead);
         setFormFeald({
-          name: res?.name,
-          email: res?.email,
-          phoneno: res?.phonenumber,
-          source: res?.source,
-          degree: res?.degree,
-          passedout: res?.passedout,
-          college_name: res?.college_name,
-          state: res?.state,
-          city: res?.city,
-          pincode: res?.pincode,
-          address: res?.address,
-          assignto: res?.assignedto,
-          status: res?.status,
-          followupdate: res?.followupdate,
-          followuptime: res?.followuptime,
-          enrollement_date: res?.enrollement_date,
-          interested_course: res?.interested_course,
+          name: res?.lead?.name,
+          email: res?.lead?.email,
+          phoneno: res?.lead?.phonenumber,
+          source: res?.lead?.source,
+          degree: res?.lead?.degree,
+          passedout: res?.lead?.passedout,
+          college_name: res?.lead?.college_name,
+          state: res?.lead?.state,
+          city: res?.lead?.city,
+          pincode: res?.lead?.pincode,
+          address: res?.lead?.address,
+          assignto: res?.lead?.assignedto,
+          status: res?.lead?.status,
+          followupdate: res?.lead?.followupdate,
+          followuptime: res?.lead?.followuptime,
+          enrollement_date: res?.lead?.enrollement_date,
+          interested_course: res?.lead?.interested_course,
         });
 
         console.log("formFeald", formFeald);
@@ -449,7 +459,9 @@ const LeadAddScreen = () => {
                   {leadaddform?.map((item) => {
                     return (
                       <>
-                        {item?.type == "dropdown" ? (
+                        {item?.formFeald == "assignto" &&
+                        !formFeald?.assignto &&
+                        type !== "add" ? null : item?.type == "dropdown" ? (
                           <div className="w-45">
                             <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
                               {item?.lable}
@@ -506,6 +518,13 @@ const LeadAddScreen = () => {
                                   </option>
                                 ))}
                               </select>
+                              {errors?.[item?.formFeald] && (
+                                <div className="error">
+                                  <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
+                                    {errors?.[item?.formFeald]}
+                                  </p>
+                                </div>
+                              )}
                             </div>
                           </div>
                         ) : item?.type == "citydropdown" ? (
@@ -632,7 +651,7 @@ const LeadAddScreen = () => {
                 <div className="d-flex w-100 ac-jb flex-wrap gap-3">
                   <div className="w-45">
                     <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                      Status
+                      Status*
                     </p>
                     <div className="lead_drop position-relative">
                       {type == "edit" && fullData?.status == "Enrollement" ? (
@@ -701,7 +720,7 @@ const LeadAddScreen = () => {
                   </div>
                   <div className="w-45">
                     <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                      Interested Course
+                      Interested Course*
                     </p>
                     <div className="lead_drop position-relative">
                       {fullData?.status == "Enrollement" ? (
@@ -772,7 +791,7 @@ const LeadAddScreen = () => {
                   {formFeald?.status == "Follow Ups" && (
                     <div className="w-45 two_inputs position-relative">
                       <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                        Follow-up
+                        Follow-up*
                       </p>
                       <div className="d-flex ac-jc input_one rounded-2 gap-3 px-2">
                         <div className="d-flex ac-jb w-50 gap-1 ">
@@ -818,7 +837,7 @@ const LeadAddScreen = () => {
                   {formFeald?.status == "Enrollement" && (
                     <div className="w-45">
                       <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                        Enrollement Date
+                        Enrollement Date*
                       </p>
                       <div className="d-flex ac-js input_twoss rounded-2 px-2 gap-2">
                         <div className="insideinpput d-flex ac-jc">

@@ -5,7 +5,7 @@ import TopHeader from "./TopHeader";
 import { topsetting } from "../../assets/images";
 import useToken from "../../Data/Local/userToken";
 import useUser from "../../Data/Local/userDetail";
-import { useLogoutMutation } from "../../Data/Api/api";
+import { useLazyProfileViewQuery, useLogoutMutation } from "../../Data/Api/api";
 import { toast } from "react-toastify";
 import PageLoad from "../Loading/PageLoad";
 import Logoutpoppup from "../Logoutpopup/Logoutpopup";
@@ -23,7 +23,7 @@ const Layout = () => {
   const { token, setToken } = useToken();
   const { user, setUser } = useUser();
 
-  // const [profileViewApi] = useLazyTelecaller_viewQuery();
+  const [profileViewApi] = useLazyProfileViewQuery();
 
   // Api
   const [logoutApi] = useLogoutMutation();
@@ -63,22 +63,22 @@ const Layout = () => {
     }
   };
 
-  // const getProFun = () => {
-  //   const id = user?.telecaller?.id;
-  //   profileViewApi(id)
-  //     .unwrap()
-  //     .then((res) => {
-  //       console.log("ProRes", res);
-  //       ssetProfileData(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log("Err", err);
-  //     });
-  // };
+  const getProFun = () => {
+    const id = user?.admin?.id;
+    profileViewApi(id)
+      .unwrap()
+      .then((res) => {
+        console.log("ProRes", res);
+        ssetProfileData(res);
+      })
+      .catch((err) => {
+        console.log("Err", err);
+      });
+  };
 
-  // useEffect(() => {
-  //   getProFun();
-  // }, []);
+  useEffect(() => {
+    getProFun();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,7 +100,6 @@ const Layout = () => {
         <div className="containersss">
           {logoutpop && <Logoutpoppup poppupHandle={poppupHandle} />}
           {load && <PageLoad />}
-
           <SideNavbar
             profileData={profileData}
             setMenuActive={setMenuActive}

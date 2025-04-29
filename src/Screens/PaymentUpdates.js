@@ -3,61 +3,56 @@ import { refileicon } from "../assets/images";
 import { useNavigate } from "react-router-dom";
 
 import PaymentUpdatesList from "../Components/PaymentManage/PaymentUpdatesList";
-import PaymentList from "./PaymentList";
-import { useLazyPaylentslistQuery } from "../Data/Api/api";
+import { useLazyAllpayment_listQuery } from "../Data/Api/api";
 import PageLoad from "../Components/Loading/PageLoad";
 import EmptyComp from "../Components/Empty/EmptyComp";
 
 const PaymentUpdates = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [paymentlist, setPaymentList] = useState([]);
-  // Api
-  const [paymentListApi] = useLazyPaylentslistQuery();
+  const [loading, setLoadin] = useState(true);
+  const [paymentlist, setPaymentlist] = useState([]);
 
-  const paylentlistFun = () => {
-    setLoading(true);
+  // Api
+  const [paymentListApi] = useLazyAllpayment_listQuery();
+
+  const dataGetFun = () => {
+    setLoadin(true);
     paymentListApi()
       .unwrap()
       .then((res) => {
-        console.log("payres", res);
-        const data = res?.data?.grouped_payments;
-        setPaymentList(data);
+        console.log("res", res);
+        setPaymentlist(res?.data?.grouped_payments || []);
       })
       .catch((err) => {
         console.log("err", err);
       })
       .finally(() => {
-        setLoading(false);
+        setLoadin(false);
       });
   };
 
   useEffect(() => {
-    paylentlistFun();
+    dataGetFun();
   }, []);
-
   return (
-    <>
-      {loading ? (
-        <PageLoad />
-      ) : paymentlist?.length == 0 ? (
-        <EmptyComp text={"Payment List Not Found"} />
-      ) : (
-        <div className="lead-head">
-          <div className="lead-h d-flex ac-je w-100">
-            {/* <p className=" mb-0 f7 primary3 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani">
-        Payment Updates
+    <div className="lead-head">
+      {loading && <PageLoad />}
+      {/* <div className="lead-h d-flex ac-jb"> */}
+      {/* <p className=" mb-0 f7 primary3 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani">
+          Payment Updates
         </p> */}
-            <div className="d-flex ac-jb gap-3">
-              <button className="refil-box d-flex ac-jc bg-primary3 rounded-3 border-0">
-                <img src={refileicon} />
-              </button>
-            </div>
-          </div>
-          <PaymentUpdatesList PaymentUpdateList={paymentlist} />
-        </div>
+      {/* <div className="d-flex ac-jb gap-3">
+          <button className="refil-box d-flex ac-jc bg-primary3 rounded-3 border-0">
+            <img src={refileicon} />
+          </button>
+        </div> */}
+      {/* </div> */}
+      {!loading && paymentlist?.length == 0 ? (
+        <EmptyComp text={"Payments Not Found"} />
+      ) : (
+        !loading && <PaymentUpdatesList paymentlist={paymentlist} />
       )}
-    </>
+    </div>
   );
 };
 

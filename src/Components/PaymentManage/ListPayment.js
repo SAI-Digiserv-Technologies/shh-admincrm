@@ -49,7 +49,7 @@ const ListPayment = ({ historyData }) => {
 
   const totalPages = Math.ceil(historyData?.length / leadsPerPage);
 
-  console.log("currentLeads", currentLeads);
+  console.log("currensdjhjkpl[tLeads", currentLeads);
 
   useEffect(() => {
     const handleClickOutside = (e) => {};
@@ -89,7 +89,7 @@ const ListPayment = ({ historyData }) => {
                 }}
                 className="cp"
                 style={
-                  openDropdown === lead.id
+                  openDropdown === lead?._id
                     ? {
                         background: "#0b146b59",
                       }
@@ -107,9 +107,9 @@ const ListPayment = ({ historyData }) => {
                 </td>
                 <td
                   className="text-center b_order-0 py-3 px-2 primary3 f5"
-                  data-label="Lead ID"
+                  data-label="Transaction ID"
                 >
-                  {lead.transitionId}
+                  {lead?.transitionId || lead?.transaction_id || "-"}
                 </td>
                 {/* <td
                   className="text-center border-0 py-2 px-2 primary3 f5"
@@ -133,7 +133,7 @@ const ListPayment = ({ historyData }) => {
                   className="text-center border-0 py-3 px-2 primary3 f5"
                   data-label="Status"
                 >
-                  {/* {new Date(lead?.createdAt).toISOString().split("T")[0] || "-"} */}
+                  {new Date(lead?.createdAt).toISOString().split("T")[0] || "-"}
                 </td>
                 {/* <td
                   className="text-center border-0 py-3 px-2"

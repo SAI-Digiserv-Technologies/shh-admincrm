@@ -3,6 +3,7 @@ import SrcScreen from "./SrcScreen";
 import LeadCourseList from "../Components/SetupManage/LeadCourseList";
 import LeadCourseScreen from "./LeadCourseScreen";
 import StaffRoleScreen from "./StaffRoleScreen";
+import PaymentMethodScreen from "./PaymentMethodScreen";
 
 const SetupScreen = () => {
   const [selectedTab, setSelectedTab] = useState("role");
@@ -29,6 +30,12 @@ const SetupScreen = () => {
         return (
           <div className="list-content">
             <StaffRoleScreen />
+          </div>
+        );
+      case "payment":
+        return (
+          <div className="list-content">
+            <PaymentMethodScreen />
           </div>
         );
       default:
@@ -68,6 +75,16 @@ const SetupScreen = () => {
           }  toggle-btn togbottum `}
         >
           <p className="mb-0">Source</p>
+        </button>
+        <button
+          onClick={() => handleTabChange("payment")}
+          className={` ${
+            selectedTab === "payment"
+              ? "bg-primary3 white  "
+              : "primary3 bg-transparent "
+          }  toggle-btn togbottum `}
+        >
+          <p className="mb-0">Payment Methods</p>
         </button>
       </div>
       {renderListContent()}

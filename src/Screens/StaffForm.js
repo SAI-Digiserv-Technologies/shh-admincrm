@@ -30,19 +30,19 @@ const StaffForm = () => {
     {
       name: "staffName",
       placeholder: "Name",
-      label: "Full Name",
+      label: "Full Name*",
       type: "text",
     },
     {
       name: "staffEmail",
       placeholder: "Email",
-      label: "E-mail Address",
+      label: "E-mail Address*",
       type: "email",
     },
     {
       name: "staffPhone",
       placeholder: "Phone",
-      label: "Phone Number",
+      label: "Phone Number*",
       type: "number ",
     },
   ];
@@ -263,7 +263,7 @@ const StaffForm = () => {
 
                   {/* Select Role */}
                   <div className="w-45 position-relative">
-                    <p className="f6 px-1 primary2 mb-0">Role</p>
+                    <p className="f6 px-1 primary2 mb-0">Role*</p>
                     <div className="lead_drop">
                       <select
                         name="staffRole"
@@ -272,7 +272,7 @@ const StaffForm = () => {
                         className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3"
                       >
                         <option value="" disabled hidden>
-                          Select Status
+                          Select Role
                         </option>
                         {roleList?.map((item) => (
                           <option key={item._id} value={item.addroles}>
@@ -296,7 +296,7 @@ const StaffForm = () => {
                       className="w-45 position-relative position-relative"
                       key={field.name}
                     >
-                      <p className="f6 px-1 primary2 mb-0">{field.label}</p>
+                      <p className="f6 px-1 primary2 mb-0">{field.label}*</p>
                       <div className="position-relative">
                         <input
                           placeholder={field?.placeholder}

@@ -65,6 +65,13 @@ export const api = createApi({
       }),
     }),
 
+    allpayment_list: builder.query({
+      query: () => ({
+        url: URL.PAYMENT_LIST,
+        method: "GET",
+      }),
+    }),
+
     Editroles: builder.mutation({
       query: ({ payload, id }) => ({
         url: `${URL.EDITROLES}/${id}`,
@@ -140,6 +147,13 @@ export const api = createApi({
     getUserview: builder.query({
       query: (id) => ({
         url: `${URL.VIEWLEEDView}/${id}`,
+        method: "GET",
+      }),
+    }),
+
+    payment_detaile: builder.query({
+      query: (id) => ({
+        url: `${URL.HISTORY_DETAIL}/${id}`,
         method: "GET",
       }),
     }),
@@ -236,12 +250,21 @@ export const api = createApi({
         body: payload,
       }),
     }),
+
     viewUser: builder.query({
       query: () => ({
         url: URL.VIEWCOURSE,
         method: "GET",
       }),
     }),
+
+    paymentmethodlist: builder.query({
+      query: () => ({
+        url: URL.MODEOFAMOUNT,
+        method: "GET",
+      }),
+    }),
+
     courseUser: builder.mutation({
       query: ({ payload, id }) => ({
         url: `${URL.EDITCOURSE}/${id}`,
@@ -294,11 +317,19 @@ export const api = createApi({
       }),
     }),
 
-    profileUpdate: builder.mutation({
+    paymentmethodedit: builder.mutation({
       query: ({ id, payload }) => ({
-        url: `${URL.PROFILE_UPDATE}/${id}`,
+        url: `${URL.MODEOFAMOUNTEDIT}/${id}`,
         method: "PUT",
         body: payload,
+      }),
+    }),
+
+    profileUpdate: builder.mutation({
+      query: ({ formdata, id }) => ({
+        url: `${URL.PROFILE_UPDATE}/${id}`,
+        method: "PUT",
+        body: formdata,
       }),
     }),
 
@@ -387,6 +418,13 @@ export const api = createApi({
         body: payload,
       }),
     }),
+
+    payment_history: builder.query({
+      query: (id) => ({
+        url: `${URL.PAYMENT_HISSTORY}/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -433,4 +471,9 @@ export const {
   useLazyPaymentproofviewQuery,
   useLazyPaylentslistQuery,
   usePaymentaddMutation,
+  useLazyPaymentmethodlistQuery,
+  usePaymentmethodeditMutation,
+  useLazyAllpayment_listQuery,
+  useLazyPayment_historyQuery,
+  useLazyPayment_detaileQuery,
 } = api;

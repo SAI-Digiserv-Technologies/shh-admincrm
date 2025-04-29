@@ -53,6 +53,9 @@ export const URL = {
   PROOFVIE: "proof/lead",
   GET_PAYMENT_LIST: "payments/getpayment",
   PAYMENT_ADD: "payments/payment",
+  PAYMENT_LIST: "payments/getpayment",
+  PAYMENT_HISSTORY: "payments/getpayment",
+  HISTORY_DETAIL: "payments/payment/id",
 
   // ADDSTAFF:"telecallers/addtelecaller",
   // VIEWSTAFF:"telecallers/gettelecallers",

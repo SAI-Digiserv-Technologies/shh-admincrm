@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Invoice from "../Invoice/Invoice";
 import NewInvoice from "../Invoice/NewInvoice";
 
-const PaymentUpdatesList = ({ PaymentUpdateList }) => {
+const PaymentUpdatesList = ({ paymentlist }) => {
   const invoiceRef = useRef();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [paymentDatas, setPaymentDatas] = useState(null);
@@ -33,17 +33,16 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
 
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = PaymentUpdateList?.slice(
-    indexOfFirstLead,
-    indexOfLastLead
-  );
-  const totalPages = Math?.ceil(PaymentUpdateList?.length / leadsPerPage);
+  const currentLeads = paymentlist?.slice(indexOfFirstLead, indexOfLastLead);
+  const totalPages = Math?.ceil(paymentlist?.length / leadsPerPage);
+  const today = new Date().toISOString().split("T")[0];
+  console.log("today", today);
 
-  console.log("PaymentUpdateList", PaymentUpdateList);
+  console.log("paymentlist", paymentlist);
 
   const handlePrint = (data) => {
     setPaymentDatas(data);
-
+    console.log("invoicedata", data);
     setTimeout(() => {
       const content = invoiceRef?.current?.innerHTML;
       if (!content || !content.trim()) {
@@ -121,11 +120,11 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
                   A finance charge of 1.5% will be made on unpaid balances after 30 days.
                 </p>
                 <div style="text-align: left;">
-                  <p style="margin: 0; font-size: 14px; font-weight: bold;">MADHANA GOPAL</p>
+                  <p style="margin: 0; font-size: 14px; font-weight: bold;">${data?.Manager_Name}</p>
                   <p style="margin: 0; font-size: 13px;">Manager</p>
                 </div>
               </div>
-              <p style="margin: 0; font-size: 13px;">Generated on: <strong>15/04/2025</strong></p>
+              <p style="margin: 0; font-size: 13px;">Generated on: <strong> ${today} </strong></p>
               <div class="line"></div>
               <div class="footer-text">
                 Invoice was created on a computer and is valid without the signature and seal.
@@ -150,8 +149,6 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
     }, 500);
   };
 
-  console.log("PaymentUpdateList", PaymentUpdateList);
-
   return (
     <>
       {openDropdown !== null && (
@@ -166,12 +163,13 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
             <tr>
               <th className="py-3 px-2">S.No</th>
               <th className="py-3 px-2">Name</th>
+              <th className="py-3 px-2">Lead Id</th>
               <th className="py-3 px-2">Course</th>
-              <th className="py-3 px-2">Amount</th>
+              <th className="py-3 px-2">Course Amount</th>
               <th className="py-3 px-2">Paid Amount</th>
               <th className="py-3 px-2">Balance Amount</th>
               <th className="py-3 px-2">Status</th>
-              <th className="py-3 px-2">Action</th>
+              <th className="py-3 px-2">Invoice</th>
             </tr>
           </thead>
           <tbody>
@@ -193,49 +191,34 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
                   {index + 1 + indexOfFirstLead}
                 </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
-                  {/* {lead?.lead_details?.name} */}
-                  {lead?.lead_name}
+                  {lead?.lead_details?.name}
                 </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
-                  {/* {lead?.lead_details?.course} */}
-                  {lead?.course}
+                  {lead?.lead_details?.lead_id}
                 </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
-                  {/* {lead?.lead_details?.course} */}
-                  {lead?.amount}
+                  {lead?.lead_details?.interested_course?.addcourse}
                 </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
-                  {/* {lead?.lead_details?.course} */}
-                  {lead?.paidAmount}
+                  {lead?.lead_details?.interested_course?.amount}
                 </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
-                  {/* {lead?.lead_details?.course} */}
-                  {lead?.balanceAmount}
+                  {lead?.total_paid_amount}
                 </td>
-                {/* <td className="text-center border-0 py-2 px-2 primary3 f5">
-                  <div className="d-flex ac-jc">
-                    <div
-                      className={`${
-                        lead?.balance_amount > 0 ? "bg-ltorange" : "bg-ltgreen"
-                      } table-drop border-0 d-flex ac-jc px-3 rounded-5 primary3`}
-                    >
-                      <p className="mb-0">
-                        {lead?.balance_amount > 0
-                          ? "Partially Paid"
-                          : "Fully Paid"}
-                      </p>
-                    </div>
-                  </div>
-                </td> */}
+                <td className="text-center border-0 py-2 px-2 primary3 f5">
+                  {lead?.total_balance_amount}
+                </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
                   <div className="d-flex ac-jc">
                     <div
                       className={`${
-                        lead?.balanceAmount > 0 ? "bg-ltorange" : "bg-ltgreen"
+                        lead?.total_balance_amount > 0
+                          ? "bg-ltorange"
+                          : "bg-ltgreen"
                       } table-drop border-0 d-flex ac-jc px-3 rounded-5 primary3`}
                     >
                       <p className="mb-0">
-                        {lead?.balanceAmount > 0
+                        {lead?.total_balance_amount > 0
                           ? "Partially Paid"
                           : "Fully Paid"}
                       </p>
@@ -259,7 +242,7 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
         </table>
       </div>
 
-      {PaymentUpdateList.length > leadsPerPage && (
+      {paymentlist.length > leadsPerPage && (
         <div className="pagination d-flex justify-content-center mt-3">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -290,10 +273,7 @@ const PaymentUpdatesList = ({ PaymentUpdateList }) => {
       {/* Render invoice preview for printing (hidden in UI, used for printing) */}
       {paymentDatas && (
         <div ref={invoiceRef} style={{ display: "none" }}>
-          <NewInvoice
-            invoiceRef={invoiceRef}
-            paymentData={paymentDatas?.payment_history}
-          />
+          <NewInvoice invoiceRef={invoiceRef} paymentData={paymentDatas} />
         </div>
       )}
     </>

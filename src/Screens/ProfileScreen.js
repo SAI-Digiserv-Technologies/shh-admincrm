@@ -134,17 +134,13 @@ const ProfileScreen = () => {
         setLoadin(true);
         let formdata = new FormData();
         if (imageObj) {
-          formdata.append("image", imageObj);
+          formdata.append("profileimage", imageObj);
         }
         console.log("formdata", formdata, imageObj);
 
-        for (let [key, value] of formdata.entries()) {
-          console.log(`${key}:`, value);
-        }
-        // const id = user?.telecaller?.id;
+        const id = user?.admin?.id;
         // console.log("iididd", id, user);
-
-        profileEditApi({ formdata: formdata, id: user?.telecaller?.id })
+        profileEditApi({ formdata: formdata, id: id })
           .unwrap()
           .then((res) => {
             console.log("EdiRes", res);
@@ -154,6 +150,7 @@ const ProfileScreen = () => {
           })
           .catch((err) => {
             console.log("Err", err);
+            toast.error(err?.status || "BAD_REQUEST");
           })
           .finally(() => {
             setLoadin(false);

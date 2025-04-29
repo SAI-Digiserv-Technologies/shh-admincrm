@@ -192,7 +192,7 @@ const PaymentAddScreen = () => {
           name: res?.data?.lead?.name,
           course: res?.data?.lead?.interested_course?.addcourse,
           courceamount: res?.data?.lead?.interested_course?.amount,
-          amount: "4000",
+          // amount: "4000",
           paidAmount: "1000",
           balanceAmount: "10000",
           mode: res?.data?.payment_proof?.paymentmethood,

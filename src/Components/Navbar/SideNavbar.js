@@ -65,7 +65,7 @@ const SideNavbar = ({
                     {/* <span className="white">Venkatesh</span> */}
                   </p>
                   <p className="mb-0 white f2 fs-xxl-14 fs-xl-14 fs-lg-13 fs-sm-12 fs-xs-12 textani">
-                    {profileData?.role}
+                    {profileData?.role || "Admin"}
                   </p>
                 </div>
               </div>

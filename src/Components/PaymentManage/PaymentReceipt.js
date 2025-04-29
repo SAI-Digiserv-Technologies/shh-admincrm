@@ -2,9 +2,8 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation } from "react-router-dom";
 
-const PaymentReceipt = () => {
-  const location = useLocation();
-  console.log("location", location);
+const PaymentReceipt = ({ paymentData }) => {
+  console.log("paymentData", paymentData);
 
   return (
     <div className="bg-white w-50 shadow rounded-4 p-3 mt-4">
@@ -32,7 +31,7 @@ const PaymentReceipt = () => {
               style={{ border: "0" }}
               className="fs-xxl-16 fs-xl-16 fs-lg-16 fs-sm-15 fs-xs-13 textani f3 black"
             >
-              Ramya Annamalai
+              {paymentData?.name}
             </td>
           </tr>
           <tr>

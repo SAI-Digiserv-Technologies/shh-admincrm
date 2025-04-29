@@ -7,7 +7,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import { useLazySourcegetQuery } from "../../Data/Api/api";
 import Staffpopup from "../StaffManage/Staffpopup";
 
-const SourceList = ({ data, handleShow, handleDelete }) => {
+const SourceList = ({ data, handleShow, handleDelete, type }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,7 +59,9 @@ const SourceList = ({ data, handleShow, handleDelete }) => {
           <thead>
             <tr>
               <th className="py-3 px-2">S.no</th>
-              <th className="py-3 px-2">Source Name</th>
+              <th className="py-3 px-2">
+                {type == "paymentmethod" ? "Payment Method" : "Source Name"}
+              </th>
               <th className="py-3 px-2">Action</th>
             </tr>
           </thead>
@@ -76,7 +78,7 @@ const SourceList = ({ data, handleShow, handleDelete }) => {
                   {indexOfFirstLead + index + 1}
                 </td>
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
-                  {lead.sourcename}
+                  {lead.sourcename || lead?.amountname}
                 </td>
                 <td className="text-center border-0 py-3 px-2">
                   <div className="d-flex ac-jc gap-3">
@@ -142,7 +144,7 @@ const SourceList = ({ data, handleShow, handleDelete }) => {
             handleDelete(selectedSource);
           }
         }}
-        name={selectedSource?.sourcename}
+        name={selectedSource?.sourcename || selectedSource?.amountname}
       />
     </>
   );

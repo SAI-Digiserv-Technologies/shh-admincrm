@@ -5,6 +5,9 @@ import "../../assets/css/invoice.css";
 const NewInvoice = ({ invoiceRef, paymentData }) => {
   console.log("paymentData", paymentData);
 
+  const paymentlist = paymentData?.payment_history;
+  console.log("paymentlpaymentlistist", paymentlist, paymentData);
+
   return (
     <div
       ref={invoiceRef}
@@ -47,7 +50,7 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
                 I N V O I C E
               </p>
               <p className="f3 white text-center mb-0 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani">
-                INVOICE NO: #0242874
+                INVOICE NO: {paymentData?.invoice_no}
               </p>
             </div>
           </header>
@@ -64,19 +67,19 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
                 INVOICE FROM :
               </p>
               <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f6">
-                SAI HUSTLE HUB
+                {paymentData?.institute_Name}
               </p>
               <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
-                10A North Madha Street, Koththur
+                {paymentData?.invoice_from}
               </p>
-              <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
+              {/* <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
                 Chennai - 600 088
+              </p> */}
+              <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
+                {paymentData?.invoice_Phone}
               </p>
               <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
-                +91 63856 62991
-              </p>
-              <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
-                saihustlehug@gmail.com
+                {paymentData?.invoice_mail}
               </p>
             </div>
             <div className="invoice-to">
@@ -84,16 +87,16 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
                 INVOICE TO :
               </p>
               <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f6">
-                RAMYA ANNA MALAI
+                {paymentData?.lead_details?.name}
               </p>
               <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f2">
-                135, Manivelsan Street, Manali
+                {paymentData?.lead_details?.address}
               </p>
               <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f2">
-                96769432013
+                {paymentData?.lead_details?.phonenumber}
               </p>
               <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f2">
-                ramyaanamalai@gmail.com
+                {paymentData?.lead_details?.email}
               </p>
             </div>
           </section>
@@ -147,10 +150,13 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
               </tr>
             </thead>
             <tbody>
-              {paymentData?.map((item, index) => {
+              {paymentlist?.map((item, index) => {
                 const dateOnly = new Date(item?.date || item?.createdAt)
                   .toISOString()
                   .split("T")[0];
+                const today = new Date().toISOString().split("T")[0];
+                console.log("today", today);
+
                 return (
                   <tr key={index}>
                     <td
@@ -160,7 +166,7 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
                       }}
                       className="text-center fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani black f4 py-3 px-2"
                     >
-                      {item?.transitionId}
+                      {item?.transitionId || item?.transaction_id || "-"}
                     </td>
                     <td
                       style={{
@@ -178,7 +184,7 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
                       }}
                       className="text-center fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani black f4 py-3 px-2"
                     >
-                      Digital Marketing
+                      {paymentlist?.interested_course?.addcourse}
                     </td>
                     <td
                       style={{
@@ -220,18 +226,29 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
                     color: "#474747",
                   }}
                 >
-                  ₹25000
+                  {paymentData?.total_amount}
                 </span>
               </p>
 
-              <p
-                style={{
-                  color: "#00FF44",
-                }}
-                className="fs-xxl-16 text-start fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13 textani f8 mb-0"
-              >
-                FULLY PAID
-              </p>
+              {paymentData?.total_balance_amount > 0 ? (
+                <p
+                  style={{
+                    color: "red",
+                  }}
+                  className="fs-xxl-16 text-start fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13 textani f8 mb-0"
+                >
+                  PARTIALLY PAID
+                </p>
+              ) : (
+                <p
+                  style={{
+                    color: "#00FF44",
+                  }}
+                  className="fs-xxl-16 text-start fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13 textani f8 mb-0"
+                >
+                  FULLY PAID
+                </p>
+              )}
             </div>
             <p
               style={{
@@ -239,7 +256,7 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
               }}
               className="fs-xxl-16 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13 textani f8 mb-0"
             >
-              GRAND TOTAL: ₹25000
+              GRAND TOTAL: {paymentData?.total_paid_amount}
             </p>
           </div>
         </div>
