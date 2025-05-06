@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 import { LeadList as usersList } from "../../Data/DummyJson"; // Renamed import to match usage
 import { useNavigate } from "react-router-dom";
+import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
 
 const LeadList = ({ data }) => {
   const navigate = useNavigate();
@@ -11,6 +12,9 @@ const LeadList = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
   const [statusToggle, setStatusToggle] = useState({});
+  const dropdownRef = useRef(null);
+
+  console.log("datasswse", data);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -77,6 +81,17 @@ const LeadList = ({ data }) => {
         return "bg-enquiry";
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        // setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
     <>
       {openDropdown !== null && (
@@ -94,8 +109,10 @@ const LeadList = ({ data }) => {
               <th className="py-3 px-2">Student Name</th>
               <th className="py-3 px-2">Phone Number</th>
               <th className="py-3 px-2">Course</th>
-              <th className="py-3 px-2">Assigned To</th>
+              <th className="py-3 px-2">Telecaller</th>
               <th className="py-3 px-2">City</th>
+              <th className="py-3 px-2">Source</th>
+              <th className="py-3 px-2">Course</th>
               <th className="py-3 px-2">Status</th>
             </tr>
           </thead>
@@ -130,11 +147,33 @@ const LeadList = ({ data }) => {
                   <td className="text-center py-2 px-2 primary3 f4">
                     {user?.interested_course?.addcourse}
                   </td>
-                  <td className="text-center py-2 px-2 primary3 f4">
-                    {user?.assignedto?.name || "-"}
+                  <td
+                    ref={dropdownRef}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("/staffform/detail", {
+                        state: { type: "detail", data: user?.assignedto },
+                      });
+                    }}
+                    className="text-center py-2 px-2 primary3 f4"
+                  >
+                    {user?.assignedto?.name || "-"}{" "}
+                    {user?.assignedto?.name && <OpenInNewOutlinedIcon />}
                   </td>
                   <td className="text-center py-2 px-2 primary3 f4">
                     {user?.city?.name}
+                  </td>
+                  <td
+                    data-label="Source"
+                    className="text-center py-2 px-2 primary3 f4"
+                  >
+                    {user?.source || "-"}
+                  </td>
+                  <td
+                    data-label="Course"
+                    className="text-center py-2 px-2 primary3 f4"
+                  >
+                    {user?.interested_course?.addcourse || "-"}
                   </td>
                   <td
                     data-label="Status"

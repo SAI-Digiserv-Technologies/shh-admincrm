@@ -122,6 +122,11 @@ export const SideNavList = [
     navi: "/leadmanage",
     active_icon: leads_blue,
     inactive_icon: leads_white,
+    sub: [
+      {
+        list: "/leadmanage/details",
+      },
+    ],
   },
   // {
   //   id: 3,
@@ -498,6 +503,45 @@ export const leadstatus = [
   {
     id: 10,
     name: "Enquiry",
+  },
+];
+
+export const outenqleadstatus = [
+  {
+    id: 1,
+    name: "Enrollement",
+  },
+  {
+    id: 2,
+    name: "Not interested",
+  },
+  {
+    id: 3,
+    name: "Not responsing",
+  },
+  {
+    id: 4,
+    name: "Not reachable",
+  },
+  {
+    id: 5,
+    name: "Switched Off",
+  },
+  {
+    id: 6,
+    name: "Follow Ups",
+  },
+  {
+    id: 7,
+    name: "Close Follow Ups",
+  },
+  {
+    id: 8,
+    name: "Discontinue",
+  },
+  {
+    id: 9,
+    name: "Interested",
   },
 ];
 

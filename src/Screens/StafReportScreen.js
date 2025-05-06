@@ -32,7 +32,7 @@ const StafReportScreen = () => {
       .unwrap()
       .then((res) => {
         console.log("leadssres", res);
-        setLeadList(res?.data || []);
+        setLeadList(res?.data?.leads || res?.data || []);
       })
       .catch((err) => {
         console.log("Err", err);
@@ -49,9 +49,11 @@ const StafReportScreen = () => {
   const enrolledLead = leadList?.filter(
     (lead) => lead?.status == "Enrollement"
   );
-  const allfollowLeads = leadList.filter((lead) => lead.status == "Follow Ups");
+  const allfollowLeads = leadList?.filter(
+    (lead) => lead.status == "Follow Ups"
+  );
 
-  const allPendingLeads = leadList.filter((lead) => lead.status == "Enquiry");
+  const allPendingLeads = leadList?.filter((lead) => lead.status == "Enquiry");
 
   return (
     <>

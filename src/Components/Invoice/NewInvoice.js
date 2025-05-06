@@ -69,7 +69,7 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
               <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f6">
                 {paymentData?.institute_Name}
               </p>
-              <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
+              <p className="mb-0 fs-xxl-14  w-50 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
                 {paymentData?.invoice_from}
               </p>
               {/* <p className="mb-0 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f3">
@@ -184,7 +184,8 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
                       }}
                       className="text-center fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani black f4 py-3 px-2"
                     >
-                      {paymentlist?.interested_course?.addcourse}
+                      {/* {paymentlist?.interested_course?.addcourse} */}
+                      {paymentData?.lead_details?.interested_course?.addcourse}
                     </td>
                     <td
                       style={{

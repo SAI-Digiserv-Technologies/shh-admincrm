@@ -48,8 +48,7 @@ const PaymentReceipt = ({ paymentData }) => {
               className="fs-xxl-16 fs-xl-16 fs-lg-16 fs-sm-15 fs-xs-13 textani f3 black"
               style={{ border: "0" }}
             >
-              {" "}
-              +91 9876543210
+              +91 {paymentData?.phonenumber}
             </td>
           </tr>
           <tr>
@@ -66,7 +65,7 @@ const PaymentReceipt = ({ paymentData }) => {
               className="fs-xxl-16 fs-xl-16 fs-lg-16 fs-sm-15 fs-xs-13 textani f3 black"
               style={{ border: "0" }}
             >
-              ramyaannamalai@fmail.com
+              {paymentData?.email}
             </td>
           </tr>
           <tr>
@@ -83,7 +82,7 @@ const PaymentReceipt = ({ paymentData }) => {
               className="fs-xxl-16 fs-xl-16 fs-lg-16 fs-sm-15 fs-xs-13 textani f3 black"
               style={{ border: "0" }}
             >
-              ₹ 8000
+              ₹{paymentData?.paid_amount}
             </td>
           </tr>
           <tr>
@@ -100,26 +99,28 @@ const PaymentReceipt = ({ paymentData }) => {
               className="fs-xxl-16 fs-xl-16 fs-lg-16 fs-sm-15 fs-xs-13 textani f3 black"
               style={{ border: "0" }}
             >
-              Ramya Annamalai
+              {paymentData?.mode_of_amount}
             </td>
           </tr>
-          <tr>
-            <td
-              className="fs-xxl-18 fs-xl-18 fs-lg-17 fs-sm-16 fs-xs-15 textani f6 black"
-              style={{ border: "0", fontWeight: "bold" }}
-            >
-              Transaction ID
-            </td>
-            <td style={{ border: "0" }}>
-              <strong>:</strong>
-            </td>
-            <td
-              className="fs-xxl-16 fs-xl-16 fs-lg-16 fs-sm-15 fs-xs-13 textani f3 black"
-              style={{ border: "0" }}
-            >
-              Ramya Annamalai
-            </td>
-          </tr>
+          {paymentData?.transaction_id && (
+            <tr>
+              <td
+                className="fs-xxl-18 fs-xl-18 fs-lg-17 fs-sm-16 fs-xs-15 textani f6 black"
+                style={{ border: "0", fontWeight: "bold" }}
+              >
+                Transaction ID
+              </td>
+              <td style={{ border: "0" }}>
+                <strong>:</strong>
+              </td>
+              <td
+                className="fs-xxl-16 fs-xl-16 fs-lg-16 fs-sm-15 fs-xs-13 textani f3 black"
+                style={{ border: "0" }}
+              >
+                {paymentData?.transaction_id}
+              </td>
+            </tr>
+          )}
           <tr>
             <td
               className="fs-xxl-18 fs-xl-18 fs-lg-17 fs-sm-16 fs-xs-15 textani f6 black"
@@ -134,7 +135,7 @@ const PaymentReceipt = ({ paymentData }) => {
               className="fs-xxl-16 fs-xl-16 fs-lg-16 fs-sm-15 fs-xs-13 textani f3 black"
               style={{ border: "0" }}
             >
-              30/02/2025
+              {new Date(paymentData?.createdAt).toISOString().split("T")[0]}
             </td>
           </tr>
         </tbody>

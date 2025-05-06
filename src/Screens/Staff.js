@@ -20,7 +20,7 @@ const Staff = () => {
       .unwrap()
       .then((res) => {
         console.log("res", res);
-        setStaffLists(res?.telecallers);
+        setStaffLists(res?.telecallers || res?.data || []);
       })
       .catch((err) => {
         console.log("err", err);

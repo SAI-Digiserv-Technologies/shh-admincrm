@@ -138,6 +138,36 @@ select:disabled {
       &.yes {
       }
       &.no {
+        // border: 2px solid $primary;
+        color: $white !important;
+      }
+    }
+  }
+}
+.logpoppup2 {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  .poppup-layer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.3);
+  }
+  .logout-cont {
+    height: 50vh;
+    position: relative;
+    z-index: 10000;
+    background: $white;
+    .inner-btn {
+      &.yes {
+      }
+      &.no {
         border: 2px solid $primary;
         color: $primary !important;
       }
@@ -415,7 +445,7 @@ select:disabled {
       }
       .passicon {
         height: 43px;
-        width: 30px;
+        width: 23px;
         position: absolute;
         right: 10px;
         top: 34%;
@@ -505,7 +535,7 @@ select:disabled {
       }
       .passicon {
         height: 43px;
-        width: 30px;
+        width: 22px;
         position: absolute;
         right: 10px;
         top: 34%;
@@ -683,7 +713,7 @@ select:disabled {
           img {
             height: 70%;
             width: 70%;
-            object-fit: contain;
+            object-fit: cover;
           }
         }
         .textss {
@@ -1443,8 +1473,8 @@ legend {
       &.yes {
       }
       &.no {
-        border: 2px solid $white;
-        color: $white !important;
+        // border: 2px solid $white;
+        // color: $white !important;
       }
     }
   }

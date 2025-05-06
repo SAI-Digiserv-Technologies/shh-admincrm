@@ -26,17 +26,18 @@ const AdminDashboard = () => {
     Tdyconverted: 0,
     updatesLeads: 0,
   });
+  const [fullleads, setFullleads] = useState([]);
   const [leedview] = useLazyGetUserQuery();
 
   const getapi = () => {
     leedview()
       .unwrap()
       .then((res) => {
-        console.log("Res", res);
+        console.log("LeadssDashRes", res);
         // AllData
         const fulldata = res?.data;
+        setFullleads(fulldata);
         console.log("resfulldata", fulldata, res?.data);
-
         const allPendingLeads = fulldata.filter(
           (lead) => lead.status == "Enquiry"
         );
@@ -57,7 +58,7 @@ const AdminDashboard = () => {
           const leadDate = new Date(lead?.updatedAt)
             .toISOString()
             .split("T")[0];
-          return leadDate === todayDateOnly;
+          return leadDate == todayDateOnly;
         });
 
         // Today only start
@@ -65,7 +66,7 @@ const AdminDashboard = () => {
           const leadDate = new Date(lead?.createdAt)
             .toISOString()
             .split("T")[0];
-          return leadDate === todayDateOnly;
+          return leadDate == todayDateOnly;
         });
         const TdyPendingdLeads = todaysLeads.filter(
           (lead) => lead.status == "Enquiry"
@@ -81,8 +82,7 @@ const AdminDashboard = () => {
         console.log("Pending lead", allPendingLeads);
         console.log("enrolled lead", allenrolledLeads);
         console.log("updatesLeads", updatesLeads);
-
-        setDashLeadData({
+        const filteredData = {
           pending: allPendingLeads?.length,
           converted: allenrolledLeads?.length,
           upcommin: fulldata?.length,
@@ -91,7 +91,9 @@ const AdminDashboard = () => {
           Tdypending: TdyPendingdLeads?.length,
           Tdyconverted: enrolledLeads?.length,
           updatesLeads: updatesLeads?.length,
-        });
+        };
+        console.log("filteredData", filteredData);
+        setDashLeadData(filteredData);
       })
       .catch((err) => {
         console.log("response not gentrated", err);

@@ -76,7 +76,7 @@ const PaymentProofListScreen = () => {
   return (
     <>
       {loading && <PageLoad />}
-      {paymentProofs?.length == 0 ? (
+      {paymentProofs?.length == 0 && !loading ? (
         <EmptyComp text={"Payment Proof Not Found"} />
       ) : (
         <div className="container mt-4 mb-0 ms-0 me-0">
@@ -97,11 +97,12 @@ const PaymentProofListScreen = () => {
                                 navigate("/payment/add", {
                                   state: { type: "add", data: item },
                                 });
-                              } else {
-                                navigate("/payment/detail", {
-                                  state: { type: "view", data: item },
-                                });
                               }
+                              // else {
+                              //   navigate("/payment/detail", {
+                              //     state: { type: "view", data: item },
+                              //   });
+                              // }
                             }}
                             key={item.id}
                             className={`payment-card d-flex ac-jb w-100  ${
@@ -110,7 +111,10 @@ const PaymentProofListScreen = () => {
                           >
                             <div className="d-flex ac-js">
                               <div className="proofimgs d-flex ac-jc me-3">
-                                <img src={item?.image || proof_img} />
+                                <img
+                                  crossOrigin="anonymous"
+                                  src={item?.image || proof_img}
+                                />
                               </div>
                               <div>
                                 <div className="d-flex noti-header justify-content-between align-items-center mb-2">
@@ -124,7 +128,7 @@ const PaymentProofListScreen = () => {
                                   Payment Method:
                                   <span className="f3">
                                     {" "}
-                                    {item.paymentmethood}dd
+                                    {item.paymentmethood}
                                   </span>
                                 </p>
                               </div>

@@ -94,7 +94,7 @@ const LoginScreen = () => {
         })
         .catch((err) => {
           console.log("Login error", err);
-          toast.error(err?.data?.message || "BAD_REQUEST");
+          toast.error(err?.data?.message || err?.data?.error || "BAD_REQUEST");
         })
         .finally(() => {
           setLoading(false);

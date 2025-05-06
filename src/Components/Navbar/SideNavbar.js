@@ -19,6 +19,8 @@ const SideNavbar = ({
   const location = useLocation();
   const navigate = useNavigate();
 
+  const imageUrl = profileData?.profileimage || pro_icon;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const pathname = location?.pathname;
   console.log("pathname", pathname);
@@ -57,7 +59,12 @@ const SideNavbar = ({
                 } pro-cont d-flex ac-js cp`}
               >
                 <div className="pro-img d-flex ac-jc ">
-                  <img src={pro_icon} />
+                  <img
+                    className="rounded-5"
+                    src={imageUrl || pro_icon}
+                    crossOrigin="anonymous"
+                    alt="Profile"
+                  />
                 </div>
                 <div className="textss">
                   <p className="mb-0 orange f4 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani">

@@ -107,7 +107,7 @@ const ResetPasswordScreen = () => {
         })
         .catch((err) => {
           console.log("Err", err);
-          toast.error(err?.data?.message || "BAD_REQUEST");
+          toast.error(err?.data?.message || err?.data?.error || "BAD_REQUEST");
         })
         .finally(() => {
           setLoading(false);

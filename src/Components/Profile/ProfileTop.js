@@ -18,6 +18,8 @@ const ProfileTop = ({
   fullData,
 }) => {
   const navigate = useNavigate();
+  console.log("imimageimageage", image);
+
   return (
     <div className="profile_cont w-90 d-flec ac-jc flex-column p-3 rounded-5 position-relative">
       <p
@@ -63,7 +65,11 @@ const ProfileTop = ({
       </div>
       <div className="profile-cont d-flex ac-jc flex-column">
         <div className="pro_imgcont position-relative shadow">
-          <img src={image || profile_dum} />
+          <img
+            src={image || profile_dum}
+            crossOrigin="anonymous"
+            alt="Profile"
+          />
           {edit && (
             <button
               onClick={handleButtonClick}

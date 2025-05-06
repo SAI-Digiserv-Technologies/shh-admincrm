@@ -78,7 +78,7 @@ const ProfileTop = ({
       </div>
       <div className="profile-cont d-flex ac-jc flex-column">
         <div className="pro_imgcont position-relative shadow">
-          <img src={image || profile_dum} />
+          <img src={image || profile_dum} crossOrigin="anonymous" />
           {edit && (
             <button
               onClick={handleButtonClick}

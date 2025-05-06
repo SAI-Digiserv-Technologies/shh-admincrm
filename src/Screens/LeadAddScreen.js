@@ -334,26 +334,27 @@ const LeadAddScreen = () => {
     leadViewApi(id)
       .unwrap()
       .then((res) => {
-        console.log("viewRes", res);
-        setFulldata(res?.lead);
+        console.log("viewRess", res);
+        const fullres = res?.data || res?.lead;
+        setFulldata(fullres);
         setFormFeald({
-          name: res?.lead?.name,
-          email: res?.lead?.email,
-          phoneno: res?.lead?.phonenumber,
-          source: res?.lead?.source,
-          degree: res?.lead?.degree,
-          passedout: res?.lead?.passedout,
-          college_name: res?.lead?.college_name,
-          state: res?.lead?.state,
-          city: res?.lead?.city,
-          pincode: res?.lead?.pincode,
-          address: res?.lead?.address,
-          assignto: res?.lead?.assignedto,
-          status: res?.lead?.status,
-          followupdate: res?.lead?.followupdate,
-          followuptime: res?.lead?.followuptime,
-          enrollement_date: res?.lead?.enrollement_date,
-          interested_course: res?.lead?.interested_course,
+          name: fullres?.name,
+          email: fullres?.email,
+          phoneno: fullres?.phonenumber,
+          source: fullres?.source,
+          degree: fullres?.degree,
+          passedout: fullres?.passedout,
+          college_name: fullres?.college_name,
+          state: fullres?.state,
+          city: fullres?.city,
+          pincode: fullres?.pincode,
+          address: fullres?.address,
+          assignto: fullres?.assignedto,
+          status: fullres?.status,
+          followupdate: fullres?.followupdate,
+          followuptime: fullres?.followuptime,
+          enrollement_date: fullres?.enrollement_date,
+          interested_course: fullres?.interested_course,
         });
 
         console.log("formFeald", formFeald);
@@ -382,7 +383,7 @@ const LeadAddScreen = () => {
             viewStaffApi()
               .unwrap()
               .then((res) => {
-                const staf = res?.telecallers;
+                const staf = res?.telecallers || res?.data || [];
                 const activeStaf = staf?.filter((item) => item?.active == true);
                 setStafList(activeStaf);
                 console.log("StafRes", res, activeStaf);
@@ -468,7 +469,10 @@ const LeadAddScreen = () => {
                             </p>
                             <div className="lead_drop position-relative">
                               <select
-                                disabled={type == "edit" && editbtn}
+                                disabled={
+                                  // (type == "edit" && item?.formFeald == "assignto") ||
+                                  type == "edit" && editbtn
+                                }
                                 value={
                                   item?.formFeald == "assignto"
                                     ? formFeald?.assignto?._id ||
@@ -543,6 +547,8 @@ const LeadAddScreen = () => {
                                   const selectedCity = cities.find(
                                     (c) => c.name === e.target.value
                                   );
+                                  console.log("indexcity", selectedCity);
+
                                   // fetchPincode(selectedCity);
                                   fealdOnChange("city", selectedCity); // or selectedCity.name if you prefer just string
                                 }}
@@ -551,9 +557,9 @@ const LeadAddScreen = () => {
                                 <option value="" disabled hidden selected>
                                   Select {item?.selectplace}
                                 </option>
-                                {cities?.map((option) => (
+                                {cities?.map((option, index) => (
                                   <option
-                                    key={option?.id}
+                                    key={index}
                                     className="light_gray w-100 rounded-2 px-2"
                                     value={option?.name}
                                   >

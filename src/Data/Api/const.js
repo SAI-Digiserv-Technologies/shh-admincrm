@@ -56,6 +56,8 @@ export const URL = {
   PAYMENT_LIST: "payments/getpayment",
   PAYMENT_HISSTORY: "payments/getpayment",
   HISTORY_DETAIL: "payments/payment/id",
+  NOTIFICATION: "notifications",
+  READ_MSG: "notifications/mark-read",
 
   // ADDSTAFF:"telecallers/addtelecaller",
   // VIEWSTAFF:"telecallers/gettelecallers",

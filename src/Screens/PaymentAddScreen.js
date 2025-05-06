@@ -68,6 +68,13 @@ const PaymentAddScreen = () => {
           errorMsg = "Paid Amount is required!";
         } else if (isNaN(Number(stringValue)) || Number(stringValue) < 0) {
           errorMsg = "Enter a valid paid amount!";
+        } else {
+          // Check if paid amount exceeds total amount
+          const totalAmount = Number(formFeald.amount || 0);
+          const paidAmount = Number(stringValue);
+          if (paidAmount > totalAmount) {
+            errorMsg = "Paid amount cannot exceed total amount!";
+          }
         }
         break;
       case "balanceAmount":
@@ -88,7 +95,10 @@ const PaymentAddScreen = () => {
         }
         break;
       case "transactionId":
-        if (formFeald.mode !== "Cash on Delivery" && !stringValue) {
+        if (
+          paymentData?.payment_proof?.payment_method !== "Net Cash" &&
+          !stringValue
+        ) {
           errorMsg = "Transaction ID is required for online payments!";
         }
         break;
@@ -103,6 +113,12 @@ const PaymentAddScreen = () => {
 
     return !errorMsg;
   };
+
+  console.log(
+    "formfealsd",
+    formFeald,
+    paymentData?.payment_proof?.payment_method
+  );
 
   const fields = [
     {
@@ -120,10 +136,10 @@ const PaymentAddScreen = () => {
       disable: true,
     },
     {
-      label: "Cource Amount",
+      label: "Course Amount",
       name: "courceamount",
       type: "number",
-      placeholder: "Cource Amount",
+      placeholder: "course Amount",
       disable: true,
     },
     {
@@ -131,14 +147,14 @@ const PaymentAddScreen = () => {
       name: "amount",
       type: "number",
       placeholder: "Enter Amount",
-      disable: false,
+      disable: true,
     },
     {
-      label: "Paid Amount",
+      label: "Paid Amount*",
       name: "paidAmount",
       type: "number",
       placeholder: "Enter Paid Amount",
-      disable: true,
+      disable: false,
     },
     {
       label: "Balance Amount",
@@ -159,16 +175,6 @@ const PaymentAddScreen = () => {
       name: "mode",
       type: "text",
       disable: true,
-      // options: [
-      //   {
-      //     value: "Cash on Delivery",
-      //     label: "Cash on Delivery",
-      //   },
-      //   {
-      //     value: "Online",
-      //     label: "Online",
-      //   },
-      // ],
       placeholder: "Select Mode",
     },
     {
@@ -190,14 +196,14 @@ const PaymentAddScreen = () => {
         setPaymentData(res?.data);
         setFormFeald({
           name: res?.data?.lead?.name,
-          course: res?.data?.lead?.interested_course?.addcourse,
-          courceamount: res?.data?.lead?.interested_course?.amount,
-          // amount: "4000",
-          paidAmount: "1000",
-          balanceAmount: "10000",
-          mode: res?.data?.payment_proof?.paymentmethood,
+          course: res?.data?.course_details?.course_name,
+          courceamount: res?.data?.course_details?.course_amount,
+          amount: res?.data?.course_details?.course_amount,
+          paidAmount: "",
+          balanceAmount: res?.data?.payment_summary?.total_balance_amount,
+          mode: res?.data?.payment_proof?.payment_method,
           email: res?.data?.lead?.email,
-          // transactionId: "",
+          transactionId: "",
         });
       })
       .catch((err) => {
@@ -227,20 +233,24 @@ const PaymentAddScreen = () => {
     });
 
     if (isValid) {
-      // setLoading(true);
+      setLoading(true);
       const payload = {
-        leadId: leadID,
+        leadId: leadID?._id,
         name: lead?.name,
-        interested_course: lead?.interested_course,
-        amount: formFeald?.amount,
+        interested_course: paymentData?.lead?.interested_course,
         paid_amount: formFeald?.paidAmount,
-        balance_amount: formFeald?.balanceAmount,
-        mode_of_amount: payment_proof?.paymentmethood,
+        balance_amount: formFeald?.balanceAmount - formFeald?.paidAmount,
+        mode_of_amount: paymentData?.payment_proof?.payment_method,
         transaction_id: formFeald?.transactionId || "",
-        payment_status: "Varifid",
+        payment_status: "Completed",
+        email: paymentData?.lead?.email,
+        phonenumber: paymentData?.lead?.phonenumber,
+        amount: formFeald?.amount,
+        proofId: routData?._id,
+
         // remarks: "First installment",
       };
-      console.log("payload", payload);
+      console.log("payloadsfed", payload);
       console.log("payloadlead", lead);
       console.log("payloadleadpayment_proof", payment_proof);
       paymentAdd(payload)
@@ -252,9 +262,11 @@ const PaymentAddScreen = () => {
         })
         .catch((err) => {
           console.log("adderr", err);
+          toast.error(err?.message || err?.data?.message || "BAD_REQUEST");
+        })
+        .finally(() => {
+          setLoading(false);
         });
-
-      // navigate("/payment-success", { state: { data: formFeald } }); // Example: Navigate to a success page
     }
   };
 
@@ -311,9 +323,31 @@ const PaymentAddScreen = () => {
                         disabled={field?.disable}
                         type={field.type}
                         value={formFeald[field.name]}
-                        onChange={(e) =>
-                          fealdOnChange(field.name, e.target.value)
-                        }
+                        onChange={(e) => {
+                          if (field?.name == "paidAmount") {
+                            const paidAmount = parseFloat(e.target.value);
+                            const totalAmount =
+                              parseFloat(
+                                paymentData?.payment_summary
+                                  ?.total_balance_amount
+                              ) || 0;
+
+                            const validPaidAmount = Math.min(
+                              paidAmount,
+                              totalAmount
+                            );
+                            const balanceAmount = Math.max(
+                              0,
+                              totalAmount - validPaidAmount
+                            );
+
+                            // Update form fields
+                            fealdOnChange("paidAmount", validPaidAmount);
+                            fealdOnChange("balanceAmount", balanceAmount);
+                          } else {
+                            fealdOnChange(field.name, e.target.value);
+                          }
+                        }}
                         placeholder={field.placeholder}
                         className="w-100 rounded-2 px-2 f4 black fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-14 fs-xs-13 textani"
                       />
@@ -354,6 +388,7 @@ const PaymentAddScreen = () => {
                 objectFit: "contain",
               }}
               src={payment_proof?.image || proof_img}
+              crossOrigin="anonymous"
             />
           </div>
         </div>

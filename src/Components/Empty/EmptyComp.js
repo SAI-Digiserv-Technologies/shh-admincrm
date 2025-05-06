@@ -1,6 +1,6 @@
 import React from "react";
 import { emty_comp } from "../../assets/images";
- 
+
 const EmptyComp = ({ text }) => {
   return (
     <div

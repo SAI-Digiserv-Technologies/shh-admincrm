@@ -69,7 +69,8 @@ const Layout = () => {
       .unwrap()
       .then((res) => {
         console.log("ProRes", res);
-        ssetProfileData(res);
+        const fulldata = res?.admin || res;
+        ssetProfileData(fulldata);
       })
       .catch((err) => {
         console.log("Err", err);

@@ -9,7 +9,7 @@ import {
 } from "../Data/Api/api";
 import PageLoad from "../Components/Loading/PageLoad";
 import EmptyComp from "../Components/Empty/EmptyComp";
-import { leadstatus } from "../Data/DummyJson";
+import { leadstatus, outenqleadstatus } from "../Data/DummyJson";
 
 const LeadmanageScreeen = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const LeadmanageScreeen = () => {
   const [filters, setFilters] = useState({
     Course: "",
     Sourse: "",
-    AssignedTo: "",
+    Telecaller: "",
     Status: "",
   });
   const [leadlists, setLeadlists] = useState([]);
@@ -39,7 +39,7 @@ const LeadmanageScreeen = () => {
     const updatedFilters = {
       Course: field === "Course" ? value?.addcourse : "",
       Sourse: field === "Sourse" ? value?.sourcename : "",
-      AssignedTo: field === "AssignedTo" ? value?.name : "",
+      Telecaller: field === "Telecaller" ? value?.name : "",
       Status: field === "Status" ? value?.name : "",
     };
     setFilters(updatedFilters);
@@ -52,8 +52,8 @@ const LeadmanageScreeen = () => {
       const sourceMatch =
         !updatedFilters.Sourse || lead.source === updatedFilters.Sourse;
       const staffMatch =
-        !updatedFilters.AssignedTo ||
-        lead?.assignedto?.name === updatedFilters.AssignedTo;
+        !updatedFilters.Telecaller ||
+        lead?.assignedto?.name === updatedFilters.Telecaller;
       const statusMatch =
         !updatedFilters.Status || lead.status === updatedFilters.Status;
 
@@ -71,6 +71,7 @@ const LeadmanageScreeen = () => {
   const [leadviewapi] = useLazyGetUserQuery();
 
   const datagetFun = () => {
+    setLoading(true);
     courseview()
       .unwrap()
       .then((res) => {
@@ -84,7 +85,7 @@ const LeadmanageScreeen = () => {
             viewStaffApi()
               .unwrap()
               .then((res) => {
-                const telecallers = res?.telecallers;
+                const telecallers = res?.telecallers || res?.data || [];
                 setGetDatas((prev) => ({ ...prev, staf: telecallers }));
               })
               .finally(() => {
@@ -97,8 +98,8 @@ const LeadmanageScreeen = () => {
   const fieldOptions = {
     Course: getDatas?.course,
     Sourse: getDatas?.source,
-    AssignedTo: getDatas?.staf,
-    Status: leadstatus,
+    Telecaller: getDatas?.staf,
+    Status: outenqleadstatus,
   };
 
   const handleleadview = () => {
@@ -127,11 +128,18 @@ const LeadmanageScreeen = () => {
 
   return (
     <>
-      {leadlists?.length > 0 && (
+      {originalLeadList?.length > 0 && (
         <div className="lead-head">
           <div className="lead-h d-flex ac-je">
             <div className="d-flex gap-3 flex-wrap">
-              <div className="position-relative"></div>
+              <div className="position-relative">
+                <button
+                  onClick={() => handleOptionClick()}
+                  className=" mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 px-4 py-2 textani"
+                >
+                  Clear
+                </button>
+              </div>
               {Object.keys(fieldOptions)?.map((field) => {
                 return (
                   <div key={field} className="position-relative">

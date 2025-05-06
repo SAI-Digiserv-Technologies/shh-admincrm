@@ -2,7 +2,7 @@ import React from "react";
 
 const ActivePoppup = ({ cont, poppupHandle }) => {
   return (
-    <div className="logpoppup d-flex ac-jc">
+    <div className="logpoppup2 d-flex ac-jc">
       <button
         onClick={() => {
           poppupHandle();
@@ -27,7 +27,7 @@ const ActivePoppup = ({ cont, poppupHandle }) => {
             onClick={() => {
               poppupHandle("no");
             }}
-            className="inner-btn no py-2 py-md-2 w-md-40 wi-100 inner-btn yes primary rounded-3 textani f5 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13 bg-transparent"
+            className="inner-btn no py-2 py-md-2 w-md-40 wi-100 inner-btn yes primary rounded-3 textani f2 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13 bg-transparent"
           >
             Cancel
           </button>

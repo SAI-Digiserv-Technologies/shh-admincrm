@@ -87,6 +87,7 @@ const LeadeList = ({ leadlist }) => {
               <th className="py-3 px-2">Walk in</th>
               <th className="py-3 px-2">Passing Year</th>
               <th className="py-3 px-2">Contact</th>
+              <th className="py-3 px-2">Telecaller</th>
               <th className="py-3 px-2">Source</th>
               <th className="py-3 px-2">Course</th>
               <th className="py-3 px-2">Status</th>
@@ -148,6 +149,9 @@ const LeadeList = ({ leadlist }) => {
                   className="text-center py-2 px-2 primary3 f4"
                 >
                   {lead?.phonenumber || "-"}
+                </td>
+                <td className="text-center py-2 px-2 primary3 f4">
+                  {lead?.assignedto?.name || "-"}
                 </td>
                 <td
                   data-label="Source"

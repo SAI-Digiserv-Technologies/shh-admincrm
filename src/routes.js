@@ -62,6 +62,7 @@ const ReactRoute = () => {
       {user?.admin?.token == null ? (
         <>
           <Route path="/" element={<LoginScreen />} />
+          <Route path="/login" element={<LoginScreen />} />
           <Route path="/resetpassword" element={<ResetPasswordScreen />} />
           <Route
             path="/otp-resetpassword"

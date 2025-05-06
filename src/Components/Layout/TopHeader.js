@@ -9,6 +9,7 @@ import { saveHeaderTitleSlice } from "../../Data/Redux/slice/headerTitleSlice";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import QueryStatsOutlinedIcon from "@mui/icons-material/QueryStatsOutlined";
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
+import { useLazyNotification_listQuery } from "../../Data/Api/api";
 
 const TopHeader = ({ toggleFun }) => {
   const navigate = useNavigate();
@@ -16,8 +17,12 @@ const TopHeader = ({ toggleFun }) => {
   const location = useLocation();
   const path = location?.pathname;
   const headerTitleSlice = useSelector((state) => state?.saveHeaderTitleSlice);
-  console.log("headerTitleSlice", headerTitleSlice, path);
+  const notifications = useSelector((state) => state?.saveNotificationSlice);
+  console.log("headerTitleSlice", headerTitleSlice, path, notifications);
   const logoutRef = useRef(null);
+
+  // Api
+  const [notificationliatApi] = useLazyNotification_listQuery();
 
   useEffect(() => {
     if (path == "/admindashboard" || path == "/") {
@@ -111,11 +116,13 @@ const TopHeader = ({ toggleFun }) => {
       </div>
       <div className="icon-cont d-flex ac-jc gap-md-3 gap-2">
         <button className="icon-bg d-flex ac-jc border-0 bg-primary3 rounded-5">
-          <div className="inner-text rounded-5 d-flex ac-jc">
-            <p className="white mb-0 f7 fs-xxl-10 fs-xl-10 fs-lg-9 fs-sm-8 fs-xs-8 textani">
-              20
-            </p>
-          </div>
+          {notifications?.length > 0 && (
+            <div className="inner-text rounded-5 d-flex ac-jc">
+              <p className="white mb-0 f7 fs-xxl-10 fs-xl-10 fs-lg-9 fs-sm-8 fs-xs-8 textani">
+                {notifications?.length}
+              </p>
+            </div>
+          )}
           <img
             src={topnoti}
             onClick={() => {

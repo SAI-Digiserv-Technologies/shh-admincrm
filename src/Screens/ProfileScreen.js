@@ -96,15 +96,17 @@ const ProfileScreen = () => {
     profile_viewApi(id)
       .unwrap()
       .then((res) => {
-        console.log("res", res);
-        setFullData(res);
+        console.log("prores", res);
+        const fullres = res?.admin || res;
+        console.log("fullres", fullres);
+        setFullData(fullres);
         setFormFeald({
-          name: res?.name,
-          email: res?.email,
-          phoneno: res?.phone,
-          role: res?.role,
+          name: fullres?.name,
+          email: fullres?.email,
+          phoneno: fullres?.phone,
+          role: fullres?.role,
         });
-        setImage(res?.profileimage);
+        setImage(fullres?.profileimage);
       })
       .catch((err) => {
         console.log("Err", err);
@@ -134,9 +136,9 @@ const ProfileScreen = () => {
         setLoadin(true);
         let formdata = new FormData();
         if (imageObj) {
-          formdata.append("profileimage", imageObj);
+          formdata.append("image", imageObj);
         }
-        console.log("formdata", formdata, imageObj);
+        console.log("formdata", formdata, imageObj, user);
 
         const id = user?.admin?.id;
         // console.log("iididd", id, user);
@@ -150,7 +152,7 @@ const ProfileScreen = () => {
           })
           .catch((err) => {
             console.log("Err", err);
-            toast.error(err?.status || "BAD_REQUEST");
+            toast.error(err?.data?.error || err?.status || "BAD_REQUEST");
           })
           .finally(() => {
             setLoadin(false);

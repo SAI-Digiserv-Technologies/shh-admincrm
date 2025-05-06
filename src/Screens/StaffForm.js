@@ -203,7 +203,7 @@ const StaffForm = () => {
       })
       .catch((err) => {
         console.log("Err", err);
-        toast.error("Failed to add staff");
+        toast.error(err?.data?.error || err?.data?.error || "BAD_REQUEST");
         console.error("Error:", err);
       })
       .finally(() => {

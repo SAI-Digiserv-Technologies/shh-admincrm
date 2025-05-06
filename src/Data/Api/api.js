@@ -16,7 +16,7 @@ export const api = createApi({
         headers.set("Authorization", `Bearer ${newToc}`);
       }
 
-      if (endpoint !== "editStaff") {
+      if (endpoint !== "editStaff" && endpoint !== "profileUpdate") {
         headers.set("Content-Type", "application/json");
       }
 
@@ -68,6 +68,13 @@ export const api = createApi({
     allpayment_list: builder.query({
       query: () => ({
         url: URL.PAYMENT_LIST,
+        method: "GET",
+      }),
+    }),
+
+    notification_list: builder.query({
+      query: () => ({
+        url: URL.NOTIFICATION,
         method: "GET",
       }),
     }),
@@ -425,6 +432,13 @@ export const api = createApi({
         method: "GET",
       }),
     }),
+
+    messageRead: builder.mutation({
+      query: (id) => ({
+        url: `${URL.READ_MSG}/${id}`,
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -476,4 +490,6 @@ export const {
   useLazyAllpayment_listQuery,
   useLazyPayment_historyQuery,
   useLazyPayment_detaileQuery,
+  useLazyNotification_listQuery,
+  useMessageReadMutation,
 } = api;
