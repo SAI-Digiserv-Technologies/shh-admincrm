@@ -1,5 +1,6 @@
 import React from "react";
 
+//
 const ActivePoppup = ({ cont, poppupHandle }) => {
   return (
     <div className="logpoppup2 d-flex ac-jc">
