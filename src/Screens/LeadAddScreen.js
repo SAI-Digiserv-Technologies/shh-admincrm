@@ -34,6 +34,8 @@ const LeadAddScreen = () => {
   const type = location?.state?.type;
   const view = location?.state?.view;
   const routData = location?.state?.data;
+  const pathname = location?.pathname;
+
   const status = routData?.status;
   console.log("locatiroutDataon", location, routData);
 
@@ -384,9 +386,13 @@ const LeadAddScreen = () => {
               .unwrap()
               .then((res) => {
                 const staf = res?.telecallers || res?.data || [];
-                const activeStaf = staf?.filter((item) => item?.active == true);
-                setStafList(activeStaf);
-                console.log("StafRes", res, activeStaf);
+                // const activeStaf = staf?.filter((item) => item?.active == true);
+                // if (pathname == "/leadmanage/details") {
+                setStafList(staf);
+                // } else {
+                //   setStafList(activeStaf);
+                // }
+                // console.log("StafRes", res, activeStaf);
               })
               .catch((err) => {
                 console.log("Err", err);
@@ -409,8 +415,9 @@ const LeadAddScreen = () => {
   useEffect(() => {
     if (status == "Enquiry" || type == "add") {
       fealdOnChange("status", "Enquiry");
+      console.log("workds");
     }
-    if (type == "edit" || type == "view") {
+    if (type == "edit" || type == "view" || pathname == "/leadmanage/details") {
       setEditbtn(true);
       dataGetFun();
       getSourceFun();
@@ -446,7 +453,8 @@ const LeadAddScreen = () => {
                 <legend className="f3 px-1 fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani black mb-0">
                   Personal Details
                 </legend>
-                {type == "edit" && view !== "lead" && editbtn && (
+                {((type == "edit" && view !== "lead" && editbtn) ||
+                  (pathname == "/leadmanage/details" && editbtn)) && (
                   <button
                     onClick={() => {
                       setEditbtn(false);
@@ -509,6 +517,10 @@ const LeadAddScreen = () => {
                                   : item?.list
                                 )?.map((option) => (
                                   <option
+                                    disabled={
+                                      !option?.active &&
+                                      item?.formFeald == "assignto"
+                                    }
                                     key={option?.id || option?._id} // Use id or _id as the key
                                     className="light_gray w-100 rounded-2 px-2"
                                     value={

@@ -92,6 +92,8 @@ const LeadList = ({ data }) => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  console.log("currentUsers", currentUsers);
+
   return (
     <>
       {openDropdown !== null && (
