@@ -14,7 +14,9 @@ const LeadsListScreen = () => {
         <div className="d-flex ac-jb gap-3">
           <button
             onClick={() => {
-              navigate("/telecallers/leeds/add", { state: { type: "add" } });
+              navigate("/leadmanage", {
+                state: { type: "add" },
+              });
             }}
             className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 fs-xxl-16 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani"
           >

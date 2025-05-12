@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import SourceList from "../Components/SetupManage/SourceList";
+import StaffRoleScreen from "./StaffRoleScreen";
+import LeadCourseScreen from "./LeadCourseScreen";
 
-
-
-
-const Sourcescreen = () => {
+const SourceScreen = () => {
     const [show, setShow] = useState(false);
     const [sourceName, setSourceName] = useState("");
 
@@ -68,10 +67,10 @@ const Sourcescreen = () => {
                 </div>
                 <SourceList />
             </div>
-            {/* <StaffRoleScreen />
-            <LeadCourseScreen /> */}
+            <StaffRoleScreen />
+            <LeadCourseScreen />
         </div>
     );
 };
 
-export default Sourcescreen;
+export default SourceScreen;

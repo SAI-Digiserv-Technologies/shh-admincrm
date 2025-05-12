@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { droparrow } from "../../assets/images";
-import ModeEditOutlinedIcon from "@mui/icons-material/ModeEditOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import { leadsList, leadstatus } from "../../Data/DummyJson";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { LeadList as usersList } from "../../Data/DummyJson"; // Renamed import to match usage
+import { useNavigate } from "react-router-dom";
 
-const LeadeList = () => {
+const LeadList = ({ data }) => {
+  const navigate = useNavigate()
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState("status");
-
+  const [selectedRole, setSelectedRole] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const leadsPerPage = 5;
-
-  const handleDropdownClick = (leadId) => {
-    setOpenDropdown(openDropdown === leadId ? null : leadId);
-  };
+  const usersPerPage = 5;
+  const [statusToggle, setStatusToggle] = useState({});
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -30,165 +24,111 @@ const LeadeList = () => {
     };
   }, []);
 
-  const handleStatusChange = (leadId, status) => {
-    setSelectedStatus((prevStatuses) => ({
-      ...prevStatuses,
-      [leadId]: status, // Update status for the specific lead
-    }));
-    setOpenDropdown(null); // Close dropdown after selection
+  const handleDropdownClick = (userId) => {
+    setOpenDropdown(openDropdown === userId ? null : userId);
   };
 
-  const indexOfLastLead = currentPage * leadsPerPage;
-  const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = leadsList.slice(indexOfFirstLead, indexOfLastLead);
-  const totalPages = Math.ceil(leadsList.length / leadsPerPage);
+  const handleRoleChange = (userId, role) => {
+    setSelectedRole((prevRoles) => ({
+      ...prevRoles,
+      [userId]: role,
+    }));
+    setOpenDropdown(null);
+  };
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "Interested":
-        return "bg-intrest"; // Green
-      case "Enrollement":
-        return "bg-enroll"; // Green
-      case "Not interested":
-        return "bg-not "; // Red
-      case "Not responsing":
-        return "bg-not"; // Yellow
-      case "Not reachable":
-        return "bg-notintrest"; // Grey
-      case "Switched Off":
-        return "bg-switchoff"; // Black
-      case "Follow Ups":
-        return "bg-follow "; // Blue
-      case "Close Follow Ups":
-        return "bg-closefollow"; // Light blue
-      case "Discontinue":
-        return "bg-disconnected"; // Light Grey
-      default:
-        return "bg-secondary"; // Default color
+  const handleStatusToggle = (userId) => {
+    setStatusToggle((prev) => ({
+      ...prev,
+      [userId]: !prev[userId],
+    }));
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= Math.ceil(data.length / usersPerPage)) {
+      setCurrentPage(newPage);
     }
   };
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(data.length / usersPerPage);
 
   return (
     <>
       {openDropdown !== null && (
-        <button
-          onClick={() => {
-            handleDropdownClick(null);
-          }}
-          className="droppopp border-0 "
-        />
+        <button onClick={() => handleDropdownClick(null)} className="droppopp border-0" />
       )}
       <div className="table-container rounded-3 mt-2">
         <table className="responsive-table rounded-3">
-          <thead className="">
-            <tr className="">
+          <thead>
+            <tr>
+              <th className="py-3 px-2">S.No</th>
               <th className="py-3 px-2">Lead ID</th>
-              <th className="py-3 px-2">Name</th>
+              <th className="py-3 px-2">Student Name</th>
+              <th className="py-3 px-2">Phone Number</th>
               <th className="py-3 px-2">Course</th>
+              <th className="py-3 px-2">Assigned To</th>
+              <th className="py-3 px-2">City</th>
               <th className="py-3 px-2">Status</th>
-              <th className="py-3 px-2">Action</th>
             </tr>
           </thead>
-          <tbody className="">
-            {currentLeads.map((lead) => (
-              <tr
-                style={
-                  openDropdown === lead.id
-                    ? {
-                        background: "#0b146b59",
-                      }
-                    : {
-                        background: "#ffffff59",
-                      }
-                }
-                key={lead.id}
-              >
-                <td
-                  className="text-center border-0 py-2 px-2 primary3 f5"
-                  data-label="Lead ID"
+          <tbody>
+            {currentUsers.map((user, index) => {
+              return (
+                <tr
+                  key={user.id}
+                  onClick={() => {
+                    navigate('/leadmanagedetail', { state: { type: "edit", data: user } })
+                  }}
+                  className="hover-row"
+                  style={{
+                    backgroundColor: openDropdown === user.id ? "#0b146b59" : "#ffffff59",
+                  }}
                 >
-                  {lead.id}
-                </td>
-                <td
-                  className="text-center border-0 py-2 px-2 primary3 f5"
-                  data-label="Name"
-                >
-                  {lead.name}
-                </td>
-                <td
-                  className="text-center border-0 py-2 px-2 primary3 f5"
-                  data-label="Course"
-                >
-                  {lead.course}
-                </td>
-                <td
-                  className="text-center border-0 py-2 px-2 primary3 f5"
-                  data-label="Status"
-                >
-                  <div className="w-100 ac-jc d-flex">
-                    <button
-                      onClick={() => handleDropdownClick(lead.id)}
-                      // className={`${
-                      //   selectedStatus[lead.id] && lead?.status == "Enrollement"
-                      //     ? "bg-success"
-                      //     : "bg-red"
-                      // } table-drop border-0 d-flex ac-jb px-3 rounded-5`}
-                      className={`table-drop border-0 d-flex ac-jb px-3 rounded-5 ${getStatusColor(
-                        selectedStatus[lead.id] || lead.status
-                      )}`}
-                    >
-                      <p className="mb-0 ">
-                        {selectedStatus[lead.id] || lead?.status}
-                        {/* {selectedStatus[lead.id] || "Enrollement"} */}
-                      </p>
-                      <div className="drop-img d-flex ac-jc">
-                        {/* <img src={droparrow} /> */}
-                        <ArrowDropDownIcon className="fs-xxl-35 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13" />
-                      </div>
-                      {openDropdown === lead.id && (
-                        <div className="dropdrowncont rounded-2">
-                          {leadstatus?.map((item) => {
-                            return (
-                              <button
-                                onClick={() =>
-                                  handleStatusChange(lead.id, item.name)
-                                }
-                                className="list w-100 border-0 py-2 bg-white"
-                              >
-                                <p className="mb-0">{item?.name}</p>
-                              </button>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </button>
-                  </div>
-                </td>
-                <td
-                  className="text-center border-0 py-3 px-2"
-                  data-label="Action"
-                >
-                  <div className="d-flex ac-jc gap-3">
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
-                      <ModeEditOutlinedIcon className="fs-xxl-20" />
-                    </button>
-                    <button className="border-0 bg-primary3 white rounded-2 action-box">
-                      <RemoveRedEyeOutlinedIcon className="fs-xxl-20" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  <td className="text-center border-0 py-4 px-3">{indexOfFirstUser + index + 1}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.lead_id}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.name}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.phonenumber}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.interested_course}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.assignedto}</td>
+                  <td className="text-center border-0 py-2 px-2">{user.City}</td>
+                  <td className="text-center border-0 py-2 px-2">
+                    {user.status === "Not Interested" ? (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#FF1818] f4 rounded-3 border-0 px-3 py-2 textani">
+                        Not Interested
+                      </button>
+                    ) : user.status === "Follow Up" ? (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#FDCA73] f4 rounded-3 border-0 px-3 py-2 textani ">
+                        Follow Up
+                      </button>
+                    ) : user.status === "Close Follow Up" ? (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#9AC2EA] f4 rounded-3 border-0 px-3 py-2 textani">
+                        Close Follow Up
+                      </button>
+                    ) : user.status === "Enrolment" ? (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-[#2AFF00] f4 rounded-3 border-0 px-3 py-2 textani">
+                        Enrolment
+                      </button>
+                    ) : (
+                      <button className="refil-text mb-0 white d-flex ac-jc bg-primary3 f4 rounded-3 border-0 px-3 py-2 textani">
+                        {user.status}
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Section */}
       <div className="pagination d-flex justify-content-center mt-3">
         <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`${
-            currentPage === 1 ? "opacity-25" : "opacity-100"
-          } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+          className={`px-3 py-1 mx-1 border-0 rounded white bg-primary3 ${currentPage === 1 ? "opacity-25" : "opacity-100"}`}
         >
           <ArrowBackIosNewOutlinedIcon />
         </button>
@@ -196,13 +136,9 @@ const LeadeList = () => {
           Page {currentPage} of {totalPages}
         </span>
         <button
-          onClick={() =>
-            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-          }
+          onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`${
-            currentPage == totalPages ? "opacity-25" : "opacity-100"
-          } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+          className={`px-3 py-1 mx-1 border-0 rounded white bg-primary3 ${currentPage === totalPages ? "opacity-25" : "opacity-100"}`}
         >
           <ArrowForwardIosOutlinedIcon />
         </button>
@@ -211,4 +147,4 @@ const LeadeList = () => {
   );
 };
 
-export default LeadeList;
+export default LeadList;

@@ -15,13 +15,13 @@ const TopHeader = ({ toggleFun }) => {
         >
           <MenuOpenOutlinedIcon className="white" />
         </button>
-        <div className="serach-cont d-flex ac-jb w-100 py-md-2 py-1 px-md-3 px-2 rounded-5">
+        {/* <div className="serach-cont d-flex ac-jb w-100 py-md-2 py-1 px-md-3 px-2 rounded-5">
           <input
             placeholder="Seaarch.."
             className="search-input serachgray border-0 w-100 f3 fs-xxl-18 fs-xl-17 fs-lg-17 fs-sm-16 fs-xs-15 black"
           />
           <SearchOutlinedIcon className="serachgray fs-3" />
-        </div>
+        </div> */}
       </div>
 
       <div className="icon-cont d-flex ac-jc gap-md-3 gap-2">
