@@ -101,7 +101,7 @@ const PaymentUpdatesList = ({ paymentlist }) => {
   const today = new Date().toISOString().split("T")[0];
   console.log("today", today);
 
-  console.log("paymentlist", paymentlist);
+  console.log("paymentlists", paymentlist);
 
   const handlePrint = (data) => {
     setPaymentDatas(data);
