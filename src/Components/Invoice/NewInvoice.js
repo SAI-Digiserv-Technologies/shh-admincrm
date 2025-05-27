@@ -7,6 +7,7 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
 
   const paymentlist = paymentData?.payment_history;
   console.log("paymentlpaymentlistist", paymentlist, paymentData);
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <div
@@ -133,7 +134,7 @@ const NewInvoice = ({ invoiceRef, paymentData }) => {
                 className=""
               >
                 <th className="text-center fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f5">
-                  Transition ID
+                  Transaction ID
                 </th>
                 <th className="text-center fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani f5">
                   Date

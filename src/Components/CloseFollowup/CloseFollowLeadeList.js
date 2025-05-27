@@ -52,7 +52,7 @@ const CloseFollowLeadeList = () => {
     switch (status) {
       case "Interested":
         return "bg-intrest"; // Green
-      case "Enrollement":
+      case "Enrollment":
         return "bg-enroll"; // Green
       case "Not interested":
         return "bg-not "; // Red
@@ -134,7 +134,7 @@ const CloseFollowLeadeList = () => {
                     <button
                       onClick={() => handleDropdownClick(lead.id)}
                       // className={`${
-                      //   selectedStatus[lead.id] && lead?.status == "Enrollement"
+                      //   selectedStatus[lead.id] && lead?.status == "Enrollment"
                       //     ? "bg-success"
                       //     : "bg-red"
                       // } table-drop border-0 d-flex ac-jb px-3 rounded-5`}
@@ -144,7 +144,7 @@ const CloseFollowLeadeList = () => {
                     >
                       <p className="mb-0 ">
                         {(selectedStatus[lead?.id] || lead?.status)?.trim()}
-                        {/* {selectedStatus[lead.id] || "Enrollement"} */}
+                        {/* {selectedStatus[lead.id] || "Enrollment"} */}
                       </p>
                       <div className="drop-img d-flex ac-jc">
                         {/* <img src={droparrow} /> */}

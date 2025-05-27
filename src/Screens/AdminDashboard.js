@@ -42,7 +42,7 @@ const AdminDashboard = () => {
           (lead) => lead.status == "Enquiry"
         );
         const allenrolledLeads = fulldata.filter(
-          (lead) => lead.status == "Enrollement"
+          (lead) => lead.status == "Enrollment"
         );
 
         const allfollowLeads = fulldata.filter(
@@ -72,7 +72,7 @@ const AdminDashboard = () => {
           (lead) => lead.status == "Enquiry"
         );
         const enrolledLeads = updatesLeads.filter(
-          (lead) => lead.status == "Enrollement"
+          (lead) => lead.status == "Enrollment"
         );
         // Today only end
         console.log("TodayFull lead", todaysLeads);

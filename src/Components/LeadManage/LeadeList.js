@@ -62,7 +62,7 @@ const LeadList = ({ data }) => {
     switch (status) {
       case "Interested":
         return "bg-intrest";
-      case "Enrollement":
+      case "Enrollment":
         return "bg-enroll";
       case "Not interested":
       case "Not responsing":

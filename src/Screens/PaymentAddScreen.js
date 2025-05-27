@@ -49,6 +49,8 @@ const PaymentAddScreen = () => {
     let errorMsg = "";
     const stringValue = String(value).trim();
 
+    const offlineMethods = ["Net Cash", "Cash"];
+
     switch (field) {
       case "name":
         if (!stringValue) errorMsg = "Name is required!";
@@ -96,7 +98,9 @@ const PaymentAddScreen = () => {
         break;
       case "transactionId":
         if (
-          paymentData?.payment_proof?.payment_method !== "Net Cash" &&
+          !offlineMethods.includes(
+            paymentData?.payment_proof?.payment_method
+          ) &&
           !stringValue
         ) {
           errorMsg = "Transaction ID is required for online payments!";
@@ -142,13 +146,13 @@ const PaymentAddScreen = () => {
       placeholder: "course Amount",
       disable: true,
     },
-    {
-      label: "Amount",
-      name: "amount",
-      type: "number",
-      placeholder: "Enter Amount",
-      disable: true,
-    },
+    // {
+    //   label: "Amount",
+    //   name: "amount",
+    //   type: "number",
+    //   placeholder: "Enter Amount",
+    //   disable: true,
+    // },
     {
       label: "Paid Amount*",
       name: "paidAmount",
@@ -181,7 +185,7 @@ const PaymentAddScreen = () => {
       label: "Transaction ID",
       name: "transactionId",
       type: "text",
-      placeholder: "Enter Transaction ID",
+      placeholder: "Enter transaction ID",
     },
   ];
 

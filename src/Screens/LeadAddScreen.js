@@ -222,8 +222,8 @@ const LeadAddScreen = () => {
         }
         break;
       case "enrollement_date":
-        if (!stringValue && formFeald?.status == "Enrollement") {
-          errorMsg = "Enrollement Date is required!";
+        if (!stringValue && formFeald?.status == "Enrollment") {
+          errorMsg = "Enrollment Date is required!";
         }
         break;
       case "interested_course":
@@ -278,7 +278,7 @@ const LeadAddScreen = () => {
         payload.followupdate = formFeald?.followupdate;
         payload.followuptime = formFeald?.followuptime;
       }
-      if (formFeald?.status === "Enrollement") {
+      if (formFeald?.status === "Enrollment") {
         payload.enrollement_date = formFeald?.enrollement_date;
       }
 
@@ -672,7 +672,7 @@ const LeadAddScreen = () => {
                       Status*
                     </p>
                     <div className="lead_drop position-relative">
-                      {type == "edit" && fullData?.status == "Enrollement" ? (
+                      {type == "edit" && fullData?.status == "Enrollment" ? (
                         <select
                           disabled
                           value={fullData?.status}
@@ -741,7 +741,7 @@ const LeadAddScreen = () => {
                       Interested Course*
                     </p>
                     <div className="lead_drop position-relative">
-                      {fullData?.status == "Enrollement" ? (
+                      {fullData?.status == "Enrollment" ? (
                         <select
                           disabled
                           value={formFeald?.interested_course?._id || ""}
@@ -852,16 +852,16 @@ const LeadAddScreen = () => {
                       )}
                     </div>
                   )}
-                  {formFeald?.status == "Enrollement" && (
+                  {formFeald?.status == "Enrollment" && (
                     <div className="w-45">
                       <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                        Enrollement Date*
+                        Enrollment Date*
                       </p>
                       <div className="d-flex ac-js input_twoss rounded-2 px-2 gap-2">
                         <div className="insideinpput d-flex ac-jc">
                           <img src={calendar_icon} />
                         </div>
-                        {fullData?.status == "Enrollement" ? (
+                        {fullData?.status == "Enrollment" ? (
                           <input
                             disabled
                             type={"date"}

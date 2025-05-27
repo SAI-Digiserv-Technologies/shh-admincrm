@@ -47,7 +47,7 @@ const LeadeList = ({ leadlist }) => {
     switch (status) {
       case "Interested":
         return "bg-intrest";
-      case "Enrollement":
+      case "Enrollment":
         return "bg-enroll";
       case "Not interested":
       case "Not responsing":
@@ -172,7 +172,7 @@ const LeadeList = ({ leadlist }) => {
                   <div className="w-100 ac-jc d-flex">
                     <button
                       onClick={(e) => {
-                        if (lead?.status !== "Enrollement") {
+                        if (lead?.status !== "Enrollment") {
                           e.stopPropagation();
                           handleDropdownClick(lead._id);
                         }

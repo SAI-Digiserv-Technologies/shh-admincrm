@@ -151,18 +151,18 @@ const LoginScreen = () => {
                   {errors?.password}
                 </p>
               </div>
-              <button
+              <div
                 onClick={() => {
                   setPasswordShow(!passwordshow);
                 }}
-                className="passicon log border-0 bg-transparent "
+                className="passicon cp log border-0 bg-transparent "
               >
                 <img alt="password" src={passwordshow ? view : no_view} />
-              </button>
+              </div>
             </div>
             <div className="d-flex w-100 ac-jb  d-flex tranc mt-3">
               <div className=" check-cont d-flex ac-js gap-2">
-                <button className="check rounded-2 d-flex ac-jc tranc">
+                <button disabled className="check rounded-2 d-flex ac-jc tranc">
                   <img alt="check" src={check} />
                 </button>
                 <p className="primary2 mb-0 f3 fs-xxl-15 fs-xl-15 fs-lg-14 fs-sm-13 fs-xs-13 textani">

@@ -157,17 +157,17 @@ const ResetPasswordScreen = () => {
                 {errors?.password}
               </p>
             </div>
-            <button
+            <div
               onClick={() => {
                 togglePasswordVisibility("password");
               }}
-              className="passicon log border-0 bg-transparent "
+              className="passicon log border-0 cp bg-transparent "
             >
               <img
                 alt="password"
                 src={passwordShow.password ? view : no_view}
               />
-            </button>
+            </div>
           </div>
           <div className="input-form w-100 mt-3">
             <p className="f6 primary2 fs-xxl-14 fs-xl-14 fs-lg-14 fs-sm-13 fs-xs-13 textani mb-1">
@@ -185,17 +185,17 @@ const ResetPasswordScreen = () => {
                 {errors?.confirmPassword}
               </p>
             </div>
-            <button
+            <div
               onClick={() => {
                 togglePasswordVisibility("confirmPassword");
               }}
-              className="passicon log border-0 bg-transparent "
+              className="passicon log border-0 bg-transparent cp"
             >
               <img
                 alt="password"
                 src={passwordShow.confirmPassword ? view : no_view}
               />
-            </button>
+            </div>
           </div>
           <div className="w-100 d-flex ac-jc mt-4">
             <button

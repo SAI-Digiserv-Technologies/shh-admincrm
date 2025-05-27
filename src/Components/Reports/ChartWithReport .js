@@ -65,7 +65,7 @@ const ChartWithReport = ({ leadList = [] }) => {
           (acc, val) => acc + val,
           0
         );
-        const enrolledLeads = monthData["Enrollement"] || 0; // Default to 0 if no Enrollement
+        const enrolledLeads = monthData["Enrollment"] || 0; // Default to 0 if no Enrollment
         const enquiryLeads = monthData["Enquiry"] || 0; // Default to 0 if no Enquiry
         const followUpLeads = monthData["Follow Ups"] || 0; // Default to 0 if no Follow Ups
 
@@ -128,7 +128,7 @@ const ChartWithReport = ({ leadList = [] }) => {
             <YAxis />
             <Tooltip />
             <Bar
-              dataKey="Enrollement"
+              dataKey="Enrollment"
               fill="#82ca9d"
               background={{ fill: "transparent" }}
             />
@@ -199,7 +199,7 @@ const ChartWithReport = ({ leadList = [] }) => {
                 >
                   <div>Total: {item.totalLeads}</div>
                   <div>Enquiry: {item.enquiryLeads}</div>
-                  <div>Enrollement: {item.enrolledLeads}</div>
+                  <div>Enrollment: {item.enrolledLeads}</div>
                   <div>Follow Ups: {item.followUpLeads}</div>
                 </div>
               )}

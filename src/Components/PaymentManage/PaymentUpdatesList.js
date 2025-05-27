@@ -5,6 +5,7 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import { useNavigate } from "react-router-dom";
 import Invoice from "../Invoice/Invoice";
 import NewInvoice from "../Invoice/NewInvoice";
+import html2pdf from "html2pdf.js";
 
 const PaymentUpdatesList = ({ paymentlist }) => {
   const invoiceRef = useRef();
@@ -14,6 +15,68 @@ const PaymentUpdatesList = ({ paymentlist }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 5;
   const navigate = useNavigate();
+
+  const styles = {
+    invoiceWrapper: {
+      fontFamily: "'Poppins', sans-serif",
+      background: "#fff",
+      padding: 20,
+      width: "100%",
+      boxSizing: "border-box",
+    },
+    layerFrom: {
+      width: "100%",
+    },
+    footerSection: {
+      marginTop: "20%",
+      backgroundColor: "#fff",
+      padding: "20px 0",
+      boxSizing: "border-box",
+    },
+    line: {
+      width: "100%",
+      height: 2,
+      backgroundColor: "#D0D3DD",
+      margin: "10px 0",
+    },
+    footerText: {
+      fontSize: 12,
+      textAlign: "center",
+      marginTop: 10,
+      color: "#333",
+    },
+    termsHeader: {
+      color: "#0ABFAD",
+      fontSize: 13,
+      fontWeight: "bold",
+      marginBottom: 4,
+    },
+    termsText: {
+      width: "50%",
+      margin: 0,
+      fontSize: 12,
+      color: "#000",
+    },
+    managerName: {
+      margin: 0,
+      fontSize: 14,
+      fontWeight: "bold",
+    },
+    managerTitle: {
+      margin: 0,
+      fontSize: 13,
+    },
+    generatedOn: {
+      margin: 0,
+      fontSize: 13,
+    },
+    flexBetween: {
+      display: "flex",
+      justifyContent: "space-between",
+      marginBottom: 8,
+      alignItems: "center",
+    },
+  };
 
   const handleDropdownClick = (leadId) => {
     setOpenDropdown(openDropdown === leadId ? null : leadId);
@@ -44,108 +107,26 @@ const PaymentUpdatesList = ({ paymentlist }) => {
     setPaymentDatas(data);
     console.log("invoicedata", data);
     setTimeout(() => {
-      const content = invoiceRef?.current?.innerHTML;
-      if (!content || !content.trim()) {
+      if (!invoiceRef.current) {
+        console.error("Invoice ref not found");
+        return;
+      }
+      const content = invoiceRef.current.innerHTML;
+      if (!content.trim()) {
         console.error("Invoice content is empty.");
         return;
       }
 
-      const printWindow = window.open("", "_blank");
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>Payment Invoice</title>
-            <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-            <link rel="stylesheet" href="${window.location.origin}/css/invoice.css" />
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-            <style>
-              @page {
-                margin: 0;
-                size: auto;
-              }
-              @media print {
-                * {
-                  -webkit-print-color-adjust: exact !important;
-                  print-color-adjust: exact !important;
-                }
-                  @page {
-                margin: 0;
-                size: auto;
-              }
-                body {
-                  background: #fff;
-                  width: 100%;
-                  align-items: center;
-                  justify-content: flex-start;
-                  display: flex;
-                  flex-direction: column;
-              }
-                .layer-from {
-                  width: 100%;
-                }
-                .footer-section {
-                  position: fixed;
-                  bottom: 0;
-                  left: 0;
-                  width: 100%;
-                  background-color: #fff;
-                  padding: 20px 40px;
-                }
-                .line {
-                  width: 100%;
-                  height: 2px;
-                  background-color: #D0D3DD;
-                  margin: 10px 0;
-                }
-                .footer-text {
-                  font-size: 12px;
-                  text-align: center;
-                  margin-top: 10px;
-                  color: #333;
-                }
-              }
-            </style>
-          </head>
-          <body>
-            <div class="layer-from">
-              ${content}
-            </div>
-  
-            <div class="footer-section">
-              <p style="color: #0ABFAD; font-size: 13px; font-weight: bold; margin-bottom: 4px;">
-                Terms & Conditions:
-              </p>
-              <div class="d-flex justify-content-between mb-2">
-                <p style="width: 50%; margin: 0; font-size: 12px; color: #000;">
-                  A finance charge of 1.5% will be made on unpaid balances after 30 days.
-                </p>
-                <div style="text-align: left;">
-                  <p style="margin: 0; font-size: 14px; font-weight: bold;">${data?.Manager_Name}</p>
-                  <p style="margin: 0; font-size: 13px;">Manager</p>
-                </div>
-              </div>
-              <p style="margin: 0; font-size: 13px;">Generated on: <strong> ${today} </strong></p>
-              <div class="line"></div>
-              <div class="footer-text">
-                Invoice was created on a computer and is valid without the signature and seal.
-              </div>
-            </div>
-      
-           <script>
-        window.onload = function () {
-          window.print();
+      const opt = {
+        margin: 0,
+        filename: `Invoice_${data?.invoice_no || "NA"}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+        pagebreak: { mode: ["css", "legacy"] },
+      };
 
-          // Close the window after short delay (even if cancelled)
-          setTimeout(() => {
-            window.close();
-          }, 500);
-        };
-      </script>
-          </body>
-        </html>
-      `);
-      printWindow.document.close();
-      printWindow.print();
+      html2pdf().set(opt).from(invoiceRef.current).save();
     }, 500);
   };
 
@@ -272,8 +253,33 @@ const PaymentUpdatesList = ({ paymentlist }) => {
 
       {/* Render invoice preview for printing (hidden in UI, used for printing) */}
       {paymentDatas && (
-        <div ref={invoiceRef} style={{ display: "none" }}>
-          <NewInvoice invoiceRef={invoiceRef} paymentData={paymentDatas} />
+        <div style={{ display: "none" }}>
+          <div ref={invoiceRef} style={styles.invoiceWrapper}>
+            {/* Your invoice content here */}
+            <NewInvoice paymentData={paymentDatas} />
+            {/* Footer Section */}
+            <div style={styles.footerSection}>
+              <p style={styles.termsHeader}>Terms & Conditions:</p>
+              <div style={styles.flexBetween}>
+                <p style={styles.termsText}>
+                  A finance charge of 1.5% will be made on unpaid balances after
+                  30 days.
+                </p>
+                <div style={{ textAlign: "left" }}>
+                  <p style={styles.managerName}>{paymentDatas?.Manager_Name}</p>
+                  <p style={styles.managerTitle}>Manager</p>
+                </div>
+              </div>
+              <p style={styles.generatedOn}>
+                Generated on: <strong>{today}</strong>
+              </p>
+              <div style={styles.line}></div>
+              <div style={styles.footerText}>
+                Invoice was created on a computer and is valid without the
+                signature and seal.
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>

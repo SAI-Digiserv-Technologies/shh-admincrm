@@ -40,9 +40,7 @@ const AllReportScreen = () => {
     getAlleadFun();
   }, []);
 
-  const enrolledLead = leadList?.filter(
-    (lead) => lead?.status == "Enrollement"
-  );
+  const enrolledLead = leadList?.filter((lead) => lead?.status == "Enrollment");
   const allfollowLeads = leadList.filter((lead) => lead.status == "Follow Ups");
 
   const allPendingLeads = leadList.filter((lead) => lead.status == "Enquiry");

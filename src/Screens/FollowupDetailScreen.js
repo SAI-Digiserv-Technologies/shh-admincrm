@@ -92,8 +92,8 @@ const FollowupDetailScreen = () => {
         }
         break;
       case "enrollement_date":
-        if (!stringValue && formFeald?.status == "Enrollement") {
-          errorMsg = "Enrollement Date is required!";
+        if (!stringValue && formFeald?.status == "Enrollment") {
+          errorMsg = "Enrollment Date is required!";
         }
         break;
       case "interested_course":
@@ -354,10 +354,10 @@ const FollowupDetailScreen = () => {
                     )}
                   </div>
                 )}
-                {formFeald?.status == "Enrollement" && (
+                {formFeald?.status == "Enrollment" && (
                   <div className="w-45">
                     <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                      Enrollement Date
+                      Enrollment Date
                     </p>
                     <div className="d-flex ac-js input_twoss rounded-2 px-2 gap-2">
                       <div className="insideinpput d-flex ac-jc">

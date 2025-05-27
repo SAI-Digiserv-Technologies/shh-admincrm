@@ -203,7 +203,7 @@ export const leadsList = [
       course: "Digital marketing",
       amount: "25000",
     },
-    status: "Enrollement",
+    status: "Enrollment",
   },
   {
     id: 2,
@@ -466,7 +466,7 @@ export const enquiryleadList = [
 export const leadstatus = [
   {
     id: 1,
-    name: "Enrollement",
+    name: "Enrollment",
   },
   {
     id: 2,
@@ -509,7 +509,7 @@ export const leadstatus = [
 export const outenqleadstatus = [
   {
     id: 1,
-    name: "Enrollement",
+    name: "Enrollment",
   },
   {
     id: 2,
@@ -694,7 +694,7 @@ export const leadsListss = [
       course: "Digital marketing",
       amount: "25000",
     },
-    status: "Enrollement",
+    status: "Enrollment",
   },
   {
     id: 2,
@@ -703,7 +703,7 @@ export const leadsListss = [
       course: "Digital marketing",
       amount: "25000",
     },
-    status: "Enrollement",
+    status: "Enrollment",
   },
 ];
 export const usersList = [

@@ -72,7 +72,7 @@ const ListPayment = ({ historyData }) => {
           <thead className="">
             <tr className="">
               <th className="py-3 px-2">S.No</th>
-              <th className="py-3 px-2">Transition ID</th>
+              <th className="py-3 px-2">Transaction ID</th>
               <th className="py-3 px-2">Mode Of Payment</th>
               <th className="py-3 px-2">Amount Received</th>
               <th className="py-3 px-2">Date</th>

@@ -11,7 +11,7 @@ const LeadeList = () => {
   const droplist = [
     {
       id: 1,
-      name: "Enrollement",
+      name: "Enrollment",
     },
     {
       id: 2,
