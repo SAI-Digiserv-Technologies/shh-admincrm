@@ -1,6 +1,7 @@
 //Live
 // export const BASE_URL = "http://api.saidigiserv.com/api/";
-export const BASE_URL = "https://api.saihustlehub.com/api/";
+// export const BASE_URL = "https://api.saihustlehub.com/api/";
+export const BASE_URL = "http://localhost:9099/api/";
 
 export const URL = {
   LOGIN: "auth/admin/login",

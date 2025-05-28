@@ -93,7 +93,7 @@ const PaymentList = () => {
       .then((res) => {
         setHistoryData(res?.payment_history || []);
       })
-      .catch((err) => console.error("Error fetching payment history:", err))
+      // .catch((err) => console.error("Error fetching payment history:", err))
       .finally(() => setLoading(false));
   };
 
@@ -104,13 +104,13 @@ const PaymentList = () => {
   // Handle printing/downloading PDF
   const handlePrint = () => {
     if (!invoiceRef.current) {
-      console.error("Invoice ref not found");
+      // console.error("Invoice ref not found");
       return;
     }
 
     const content = invoiceRef.current.innerHTML;
     if (!content.trim()) {
-      console.error("Invoice content is empty.");
+      // console.error("Invoice content is empty.");
       return;
     }
 

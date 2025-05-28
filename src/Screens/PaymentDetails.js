@@ -9,7 +9,7 @@ const PaymentDetails = () => {
   const [paymentData, setPaymentData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log("location", location);
+  // console.log("location", location);
   const routeData = location?.state?.data;
 
   const [paymentdetail] = useLazyPayment_detaileQuery();
@@ -20,11 +20,11 @@ const PaymentDetails = () => {
     paymentdetail(id)
       .unwrap()
       .then((res) => {
-        console.log("Leadsres", res);
+        // console.log("Leadsres", res);
         setPaymentData(res?.data);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoading(false);

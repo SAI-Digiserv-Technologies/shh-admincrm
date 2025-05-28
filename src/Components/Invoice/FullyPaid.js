@@ -5,7 +5,7 @@ const FullyPaid = ({ invoiceRef, payment }) => {
 
   const studentdata = payment?.data;
 
-  console.log("paymentmethod", payment, method);
+  // console.log("paymentmethod", payment, method);
 
   return (
     <div className="invoicecont d-none">

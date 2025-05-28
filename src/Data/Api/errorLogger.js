@@ -6,8 +6,7 @@ export const rtkQueryErrorLogger =
   (action) => {
     // console.log("action", action);
     if (isRejectedWithValue(action)) {
-      console.log("errorLogger.js:", action);
+      // console.log("errorLogger.js:", action);
     }
-
     return next(action);
   };

@@ -18,7 +18,7 @@ const ProfileTop = ({
   fullData,
 }) => {
   const navigate = useNavigate();
-  console.log("imimageimageage", image);
+  // console.log("imimageimageage", image);
 
   return (
     <div className="profile_cont w-90 d-flec ac-jc flex-column p-3 rounded-5 position-relative">

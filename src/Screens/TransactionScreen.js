@@ -10,7 +10,7 @@ const TransactionScreen = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleSave = () => {
-        console.log("Saved Source:", sourceName);
+        // console.log("Saved Source:", sourceName);
         handleClose();
     };
 

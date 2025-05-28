@@ -37,7 +37,7 @@ const LeadAddScreen = () => {
   const pathname = location?.pathname;
 
   const status = routData?.status;
-  console.log("locatiroutDataon", location, routData);
+  // console.log("locatiroutDataon", location, routData);
 
   const scrollRef = useRef(null);
 
@@ -87,7 +87,7 @@ const LeadAddScreen = () => {
   // console.log("pin", pin);
 
   // const fetchPincode = async (city) => {
-  //   console.log("citcitycityy", city);
+    // console.log("citcitycityy", city);
 
   //   try {
   //     const res = await fetch(
@@ -101,15 +101,15 @@ const LeadAddScreen = () => {
   //         pincode,
   //       }));
   //     } else {
-  //       console.log("No pincode found for this city.");
+        // console.log("No pincode found for this city.");
   //     }
   //   } catch (err) {
-  //     console.error("Error fetching pincode:", err);
+      // console.error("Error fetching pincode:", err);
   //   }
   // };
 
   const fealdOnChange = (field, value) => {
-    console.log("value", value);
+    // console.log("value", value);
     if (field === "assignto") {
       setFormFeald((state) => ({
         ...state,
@@ -243,14 +243,14 @@ const LeadAddScreen = () => {
     return !errorMsg;
   };
 
-  console.log("formFealerrorsd", formFeald, errors);
+  // console.log("formFealerrorsd", formFeald, errors);
 
   const handleSubmit = () => {
     const isValid = Object.keys(formFeald).every((field) =>
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      console.log("SuccccformFeald", formFeald);
+      // console.log("SuccccformFeald", formFeald);
       let payload = {
         name: formFeald?.name,
         email: formFeald?.email,
@@ -282,20 +282,20 @@ const LeadAddScreen = () => {
         payload.enrollement_date = formFeald?.enrollement_date;
       }
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
       setLoadin(true);
       if (type == "edit") {
         const id = routData?._id;
         leadeditApi({ payload, id })
           .unwrap()
           .then((res) => {
-            console.log("EditRes", res);
+            // console.log("EditRes", res);
             toast.success(res?.message || "Lead updated successfully");
             navigate(-1);
             setEditbtn(true);
           })
           .catch((err) => {
-            console.log("Reserr", err);
+            // console.log("Reserr", err);
             toast.error(err?.data?.error || "BAD_REQUEST");
           })
           .finally(() => {
@@ -306,12 +306,12 @@ const LeadAddScreen = () => {
         leadaddApi(payload)
           .unwrap()
           .then((res) => {
-            console.log("Res", res);
+            // console.log("Res", res);
             toast.success(res?.message || "Lead created successfully");
             navigate(-1);
           })
           .catch((err) => {
-            console.log("Reserr", err);
+            // console.log("Reserr", err);
             toast.error(err?.data?.error || "BAD_REQUEST");
           })
           .finally(() => {
@@ -332,11 +332,11 @@ const LeadAddScreen = () => {
   const dataGetFun = () => {
     setLoadin(true);
     const id = routData?._id;
-    console.log("id", id);
+    // console.log("id", id);
     leadViewApi(id)
       .unwrap()
       .then((res) => {
-        console.log("viewRess", res);
+        // console.log("viewRess", res);
         const fullres = res?.data || res?.lead;
         setFulldata(fullres);
         setFormFeald({
@@ -359,11 +359,11 @@ const LeadAddScreen = () => {
           interested_course: fullres?.interested_course,
         });
 
-        console.log("formFeald", formFeald);
+        // console.log("formFeald", formFeald);
         getSourceFun();
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoadin(false);
@@ -375,12 +375,12 @@ const LeadAddScreen = () => {
     getSourceApi()
       .unwrap()
       .then((res) => {
-        console.log("souRes", res, res?.data);
+        // console.log("souRes", res, res?.data);
         setSourceList(res?.data);
         getCourceApi()
           .unwrap()
           .then((course) => {
-            console.log("Coures", course);
+            // console.log("Coures", course);
             setCourceList(course?.data);
             viewStaffApi()
               .unwrap()
@@ -395,27 +395,27 @@ const LeadAddScreen = () => {
                 // console.log("StafRes", res, activeStaf);
               })
               .catch((err) => {
-                console.log("Err", err);
+                // console.log("Err", err);
               });
           })
           .catch((err) => {
-            console.log("Err", err);
+            // console.log("Err", err);
           });
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoadin(false);
       });
   };
 
-  console.log("courseList", courseList);
+  // console.log("courseList", courseList);
 
   useEffect(() => {
     if (status == "Enquiry" || type == "add") {
       fealdOnChange("status", "Enquiry");
-      console.log("workds");
+      // console.log("workds");
     }
     if (type == "edit" || type == "view" || pathname == "/leadmanage/details") {
       setEditbtn(true);
@@ -426,7 +426,7 @@ const LeadAddScreen = () => {
     }
   }, []);
 
-  console.log("fulcourseListlData", courseList, formFeald?.interested_course);
+  // console.log("fulcourseListlData", courseList, formFeald?.interested_course);
 
   return (
     <div ref={scrollRef} className="detaile-cont">
@@ -493,7 +493,7 @@ const LeadAddScreen = () => {
                                     const selectedStaf = staflist.find(
                                       (s) => s._id == selectedId
                                     ); // Find the full staff object by _id
-                                    console.log("selectedStaf", selectedStaf);
+                                    // console.log("selectedStaf", selectedStaf);
 
                                     fealdOnChange("assignto", selectedStaf); // Send the full object to update the state
                                   } else {
@@ -559,7 +559,7 @@ const LeadAddScreen = () => {
                                   const selectedCity = cities.find(
                                     (c) => c.name === e.target.value
                                   );
-                                  console.log("indexcity", selectedCity);
+                                  // console.log("indexcity", selectedCity);
 
                                   // fetchPincode(selectedCity);
                                   fealdOnChange("city", selectedCity); // or selectedCity.name if you prefer just string

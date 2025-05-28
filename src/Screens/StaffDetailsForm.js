@@ -48,11 +48,11 @@ const StaffDetailsForm = ({ setStaffViewPro, setStaffName, staffName,
 
         }
         addStaffApi(payload).unwrap().then(res => {
-            console.log("res", res);
+            // console.log("res", res);
             toast.success(res?.message || "login Successfully")
 
         }).catch(err => {
-            console.log('err', err);
+            // console.log('err', err);
 
 
         }).finally(() => {
@@ -64,7 +64,7 @@ const StaffDetailsForm = ({ setStaffViewPro, setStaffName, staffName,
     }
     // Role api call
     const staffRolefun = (e) => {
-        console.log(e, e.target.value);
+        // console.log(e, e.target.value);
         setStaffRole(e.target.value)
     }
 

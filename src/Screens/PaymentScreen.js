@@ -27,10 +27,10 @@ const PaymentScreen = () => {
     Paymentdetails()
       .unwrap()
       .then((res) => {
-        console.log("Payment updated successfully", res);
+        // console.log("Payment updated successfully", res);
       })
       .catch((err) => {
-        console.log("Payment showing error", err);
+        // console.log("Payment showing error", err);
       });
   };
 
@@ -38,12 +38,12 @@ const PaymentScreen = () => {
     fetchModeofamount()
       .unwrap()
       .then((res) => {
-        console.log("Modeofview added", res);
+        // console.log("Modeofview added", res);
         const dynamicModes = res.data.map((item) => item.amountname);
         setModeOptions(["Select Mode", ...dynamicModes]);
       })
       .catch((err) => {
-        console.error("Error showing", err);
+        // console.error("Error showing", err);
       });
   };
 

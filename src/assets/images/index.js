@@ -17,6 +17,7 @@ export const resetgirl = require("./resetgirl.png");
 
 export const mini_time = require("./mini_time.png");
 export const proof_img = require("./proof_img.png");
+export const proof_img1 = require("./404.jpg");
 
 // Navbar
 export const dash_white = require("./dash_white.png");

@@ -24,12 +24,12 @@ const AllReportScreen = () => {
     leedview()
       .unwrap()
       .then((res) => {
-        console.log("leres", res);
+        // console.log("leres", res);
         const data = res?.data;
         setLeadList(data);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoading(false);

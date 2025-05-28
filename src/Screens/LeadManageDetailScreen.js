@@ -22,7 +22,7 @@ const LeadManageDetailScreen = () => {
   const navigate = useNavigate();
   const type = location?.state?.type;
   const routData = location?.state?.data;
-  console.log("locatiroutDataon", location, routData);
+  // console.log("locatiroutDataon", location, routData);
 
   const scrollRef = useRef(null);
 
@@ -75,7 +75,7 @@ const LeadManageDetailScreen = () => {
   // console.log("pin", pin);
 
   // const fetchPincode = async (city) => {
-  //   console.log("citcitycityy", city);
+    // console.log("citcitycityy", city);
 
   //   try {
   //     const res = await fetch(
@@ -225,7 +225,7 @@ const LeadManageDetailScreen = () => {
     return !errorMsg;
   };
 
-  console.log("formFeald", formFeald);
+  // console.log("formFeald", formFeald);
 
   const editMessage = (index) => {
     const updatedMessage = prompt("Edit your message:", messages[index]); // Show a prompt for editing
@@ -247,7 +247,7 @@ const LeadManageDetailScreen = () => {
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      console.log("SuccccformFeald", formFeald);
+      // console.log("SuccccformFeald", formFeald);
       let payload = {
         name: formFeald?.name,
         email: formFeald?.email,
@@ -275,20 +275,20 @@ const LeadManageDetailScreen = () => {
         payload.enrollement_date = formFeald?.enrollement_date;
       }
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
       setLoadin(true);
       if (type == "edit") {
         const id = routData?._id;
         leadeditApi({ payload, id })
           .unwrap()
           .then((res) => {
-            console.log("EditRes", res);
+            // console.log("EditRes", res);
             toast.success(res?.message || "Lead updated successfully");
             // navigate(-1);
             setEditbtn(true);
           })
           .catch((err) => {
-            console.log("Reserr", err);
+            // console.log("Reserr", err);
             toast.error(err?.data?.error || "BAD_REQUEST");
           })
           .finally(() => {
@@ -299,12 +299,12 @@ const LeadManageDetailScreen = () => {
         leadaddApi(payload)
           .unwrap()
           .then((res) => {
-            console.log("Res", res);
+            // console.log("Res", res);
             toast.success(res?.message || "Lead created successfully");
             navigate(-1);
           })
           .catch((err) => {
-            console.log("Reserr", err);
+            // console.log("Reserr", err);
             toast.error(err?.data?.error || "BAD_REQUEST");
           })
           .finally(() => {

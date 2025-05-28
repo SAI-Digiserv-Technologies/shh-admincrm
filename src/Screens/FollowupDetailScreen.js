@@ -133,7 +133,7 @@ const FollowupDetailScreen = () => {
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      console.log("formFeald", formFeald);
+      // console.log("formFeald", formFeald);
     }
   };
 

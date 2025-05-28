@@ -18,7 +18,7 @@ const TopHeader = ({ toggleFun }) => {
   const path = location?.pathname;
   const headerTitleSlice = useSelector((state) => state?.saveHeaderTitleSlice);
   const notifications = useSelector((state) => state?.saveNotificationSlice);
-  console.log("headerTitleSlice", headerTitleSlice, path, notifications);
+  // console.log("headerTitleSlice", headerTitleSlice, path, notifications);
   const logoutRef = useRef(null);
 
   // Api

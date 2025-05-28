@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { mini_time, pro_icon, proof_img } from "../assets/images";
+import { mini_time, pro_icon, proof_img1 } from "../assets/images";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useLazyAll_proof_listQuery } from "../Data/Api/api";
@@ -9,7 +9,7 @@ import EmptyComp from "../Components/Empty/EmptyComp";
 const PaymentProofListScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location", location);
+  // console.log("location", location);
   const type = location?.state?.type;
   const RouteData = location?.state?.data;
 
@@ -50,11 +50,11 @@ const PaymentProofListScreen = () => {
     allpaymentListApi()
       .unwrap()
       .then((res) => {
-        console.log("ProoRes", res);
+        // console.log("ProoRes", res);
         setPaymentProofs(res?.data || []);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoadin(false);
@@ -113,7 +113,7 @@ const PaymentProofListScreen = () => {
                               <div className="proofimgs d-flex ac-jc me-3">
                                 <img
                                   crossOrigin="anonymous"
-                                  src={item?.image || proof_img}
+                                  src={item?.image || proof_img1}
                                 />
                               </div>
                               <div>

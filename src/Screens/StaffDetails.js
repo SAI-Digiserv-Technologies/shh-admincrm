@@ -21,15 +21,15 @@ const StaffDetails = () => {
     const [loading, setLoading] = useState('');
 
     const location = useLocation()
-    console.log(location, "location");
+    // console.log(location, "location");
     const type = location?.state?.type
     // console.log(type, "type");
     const id = location?.state?.data?._id
-    console.log(id, "id");
+    // console.log(id, "id");
 
 
     const [staffViewPro, setStaffViewPro] = useState(null);
-    console.log(staffViewPro, "staffv");
+    // console.log(staffViewPro, "staffv");
 
     const [editBtn, setEditBtn] = useState(false)
 
@@ -42,14 +42,14 @@ const StaffDetails = () => {
 
     // popup fun
     const handleConfrim = () => {
-        console.log("user confirm deletion");
+        // console.log("user confirm deletion");
         setStaffpopup(false);
         setIconConfrim(true)
 
     }
     // Cancel button clicked
     const handleCancel = () => {
-        console.log("User cancelled");
+        // console.log("User cancelled");
         setIconConfrim(false);
         setStaffpopup(false);
     };
@@ -61,7 +61,7 @@ const StaffDetails = () => {
         partiViewStaffApi(id)
             .unwrap()
             .then(res => {
-                console.log("Vires", res);
+                // console.log("Vires", res);
                 setStaffName(res?.name)
                 setStaffEmail(res?.email)
                 setStaffPhone(res?.phone)
@@ -69,7 +69,7 @@ const StaffDetails = () => {
                 setStaffViewPro(res)
 
             }).catch(err => {
-                console.log("err", err);
+                // console.log("err", err);
 
 
             }).finally(() => {
@@ -88,16 +88,16 @@ const StaffDetails = () => {
         }
 
         setLoading(true)
-console.log('payload',payload);
+// console.log('payload',payload);
 
         editStaffApi(id, payload)
             .unwrap()
             .then(res => {
-                console.log("res", res);
+                // console.log("res", res);
 
 
             }).catch(err => {
-                console.log("err", err);
+                // console.log("err", err);
 
 
             }).finally(() => {

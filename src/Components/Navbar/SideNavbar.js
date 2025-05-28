@@ -8,6 +8,7 @@ import {
 } from "../../assets/images";
 import { SideNavList } from "../../Data/DummyJson";
 import { useLocation, useNavigate } from "react-router-dom";
+import "../../assets/css/style.css"
 
 const SideNavbar = ({
   menuactive,
@@ -20,10 +21,11 @@ const SideNavbar = ({
   const navigate = useNavigate();
 
   const imageUrl = profileData?.profileimage || pro_icon;
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const pathname = location?.pathname;
-  console.log("pathname", pathname);
+  // console.log("pathname", pathname);
 
   const onNavclike = (item) => {
     if (item?.navi == "logout") {
@@ -36,9 +38,8 @@ const SideNavbar = ({
   return (
     <>
       <div
-        className={`${
-          menuactive ? "navigation active" : "navigation"
-        } textani `}
+        className={`${menuactive ? "navigation active" : "navigation"
+          } textani `}
       >
         <ul className="">
           <div className="d-flex as-jb flex-column position-relative">
@@ -54,9 +55,8 @@ const SideNavbar = ({
                 onClick={() => {
                   navigate("/adminprofile");
                 }}
-                className={`${
-                  menuactive ? "rounded-2" : "rounded-5 mx-md-3 mx-2 py-1 px-2"
-                } pro-cont d-flex ac-js cp`}
+                className={`${menuactive ? "rounded-2" : "rounded-5 mx-md-3 mx-2 py-1 px-2"
+                  } pro-cont d-flex ac-js cp`}
               >
                 <div className="pro-img d-flex ac-jc ">
                   <img
@@ -82,7 +82,7 @@ const SideNavbar = ({
                 </p>
                 <div className="line" />
               </div>
-              <div className="d-flex flex-column gap-md-2 gap-0 px-1">
+              {/* <div className="d-flex flex-column gap-md-2 gap-0 px-1">
                 {SideNavList?.map((item, index) => {
                   return (
                     <li
@@ -139,13 +139,155 @@ const SideNavbar = ({
                     </li>
                   );
                 })}
+              </div> */}
+
+
+              <div className="d-flex flex-column gap-md-2 gap-0 px-1">
+                {SideNavList?.map((item, index) => {
+                  const isActive =
+                    (activeIndex === index && pathname == item?.navi) ||
+                    pathname == item?.navi ||
+                    item?.sub?.find((subItem) => pathname === subItem?.list);
+
+                  return (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setActiveIndex(index);
+                        if (
+                          pathname == item?.navi ||
+                          item?.sub?.find((subItem) => pathname === subItem?.list)
+                        ) {
+                          setMenuActive(!menuactive);
+                        } else if (
+                          (activeIndex === index && pathname == item?.navi) ||
+                          pathname == item?.navi
+                        ) {
+                          setMenuActive(false);
+                          onNavclike(item);
+                        } else {
+                          setMenuActive(true);
+                          onNavclike(item);
+                        }
+                      }}
+                      className={`${isActive ? "hovered" : ""} textani cp`}
+                      style={{ listStyleType: "none", cursor: "pointer", position: "relative" }}
+                    >
+                      <a className="d-flex ac-js">
+                        <div
+                          className="icon_box_list d-flex ac-jc"
+                          style={{
+                            position: "relative",
+                            display: "inline-block",
+                          }}
+                        >
+                          <img
+                            src={isActive ? item?.active_icon : item?.inactive_icon}
+                            alt={item?.name}
+                          />
+
+                          <span
+                            style={{
+                              content: '""',
+                              position: "absolute",
+                              bottom: "120%",
+                              left: "50%",
+                              transform: "translateX(-50%)",
+                              backgroundColor: "#333",
+                              color: "#fff",
+                              padding: "4px 8px",
+                              fontSize: "12px",
+                              fontWeight:"bold",
+                              whiteSpace: "nowrap",
+                              borderRadius: "4px",
+                              opacity: 0,
+                              pointerEvents: "none",
+                              transition: "opacity 0.3s ease",
+                              zIndex: 10,
+                            }}
+                            className="tooltip-text"
+                          >
+                            {(item?.tooltip || item?.name)?.includes(" ")
+                              ? <>
+                                {(item?.tooltip || item?.name)?.split(" ")[0]}<br />
+                                {(item?.tooltip || item?.name)?.split(" ").slice(1).join(" ")}
+                              </>
+                              : (item?.tooltip || item?.name)}
+                          </span>
+
+                        </div>
+                        <span className="title f5 fs-xxl-14 fs-xl-13 fs-lg-12 fs-sm-12 fs-xs-12">
+                          {item?.name}
+                        </span>
+                      </a>
+
+                      <style>
+                        {`li:hover .tooltip-text {
+                        opacity: 1 !important;}`}
+                      </style>
+                    </li>
+                  );
+                })}
               </div>
+
+
+
+              {/* <div className="d-flex flex-column gap-md-2 gap-0 px-1">
+                {SideNavList?.map((item, index) => {
+                  const isActive =
+                    (activeIndex === index && pathname == item?.navi) ||
+                    pathname == item?.navi ||
+                    item?.sub?.find((subItem) => pathname === subItem?.list);
+
+                  return (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setActiveIndex(index);
+                        if (
+                          pathname == item?.navi ||
+                          item?.sub?.find((subItem) => pathname === subItem?.list)
+                        ) {
+                          setMenuActive(!menuactive);
+                        } else if (
+                          (activeIndex === index && pathname == item?.navi) ||
+                          pathname == item?.navi
+                        ) {
+                          setMenuActive(false);
+                          onNavclike(item);
+                        } else {
+                          setMenuActive(true);
+                          onNavclike(item);
+                        }
+                      }}
+                      className={`${isActive ? "hovered" : ""} textani cp`}
+                      title={!menuactive ? item?.name : ""} // ✅ Tooltip only when menu is collapsed
+                    >
+                      <a className="d-flex ac-js">
+                        <div className="icon_box_list d-flex ac-jc">
+                          <img
+                            src={
+                              isActive
+                                ? item?.active_icon
+                                : item?.inactive_icon
+                            }
+                            alt={item?.name}
+                          />
+                        </div>
+                        <span className="title f5 fs-xxl-14 fs-xl-13 fs-lg-12 fs-sm-12 fs-xs-12">
+                          {item?.name}
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </div> */}
+
             </div>
             <div className="logout-cont d-flex ac-jb flex-column w-20">
               <div
-                className={`${
-                  menuactive ? "" : "cc"
-                } logout cp w-100 d-flex ac-jb`}
+                className={`${menuactive ? "" : "cc"
+                  } logout cp w-100 d-flex ac-jb`}
               >
                 <li className="">
                   <a className="d-flex ac-js">
@@ -173,18 +315,16 @@ const SideNavbar = ({
                   onClick={() => {
                     toggleFun();
                   }}
-                  className={`${
-                    menuactive ? "opacity-0" : ""
-                  } icon_box_list2 bg-transparent border-0`}
+                  className={`${menuactive ? "opacity-0" : ""
+                    } icon_box_list2 bg-transparent border-0`}
                 >
                   <img src={menu_toggle} />
                 </button>
               </div>
               {menuactive && (
                 <div
-                  className={`${
-                    menuactive ? "" : "opacity-0"
-                  } logout cp w-100 d-flex ac-jb`}
+                  className={`${menuactive ? "" : "opacity-0"
+                    } logout cp w-100 d-flex ac-jb`}
                 >
                   <li>
                     <a className="d-flex ac-js">

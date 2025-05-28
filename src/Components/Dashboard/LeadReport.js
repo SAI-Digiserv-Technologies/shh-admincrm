@@ -2,7 +2,7 @@ import React from "react";
 import { springicon } from "../../assets/images";
 
 const LeadReport = ({ dashLeadData }) => {
-  console.log('dashLeadData', dashLeadData);
+  // console.log('dashLeadData', dashLeadData);
 
   return (
     <div className="leed-report bg-transparent">

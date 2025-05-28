@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation } from "react-router-dom";
 
 const PaymentReceipt = ({ paymentData }) => {
-  console.log("paymentData", paymentData);
+  // console.log("paymentData", paymentData);
   const time = new Date(paymentData?.createdAt).toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",

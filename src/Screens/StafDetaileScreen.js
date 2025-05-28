@@ -18,7 +18,7 @@ import ActivePoppup from "../Components/StaffManage/ActivePoppup";
 const StafDetaileScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location", location);
+  // console.log("location", location);
   const data = location?.state?.data;
 
   const [formFeald, setFormFeald] = useState({
@@ -90,7 +90,7 @@ const StafDetaileScreen = () => {
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      console.log("SuccccformFeald", formFeald);
+      // console.log("SuccccformFeald", formFeald);
       setEdit(false);
     }
   };
@@ -98,11 +98,11 @@ const StafDetaileScreen = () => {
   const getUserDataFun = () => {
     setLoadin(true);
     const id = data?._id;
-    console.log("usegngjoer", id, data);
+    // console.log("usegngjoer", id, data);
     profile_viewApi(id)
       .unwrap()
       .then((res) => {
-        console.log("Viewssres", res);
+        // console.log("Viewssres", res);
         setFullData(res);
         setFormFeald({
           name: res?.name,
@@ -115,15 +115,15 @@ const StafDetaileScreen = () => {
         roleListApi()
           .unwrap()
           .then((res) => {
-            console.log("roleRes", res);
+            // console.log("roleRes", res);
             setRoleList(res?.data);
           })
           .catch((err) => {
-            console.log("Err", err);
+            // console.log("Err", err);
           });
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoadin(false);
@@ -144,7 +144,7 @@ const StafDetaileScreen = () => {
     }
   };
 
-  console.log("fullData", fullData, formFeald, activePoppup);
+  // console.log("fullData", fullData, formFeald, activePoppup);
 
   const editToggle = (item, type) => {
     if (item == "save") {
@@ -163,17 +163,17 @@ const StafDetaileScreen = () => {
         role: formFeald?.role,
         active: active ? false : true,
       };
-      console.log("payload", payload);
+      // console.log("payload", payload);
 
       for (let [key, value] of formdata.entries()) {
-        console.log(`${key}:`, value);
+        // console.log(`${key}:`, value);
       }
       const id = data?._id;
-      console.log("iididd", id);
+      // console.log("iididd", id);
       profileEditApi({ formdata: formdata, id: id })
         .unwrap()
         .then((res) => {
-          console.log("EdiRes", res);
+          // console.log("EdiRes", res);
           toast.success(res?.message || "Telecaller updated successfully");
           if (!activePoppup) {
             setEdit(!edit);
@@ -181,7 +181,7 @@ const StafDetaileScreen = () => {
           getUserDataFun();
         })
         .catch((err) => {
-          console.log("editssErr", err);
+          // console.log("editssErr", err);
         })
         .finally(() => {
           setLoadin(false);
@@ -196,7 +196,7 @@ const StafDetaileScreen = () => {
   }, []);
 
   const toggleActiveFun = (type) => {
-    console.log("typess", type);
+    // console.log("typess", type);
 
     if (type == "btn") {
       setAcvtivePoppup(true);
@@ -208,7 +208,7 @@ const StafDetaileScreen = () => {
       setAcvtivePoppup(false);
     }
   };
-  console.log("active", active);
+  // console.log("active", active);
 
   return (
     <>

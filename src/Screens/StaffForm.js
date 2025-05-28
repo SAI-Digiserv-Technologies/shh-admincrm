@@ -193,18 +193,18 @@ const StaffForm = () => {
       password: formData.password,
     };
     setLoading(true);
-    console.log("payload", payload);
+    // console.log("payload", payload);
     addStaffApi(payload)
       .unwrap()
       .then((res) => {
-        console.log("res", res);
+        // console.log("res", res);
         toast.success(res?.message || "Staff added successfully");
         navigate(-1);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
         toast.error(err?.data?.error || err?.data?.error || "BAD_REQUEST");
-        console.error("Error:", err);
+        // console.error("Error:", err);
       })
       .finally(() => {
         setLoading(false);
@@ -215,11 +215,11 @@ const StaffForm = () => {
     roleListApi()
       .unwrap()
       .then((res) => {
-        console.log("Res", res);
+        // console.log("Res", res);
         setRoleList(res?.data);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       });
   };
 

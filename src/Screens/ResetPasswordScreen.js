@@ -38,7 +38,7 @@ const ResetPasswordScreen = () => {
   const [resetpasswordApi] = useReset_passwordMutation();
 
   const fealdOnChange = (field, value) => {
-    console.log("field, value", field, value);
+    // console.log("field, value", field, value);
     setFormFeald((state) => ({
       ...state,
       [field]: value,
@@ -48,7 +48,7 @@ const ResetPasswordScreen = () => {
   const validateInput = (field, value) => {
     let errorMsg = "";
     const stringValue = String(value).trim();
-    console.log("stringValue", stringValue);
+    // console.log("stringValue", stringValue);
     switch (field) {
       case "password":
         if (!stringValue) {
@@ -76,7 +76,7 @@ const ResetPasswordScreen = () => {
         break;
     }
 
-    console.log("errorMsg", errorMsg);
+    // console.log("errorMsg", errorMsg);
 
     setErrors((prevErrors) => ({
       ...prevErrors,
@@ -98,7 +98,7 @@ const ResetPasswordScreen = () => {
       resetpasswordApi({ payload: payload, email: email })
         .unwrap()
         .then((res) => {
-          console.log("resRes", res);
+          // console.log("resRes", res);
           toast.success(res?.message || "Password reset successfully");
           setUser(null);
           setToken(null);
@@ -106,7 +106,7 @@ const ResetPasswordScreen = () => {
           window.location.reload();
         })
         .catch((err) => {
-          console.log("Err", err);
+          // console.log("Err", err);
           toast.error(err?.data?.message || err?.data?.error || "BAD_REQUEST");
         })
         .finally(() => {

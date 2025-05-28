@@ -70,7 +70,7 @@ const LeadCourseScreen = () => {
           handleClose();
         })
         .catch((err) => {
-          console.error("Update error:", err);
+          // console.error("Update error:", err);
           toast.error(err?.data?.error || "Failed to update course");
         })
         .finally(() => {
@@ -85,7 +85,7 @@ const LeadCourseScreen = () => {
           handleClose();
         })
         .catch((err) => {
-          console.error("Add error:", err);
+          // console.error("Add error:", err);
           toast.error(err?.data?.error || "Failed to add course");
         })
         .finally(() => {
@@ -97,15 +97,15 @@ const LeadCourseScreen = () => {
   const handledelete = (item) => {
     setLoading(true);
     const id = item?._id;
-    console.log("kkaksdfk", id);
+    // console.log("kkaksdfk", id);
     Coursedelete(id)
       .unwrap()
       .then((res) => {
-        console.log("course deleted", res);
+        // console.log("course deleted", res);
         handleview();
       })
       .catch((err) => {
-        console.log("course not deleted", err);
+        // console.log("course not deleted", err);
       })
       .finally(() => {
         setLoading(false);
@@ -117,11 +117,11 @@ const LeadCourseScreen = () => {
     courseview()
       .unwrap()
       .then((res) => {
-        console.log("courssres", res);
+        // console.log("courssres", res);
         setLeadcourse(res?.data);
       })
       .catch((err) => {
-        console.error("Fetch error:", err);
+        // console.error("Fetch error:", err);
         toast.error("Failed to load courses");
       })
       .finally(() => {

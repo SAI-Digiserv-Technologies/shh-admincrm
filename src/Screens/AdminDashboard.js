@@ -33,11 +33,11 @@ const AdminDashboard = () => {
     leedview()
       .unwrap()
       .then((res) => {
-        console.log("LeadssDashRes", res);
+        // console.log("LeadssDashRes", res);
         // AllData
         const fulldata = res?.data;
         setFullleads(fulldata);
-        console.log("resfulldata", fulldata, res?.data);
+        // console.log("resfulldata", fulldata, res?.data);
         const allPendingLeads = fulldata.filter(
           (lead) => lead.status == "Enquiry"
         );
@@ -49,7 +49,7 @@ const AdminDashboard = () => {
           (lead) => lead.status == "Follow Ups"
         );
 
-        console.log("allfollowLeads", allfollowLeads);
+        // console.log("allfollowLeads", allfollowLeads);
 
         const today = new Date();
         const todayDateOnly = today.toISOString().split("T")[0];
@@ -75,13 +75,13 @@ const AdminDashboard = () => {
           (lead) => lead.status == "Enrollment"
         );
         // Today only end
-        console.log("TodayFull lead", todaysLeads);
-        console.log("TdyPending lead", TdyPendingdLeads);
-        console.log("Tdyenrolled lead", enrolledLeads);
-        console.log("Full lead", fulldata);
-        console.log("Pending lead", allPendingLeads);
-        console.log("enrolled lead", allenrolledLeads);
-        console.log("updatesLeads", updatesLeads);
+        // console.log("TodayFull lead", todaysLeads);
+        // console.log("TdyPending lead", TdyPendingdLeads);
+        // console.log("Tdyenrolled lead", enrolledLeads);
+        // console.log("Full lead", fulldata);
+        // console.log("Pending lead", allPendingLeads);
+        // console.log("enrolled lead", allenrolledLeads);
+        // console.log("updatesLeads", updatesLeads);
         const filteredData = {
           pending: allPendingLeads?.length,
           converted: allenrolledLeads?.length,
@@ -92,11 +92,11 @@ const AdminDashboard = () => {
           Tdyconverted: enrolledLeads?.length,
           updatesLeads: updatesLeads?.length,
         };
-        console.log("filteredData", filteredData);
+        // console.log("filteredData", filteredData);
         setDashLeadData(filteredData);
       })
       .catch((err) => {
-        console.log("response not gentrated", err);
+        // console.log("response not gentrated", err);
       })
       .finally(() => {
         setLoading(false);

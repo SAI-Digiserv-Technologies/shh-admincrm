@@ -26,7 +26,7 @@ const StaffRoleScreen = () => {
   const [loading, setLoading] = useState(true);
 
   const handleShow = (item) => {
-    console.log("itedvjgh", item);
+    // console.log("itedvjgh", item);
     setShow(true);
     if (item) {
       setStafData(item);
@@ -44,18 +44,18 @@ const StaffRoleScreen = () => {
       addroles,
     };
     const id = stafdata?._id;
-    console.log("staffdata", id);
+    // console.log("staffdata", id);
 
     if (stafdata) {
       Editroles({ id, payload })
         .unwrap()
         .then((res) => {
-          console.log("Roles updated successfully", res);
+          // console.log("Roles updated successfully", res);
           viewroles();
           setShow(false);
         })
         .catch((err) => {
-          console.error("Error throwing", err);
+          // console.error("Error throwing", err);
         })
         .finally(() => {
           setLoading(false);
@@ -64,12 +64,12 @@ const StaffRoleScreen = () => {
       RolesApi(payload)
         .unwrap()
         .then((res) => {
-          console.log("Roles added successfully", res);
+          // console.log("Roles added successfully", res);
           viewroles();
           setShow(false);
         })
         .catch((err) => {
-          console.error("Error throwing", err);
+          // console.error("Error throwing", err);
         })
         .finally(() => {
           setLoading(false);
@@ -79,17 +79,17 @@ const StaffRoleScreen = () => {
 
   const handleDelete = (item) => {
     const id = item?._id;
-    console.log("hdsfddsjkf", item, id);
+    // console.log("hdsfddsjkf", item, id);
     setLoading(true);
 
     Deleteroles(id)
       .unwrap()
       .then((res) => {
-        console.log("Deleted successfully", res);
+        // console.log("Deleted successfully", res);
         viewroles();
       })
       .catch((err) => {
-        console.error("Delete error", err);
+        // console.error("Delete error", err);
       })
       .finally(() => {
         setLoading(false);
@@ -101,11 +101,11 @@ const StaffRoleScreen = () => {
     viewRoles()
       .unwrap()
       .then((res) => {
-        console.log("viewed successfully", res);
+        // console.log("viewed successfully", res);
         setStafflist(res?.data);
       })
       .catch((err) => {
-        console.log("logges notshowin", err);
+        // console.log("logges notshowin", err);
       })
       .finally(() => {
         setLoading(false);

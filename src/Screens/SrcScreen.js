@@ -28,7 +28,7 @@ const SrcScreen = () => {
   const handleClose = () => setShow(false);
 
   const handleShow = (item) => {
-    console.log("kkksjdhffk", item);
+    // console.log("kkksjdhffk", item);
     setShow(true);
     if (item) {
       setSourceData(item);
@@ -45,19 +45,19 @@ const SrcScreen = () => {
       sourcename,
     };
     const id = sourcedata?._id;
-    console.log("sourcename", id);
+    // console.log("sourcename", id);
 
     if (sourcedata) {
       Editsource({ id, payload })
         .unwrap()
         .then((res) => {
-          console.log("Sources updated successfully", res);
+          // console.log("Sources updated successfully", res);
           toast.success(res?.message || "Sources updated successfully");
           viewsourcelist();
           setShow(false);
         })
         .catch((err) => {
-          console.error("Sources showing errror", err);
+          // console.error("Sources showing errror", err);
         })
         .finally(() => {
           setLoading(true);
@@ -66,13 +66,13 @@ const SrcScreen = () => {
       addsource(payload)
         .unwrap()
         .then((res) => {
-          console.log("Sources added successfully", res);
+          // console.log("Sources added successfully", res);
           toast.success(res?.message || "Sources added successfully");
           viewsourcelist();
           setShow(false);
         })
         .catch((err) => {
-          console.error("Sources showing errror", err);
+          // console.error("Sources showing errror", err);
         })
         .finally(() => {
           setLoading(true);
@@ -83,16 +83,16 @@ const SrcScreen = () => {
   const handleDelete = (item) => {
     setLoading(true);
     const id = item?._id;
-    console.log("idnj", item, id);
+    // console.log("idnj", item, id);
     DeleteSource(id)
       .unwrap()
       .then((res) => {
-        console.log("Deleted Successfully", res);
+        // console.log("Deleted Successfully", res);
         toast.success(res?.message || "Deleted Successfully");
         viewsourcelist();
       })
       .catch((err) => {
-        console.error("Delete Error", err);
+        // console.error("Delete Error", err);
       })
       .finally(() => {
         setLoading(false);
@@ -104,11 +104,11 @@ const SrcScreen = () => {
     viewsource()
       .unwrap()
       .then((res) => {
-        console.log("success viewed", res);
+        // console.log("success viewed", res);
         setSourcelistss(res?.data);
       })
       .catch((err) => {
-        console.error("vieed not shoiwng", err);
+        // console.error("vieed not shoiwng", err);
       })
       .finally(() => {
         setLoading(false);

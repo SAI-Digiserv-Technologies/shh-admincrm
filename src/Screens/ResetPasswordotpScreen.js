@@ -31,7 +31,7 @@ const ResetPasswordotpScreen = () => {
   const [verifyotpApi] = useVerify_otpMutation();
 
   const fealdOnChange = (field, value) => {
-    console.log("field, value", field, value);
+    // console.log("field, value", field, value);
     setFormFeald((state) => ({
       ...state,
       [field]: value,
@@ -42,7 +42,7 @@ const ResetPasswordotpScreen = () => {
   const validateInput = (field, value) => {
     let errorMsg = "";
     const stringValue = String(value).trim();
-    console.log("stringValue", stringValue);
+    // console.log("stringValue", stringValue);
     switch (field) {
       case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,7 +63,7 @@ const ResetPasswordotpScreen = () => {
         break;
     }
 
-    console.log("errorMsg", errorMsg);
+    // console.log("errorMsg", errorMsg);
 
     setErrors((prevErrors) => ({
       ...prevErrors,
@@ -88,12 +88,12 @@ const ResetPasswordotpScreen = () => {
         verifyotpApi(payload)
           .unwrap()
           .then((res) => {
-            console.log("Res", res);
+            // console.log("Res", res);
             toast?.success(res?.message || "OTP verified successfully");
             navigate("/resetpassword", { state: { email: formFeald?.email } });
           })
           .catch((err) => {
-            console.log("Err", err);
+            // console.log("Err", err);
             toast.error(
               err?.data?.message || err?.data?.error || "BAD_REQUEST"
             );
@@ -103,19 +103,19 @@ const ResetPasswordotpScreen = () => {
           });
       } else {
         setLoading(true);
-        console.log("OtpShow");
+        // console.log("OtpShow");
         const payload = {
           email: formFeald?.email,
         };
         sendotpApi(payload)
           .unwrap()
           .then((res) => {
-            console.log("Res", res);
+            // console.log("Res", res);
             toast?.success(res?.message || "OTP sent to telecaller email");
             setPassType(true);
           })
           .catch((err) => {
-            console.log("Err", err);
+            // console.log("Err", err);
             toast.error(
               err?.data?.message || err?.data?.error || "Telecaller not found"
             );

@@ -19,11 +19,11 @@ const AdminProfileScreen = () => {
     profileViewApi(id)
       .unwrap()
       .then((res) => {
-        console.log("Viewdres", res);
+        // console.log("Viewdres", res);
         setFullData(res);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoading(false);

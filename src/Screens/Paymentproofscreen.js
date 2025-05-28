@@ -20,11 +20,11 @@ export default function PaymentProof() {
     PaymentProof()
       .unwrap()
       .then((res) => {
-        console.log("Paymentproof successfuully viewed", res);
+        // console.log("Paymentproof successfuully viewed", res);
         Setpaymentlist(res?.data)
 
       }).catch((err) => {
-        console.error("error showing", err);
+        // console.error("error showing", err);
 
       })
   }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PageLoad from "../Components/Loading/PageLoad";
 import { useLocation, useNavigate } from "react-router-dom";
-import { proof_img } from "../assets/images";
+import { proof_img1 } from "../assets/images";
 import {
   useLazyPaymentproofviewQuery,
   usePaymentaddMutation,
@@ -17,7 +17,7 @@ const PaymentAddScreen = () => {
   const [loading, setLoading] = useState(true);
   const [paymentData, setPaymentData] = useState(null);
 
-  console.log("routData", routData);
+  // console.log("routData", routData);
   const leadID = routData?.data;
 
   const [formFeald, setFormFeald] = useState({
@@ -118,11 +118,11 @@ const PaymentAddScreen = () => {
     return !errorMsg;
   };
 
-  console.log(
-    "formfealsd",
-    formFeald,
-    paymentData?.payment_proof?.payment_method
-  );
+  //  console.log(
+  //   "formfealsd",
+  //   formFeald,
+  //   paymentData?.payment_proof?.payment_method
+  // );
 
   const fields = [
     {
@@ -192,11 +192,11 @@ const PaymentAddScreen = () => {
   const proofViewfun = () => {
     setLoading(true);
     const id = routData?._id;
-    console.log("idroutData?._id;", routData, routData?._id);
+    // console.log("idroutData?._id;", routData, routData?._id);
     paymentproofView(id)
       .unwrap()
       .then((res) => {
-        console.log("proviewres", res);
+        // console.log("proviewres", res);
         setPaymentData(res?.data);
         setFormFeald({
           name: res?.data?.lead?.name,
@@ -211,19 +211,19 @@ const PaymentAddScreen = () => {
         });
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoading(false);
       });
   };
 
-  console.log("paymentData", paymentData);
+  // console.log("paymentData", paymentData);
 
   const lead = paymentData?.lead;
   const payment_proof = paymentData?.payment_proof;
 
-  console.log("payment_prleadoof", payment_proof, lead);
+  // console.log("payment_prleadoof", payment_proof, lead);
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -254,18 +254,18 @@ const PaymentAddScreen = () => {
 
         // remarks: "First installment",
       };
-      console.log("payloadsfed", payload);
-      console.log("payloadlead", lead);
-      console.log("payloadleadpayment_proof", payment_proof);
+      // console.log("payloadsfed", payload);
+      // console.log("payloadlead", lead);
+      // console.log("payloadleadpayment_proof", payment_proof);
       paymentAdd(payload)
         .unwrap()
         .then((res) => {
-          console.log("Addres", res);
+          // console.log("Addres", res);
           toast.success(res?.message || "Payment saved successfully");
           navigate(-1);
         })
         .catch((err) => {
-          console.log("adderr", err);
+          // console.log("adderr", err);
           toast.error(err?.message || err?.data?.message || "BAD_REQUEST");
         })
         .finally(() => {
@@ -391,7 +391,7 @@ const PaymentAddScreen = () => {
                 width: "100%",
                 objectFit: "contain",
               }}
-              src={payment_proof?.image || proof_img}
+              src={payment_proof?.image || proof_img1}
               crossOrigin="anonymous"
             />
           </div>

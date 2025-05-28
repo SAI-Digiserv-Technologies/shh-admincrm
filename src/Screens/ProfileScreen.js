@@ -35,7 +35,7 @@ const ProfileScreen = () => {
   const [profile_viewApi] = useLazyProfileViewQuery();
   const [profileEditApi] = useProfileUpdateMutation();
 
-  console.log("useuseruserr", user);
+  // console.log("useuseruserr", user);
 
   const fealdOnChange = (field, value) => {
     setFormFeald((state) => ({
@@ -84,7 +84,7 @@ const ProfileScreen = () => {
       validateInput(field, formFeald[field])
     );
     if (isValid) {
-      console.log("SuccccformFeald", formFeald);
+      // console.log("SuccccformFeald", formFeald);
       setEdit(false);
     }
   };
@@ -92,13 +92,13 @@ const ProfileScreen = () => {
   const getUserDataFun = () => {
     setLoadin(true);
     const id = user?.admin?.id;
-    console.log("usegngjoer", id);
+    // console.log("usegngjoer", id);
     profile_viewApi(id)
       .unwrap()
       .then((res) => {
-        console.log("prores", res);
+        // console.log("prores", res);
         const fullres = res?.admin || res;
-        console.log("fullres", fullres);
+        // console.log("fullres", fullres);
         setFullData(fullres);
         setFormFeald({
           name: fullres?.name,
@@ -109,7 +109,7 @@ const ProfileScreen = () => {
         setImage(fullres?.profileimage);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoadin(false);
@@ -138,20 +138,20 @@ const ProfileScreen = () => {
         if (imageObj) {
           formdata.append("image", imageObj);
         }
-        console.log("formdata", formdata, imageObj, user);
+        // console.log("formdata", formdata, imageObj, user);
 
         const id = user?.admin?.id;
         // console.log("iididd", id, user);
         profileEditApi({ formdata: formdata, id: id })
           .unwrap()
           .then((res) => {
-            console.log("EdiRes", res);
+            // console.log("EdiRes", res);
             toast.success(res?.message || "Telecaller updated successfully");
             getUserDataFun();
             window.location.reload();
           })
           .catch((err) => {
-            console.log("Err", err);
+            // console.log("Err", err);
             toast.error(err?.data?.error || err?.status || "BAD_REQUEST");
           })
           .finally(() => {
@@ -202,7 +202,7 @@ const ProfileScreen = () => {
       setAcvtivePoppup(false);
     }
   };
-  console.log("active", active);
+  // console.log("active", active);
 
   return (
     <div className="d-flex flex-column ac-jc pro-ss">

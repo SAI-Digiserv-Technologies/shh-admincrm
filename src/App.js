@@ -27,7 +27,7 @@ const App = () => {
 
   const requestNotificationPermission = () => {
     if (!("Notification" in window)) {
-      console.log("This browser does not support notifications");
+      // console.log("This browser does not support notifications");
       return;
     }
 
@@ -36,14 +36,14 @@ const App = () => {
       Notification.permission !== "denied"
     ) {
       Notification.requestPermission().then((permission) => {
-        console.log("Notification permission:", permission);
+        // console.log("Notification permission:", permission);
       });
     }
   };
 
   const showNotification = () => {
     if (!("Notification" in window)) {
-      console.log("This browser does not support notifications");
+      // console.log("This browser does not support notifications");
       return;
     }
 
@@ -110,7 +110,7 @@ const App = () => {
           console.error("Notification fetch error:", err);
         });
     } else {
-      console.log("Notification permission is denied.");
+      // console.log("Notification permission is denied.");
     }
   };
 

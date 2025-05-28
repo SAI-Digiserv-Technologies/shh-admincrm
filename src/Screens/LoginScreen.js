@@ -16,7 +16,7 @@ const LoginScreen = () => {
   const { user, setUser } = useUser();
   const { token, setToken } = useToken();
 
-  console.log("ndsmmds", user);
+  // console.log("ndsmmds", user);
 
   const [errors, setErrors] = useState({});
   const [passwordshow, setPasswordShow] = useState(false);
@@ -26,7 +26,7 @@ const LoginScreen = () => {
 
   // const [LoginApi]  = use
   const fealdOnChange = (field, value) => {
-    console.log("field, value", field, value);
+    // console.log("field, value", field, value);
     setFormFeald((state) => ({
       ...state,
       [field]: value,
@@ -36,7 +36,7 @@ const LoginScreen = () => {
   const validateInput = (field, value) => {
     let errorMsg = "";
     const stringValue = String(value).trim();
-    console.log("stringValue", stringValue);
+    // console.log("stringValue", stringValue);
     switch (field) {
       case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,7 +64,7 @@ const LoginScreen = () => {
       default:
         break;
     }
-    console.log("errorMsg", errorMsg);
+    // console.log("errorMsg", errorMsg);
     setErrors((prevErrors) => ({
       ...prevErrors,
       [field]: errorMsg,
@@ -85,7 +85,7 @@ const LoginScreen = () => {
       LoginApi(payload)
         .unwrap()
         .then((res) => {
-          console.log("login successfully", res);
+          // console.log("login successfully", res);
           toast.success(res?.message || "Login successful");
           setUser(res);
           setToken(`${res?.admin?.token}`);
@@ -93,7 +93,7 @@ const LoginScreen = () => {
           navigate("/admindashboard");
         })
         .catch((err) => {
-          console.log("Login error", err);
+          // console.log("Login error", err);
           toast.error(err?.data?.message || err?.data?.error || "BAD_REQUEST");
         })
         .finally(() => {

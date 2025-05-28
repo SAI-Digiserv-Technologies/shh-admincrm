@@ -20,14 +20,14 @@ const EnquiryScreen = () => {
     leedview()
       .unwrap()
       .then((res) => {
-        console.log("res", res);
+        // console.log("res", res);
         const allPendingLeads = res?.data.filter(
           (lead) => lead.status == "Enquiry"
         );
         setLeadList(allPendingLeads);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoading(false);

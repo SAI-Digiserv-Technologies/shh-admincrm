@@ -99,21 +99,21 @@ const PaymentUpdatesList = ({ paymentlist }) => {
   const currentLeads = paymentlist?.slice(indexOfFirstLead, indexOfLastLead);
   const totalPages = Math?.ceil(paymentlist?.length / leadsPerPage);
   const today = new Date().toISOString().split("T")[0];
-  console.log("today", today);
+  // console.log("today", today);
 
-  console.log("paymentlists", paymentlist);
+  // console.log("paymentlists", paymentlist);
 
   const handlePrint = (data) => {
     setPaymentDatas(data);
-    console.log("invoicedata", data);
+    // console.log("invoicedata", data);
     setTimeout(() => {
       if (!invoiceRef.current) {
-        console.error("Invoice ref not found");
+        // console.error("Invoice ref not found");
         return;
       }
       const content = invoiceRef.current.innerHTML;
       if (!content.trim()) {
-        console.error("Invoice content is empty.");
+        // console.error("Invoice content is empty.");
         return;
       }
 

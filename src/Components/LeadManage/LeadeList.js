@@ -14,7 +14,7 @@ const LeadList = ({ data }) => {
   const [statusToggle, setStatusToggle] = useState({});
   const dropdownRef = useRef(null);
 
-  console.log("datasswse", data);
+  // console.log("datasswse", data);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -92,7 +92,7 @@ const LeadList = ({ data }) => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  console.log("currentUsers", currentUsers);
+  // console.log("currentUsers", currentUsers);
 
   return (
     <>

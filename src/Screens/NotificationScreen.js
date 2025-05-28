@@ -32,7 +32,7 @@ const NotificationScreen = () => {
     notificationliatApi()
       .unwrap()
       .then((res) => {
-        console.log("notires", res);
+        // console.log("notires", res);
         const notread = res?.data?.notifications?.filter(
           (item) => !item?.isRead
         );
@@ -40,7 +40,7 @@ const NotificationScreen = () => {
         setNotifications(res?.data?.notifications || []);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoading(false);
@@ -50,7 +50,7 @@ const NotificationScreen = () => {
   // paymentDetails
 
   const notificatioRead = (item) => {
-    console.log("temsss", item);
+    // console.log("temsss", item);
     const data = item?.paymentDetails;
     if (item?.isRead) {
       if (data?.status == "Approved") {
@@ -64,7 +64,7 @@ const NotificationScreen = () => {
       notificationread(id)
         .unwrap()
         .then((res) => {
-          console.log("Res", res);
+          // console.log("Res", res);
           notificationGetFun();
           if (data?.status == "Approved") {
             toast.info("Payment Proof Approved");
@@ -73,7 +73,7 @@ const NotificationScreen = () => {
           }
         })
         .catch((err) => {
-          console.log("err", err);
+          // console.log("err", err);
         })
         .finally(() => {
           setLoading(false);

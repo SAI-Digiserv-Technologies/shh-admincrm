@@ -3,10 +3,10 @@ import { round_logo } from "../../assets/images";
 import "../../assets/css/invoice.css";
 
 const NewInvoice = ({ invoiceRef, paymentData }) => {
-  console.log("paymentData", paymentData);
+  // console.log("paymentData", paymentData);
 
   const paymentlist = paymentData?.payment_history;
-  console.log("paymentlpaymentlistist", paymentlist, paymentData);
+  // console.log("paymentlpaymentlistist", paymentlist, paymentData);
   const today = new Date().toISOString().split("T")[0];
 
   return (

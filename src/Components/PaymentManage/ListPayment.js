@@ -49,7 +49,7 @@ const ListPayment = ({ historyData }) => {
 
   const totalPages = Math.ceil(historyData?.length / leadsPerPage);
 
-  console.log("currensdjhjkpl[tLeads", currentLeads);
+  // console.log("currensdjhjkpl[tLeads", currentLeads);
 
   useEffect(() => {
     const handleClickOutside = (e) => {};

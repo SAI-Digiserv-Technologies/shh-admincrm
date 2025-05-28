@@ -11,7 +11,7 @@ export const api = createApi({
 
       if (token) {
         const newToc = token.replace(/^"(.*)"$/, "$1");
-        console.log("user_detailskss", token, endpoint, newToc);
+        // console.log("user_detailskss", token, endpoint, newToc);
 
         headers.set("Authorization", `Bearer ${newToc}`);
       }

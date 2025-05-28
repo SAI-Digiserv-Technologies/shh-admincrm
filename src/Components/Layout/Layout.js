@@ -33,17 +33,17 @@ const Layout = () => {
   };
 
   const poppupHandle = (type) => {
-    console.log("PageLoad", type);
+    // console.log("PageLoad", type);
     if (type == "yes") {
       setLoad(true);
       logoutApi()
         .unwrap()
         .then((res) => {
-          console.log("Res", res);
+          // console.log("Res", res);
           toast.success(res?.message || "Logout Success");
         })
         .catch((err) => {
-          console.log("err", err);
+          // console.log("err", err);
           setTimeout(() => {
             toast.success(err?.message || "Logout Success");
           }, 1000);
@@ -68,12 +68,12 @@ const Layout = () => {
     profileViewApi(id)
       .unwrap()
       .then((res) => {
-        console.log("ProRes", res);
+        // console.log("ProRes", res);
         const fulldata = res?.admin || res;
         ssetProfileData(fulldata);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       });
   };
 

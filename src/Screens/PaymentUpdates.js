@@ -20,11 +20,11 @@ const PaymentUpdates = () => {
     paymentListApi()
       .unwrap()
       .then((res) => {
-        console.log("res", res);
+        // console.log("res", res);
         setPaymentlist(res?.data?.grouped_payments || []);
       })
       .catch((err) => {
-        console.log("err", err);
+        // console.log("err", err);
       })
       .finally(() => {
         setLoadin(false);

@@ -1,0 +1,21 @@
+/* Add this to your CSS or as a <style> block */
+.custom-tooltip {
+  position: absolute;
+  left: 60px; /* adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  background-color: #333;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.nav-item:hover .custom-tooltip {
+  opacity: 1;
+}

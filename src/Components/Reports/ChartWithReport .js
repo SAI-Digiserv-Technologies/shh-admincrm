@@ -107,7 +107,7 @@ const ChartWithReport = ({ leadList = [] }) => {
     return colors[month] || "gray";
   };
 
-  console.log("reportData", reportData);
+  // console.log("reportData", reportData);
 
   return (
     <div

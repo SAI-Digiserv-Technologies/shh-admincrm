@@ -18,7 +18,7 @@ const StafReportScreen = () => {
   const routeData = location?.state?.data;
   const id = routeData?._id;
 
-  console.log("location", location, routeData);
+  // console.log("location", location, routeData);
 
   const [loading, setLoading] = useState(true);
   const [leadList, setLeadList] = useState([]);
@@ -31,11 +31,11 @@ const StafReportScreen = () => {
     teleleadlistApi(id)
       .unwrap()
       .then((res) => {
-        console.log("leadssres", res);
+        // console.log("leadssres", res);
         setLeadList(res?.data?.leads || res?.data || []);
       })
       .catch((err) => {
-        console.log("Err", err);
+        // console.log("Err", err);
       })
       .finally(() => {
         setLoading(false);
