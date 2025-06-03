@@ -16,7 +16,7 @@ const App = () => {
   const lastNotificationRef = useRef(null);
   const navigate = useNavigate(); // If using React Router
   const dispatch = useDispatch();
-
+  console.log("SHH CRM ADMIN WEBSITE");
   // Store navigation function globally
   useEffect(() => {
     navigateToNotifications = () => navigate("/notification");

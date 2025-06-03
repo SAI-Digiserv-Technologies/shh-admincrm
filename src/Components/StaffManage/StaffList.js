@@ -71,6 +71,7 @@ const StaffList = ({ res }) => {
           <thead>
             <tr>
               <th className="py-3 px-2">S.No</th>
+              <th className="py-3 px-2">Staf ID</th>
               <th className="py-3 px-2">Name</th>
               <th className="py-3 px-2">Email ID</th>
               <th className="py-3 px-2">Phone Number</th>
@@ -96,6 +97,9 @@ const StaffList = ({ res }) => {
               >
                 <td className="text-center py-2 px-2 primary3 f4">
                   {index + 1 + indexOfFirstUser}
+                </td>
+                <td className="text-center py-2 px-2 primary3 f4">
+                  {user.staff_id || "-"}
                 </td>
                 <td className="text-center py-2 px-2 primary3 f4">
                   {user.name}

@@ -102,19 +102,24 @@ const StaffForm = () => {
 
     // Real-time validation for Password
     if (name === "password") {
-      newErrors.password = !value
-        ? "Password is required"
-        : value.length < 6
-        ? "Password must be at least 6 characters"
-        : !/[A-Z]/.test(value)
-        ? "Password must contain at least one uppercase letter"
-        : !/[a-z]/.test(value)
-        ? "Password must contain at least one lowercase letter"
-        : !/[0-9]/.test(value)
-        ? "Password must contain at least one number"
-        : !/[@$!%*?&]/.test(value)
-        ? "Password must include at least one special character"
-        : "";
+      if (!value) {
+        newErrors.password = "Password is required";
+      } else if (value.length < 6) {
+        newErrors.password = "Password must be at least 6 characters";
+      } else if (!/[A-Z]/.test(value)) {
+        newErrors.password =
+          "Password must contain at least one uppercase letter";
+      } else if (!/[a-z]/.test(value)) {
+        newErrors.password =
+          "Password must contain at least one lowercase letter";
+      } else if (!/[0-9]/.test(value)) {
+        newErrors.password = "Password must contain at least one number";
+      } else if (!/[@$!%*?&]/.test(value)) {
+        newErrors.password =
+          "Password must include at least one special character (@, $, !, %, *, ?, &)";
+      } else {
+        newErrors.password = "";
+      }
     }
 
     // Real-time validation for Confirm Password
