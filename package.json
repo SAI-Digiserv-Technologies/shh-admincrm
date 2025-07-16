@@ -19,6 +19,7 @@
     "country-state-city": "^3.2.1",
     "framer-motion": "^12.9.1",
     "html2pdf.js": "^0.10.3",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.488.0",
     "postal-codes-js": "^2.5.2",
     "react": "^19.0.0",
