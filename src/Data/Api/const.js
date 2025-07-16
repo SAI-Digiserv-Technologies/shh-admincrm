@@ -1,6 +1,6 @@
 //Live
-// export const BASE_URL = "https://api.saihustlehub.com/api/";
-export const BASE_URL = "http://localhost:9099/api/";
+export const BASE_URL = "https://apicrm.saihustlehub.com/api/";
+// export const BASE_URL = "http://localhost:3002/api/";
 
 export const URL = {
   LOGIN: "auth/admin/login",
@@ -58,6 +58,8 @@ export const URL = {
   HISTORY_DETAIL: "payments/payment/id",
   NOTIFICATION: "notifications",
   READ_MSG: "notifications/mark-read",
+  BULK_LEAD_ADD: "lead/bulk-upload",
+  Attendance_Report:"attendance/admin"
 
   // ADDSTAFF:"telecallers/addtelecaller",
   // VIEWSTAFF:"telecallers/gettelecallers",

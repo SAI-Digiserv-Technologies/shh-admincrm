@@ -911,15 +911,19 @@ export const leadaddform = [
   {
     id: 8,
     formFeald: "state",
-    type: "dropdownstate",
+    // type: "dropdownstate",
+    type: "text",
     lable: "State*",
+    selectplac: "State",
     placeholder: "State",
   },
   {
     id: 9,
     formFeald: "city",
-    type: "citydropdown",
+    // type: "citydropdown",
+    type: "text",
     lable: "City*",
+    selectplace: "City",
     placeholder: "City",
   },
   {

@@ -87,7 +87,7 @@ const LeadAddScreen = () => {
   // console.log("pin", pin);
 
   // const fetchPincode = async (city) => {
-    // console.log("citcitycityy", city);
+  // console.log("citcitycityy", city);
 
   //   try {
   //     const res = await fetch(
@@ -101,10 +101,10 @@ const LeadAddScreen = () => {
   //         pincode,
   //       }));
   //     } else {
-        // console.log("No pincode found for this city.");
+  // console.log("No pincode found for this city.");
   //     }
   //   } catch (err) {
-      // console.error("Error fetching pincode:", err);
+  // console.error("Error fetching pincode:", err);
   //   }
   // };
 
@@ -455,183 +455,182 @@ const LeadAddScreen = () => {
                 </legend>
                 {((type == "edit" && view !== "lead" && editbtn) ||
                   (pathname == "/leadmanage/details" && editbtn)) && (
-                  <button
-                    onClick={() => {
-                      setEditbtn(false);
-                    }}
-                    className="edit_conts rounded-5 d-flex ac-jc border-0 "
-                  >
-                    <ModeEditOutlineOutlinedIcon className=" fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani white mb-0" />
-                  </button>
-                )}
+                    <button
+                      onClick={() => {
+                        setEditbtn(false);
+                      }}
+                      className="edit_conts rounded-5 d-flex ac-jc border-0 "
+                    >
+                      <ModeEditOutlineOutlinedIcon className=" fs-xxl-20 fs-xl-20 fs-lg-19 fs-sm-15 fs-xs-13 textani white mb-0" />
+                    </button>
+                  )}
                 <div className="d-flex w-100 ac-jb flex-wrap gap-3">
                   {leadaddform?.map((item) => {
                     return (
                       <>
                         {item?.formFeald == "assignto" &&
-                        !formFeald?.assignto &&
-                        type !== "add" ? null : item?.type == "dropdown" ? (
-                          <div className="w-45">
-                            <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                              {item?.lable}
-                            </p>
-                            <div className="lead_drop position-relative">
-                              <select
-                                disabled={
-                                  // (type == "edit" && item?.formFeald == "assignto") ||
-                                  type == "edit" && editbtn
-                                }
-                                value={
-                                  item?.formFeald == "assignto"
-                                    ? formFeald?.assignto?._id ||
-                                      formFeald?.assignto // Display the _id for assignto
-                                    : formFeald?.[item?.formFeald] || "" // Display the value for other fields
-                                }
-                                onChange={(e) => {
-                                  if (item?.formFeald == "assignto") {
-                                    const selectedId = e.target.value; // Get the _id of the selected staff member
-                                    const selectedStaf = staflist.find(
-                                      (s) => s._id == selectedId
-                                    ); // Find the full staff object by _id
-                                    // console.log("selectedStaf", selectedStaf);
-
-                                    fealdOnChange("assignto", selectedStaf); // Send the full object to update the state
-                                  } else {
-                                    fealdOnChange(
-                                      item?.formFeald,
-                                      e.target.value
-                                    ); // For other fields, just send the value
+                          !formFeald?.assignto &&
+                          type !== "add" ? null : item?.type == "dropdown" ? (
+                            <div className="w-45">
+                              <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
+                                {item?.lable}
+                              </p>
+                              <div className="lead_drop position-relative">
+                                <select
+                                  disabled={
+                                    // (type == "edit" && item?.formFeald == "assignto") ||
+                                    type == "edit" && editbtn
                                   }
-                                }}
-                                className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
-                              >
-                                <option value="" disabled hidden>
-                                  Select {item?.formFeald}
-                                </option>
+                                  value={
+                                    item?.formFeald == "assignto"
+                                      ? formFeald?.assignto?._id ||
+                                      formFeald?.assignto // Display the _id for assignto
+                                      : formFeald?.[item?.formFeald] || "" // Display the value for other fields
+                                  }
+                                  onChange={(e) => {
+                                    if (item?.formFeald == "assignto") {
+                                      const selectedId = e.target.value; // Get the _id of the selected staff member
+                                      const selectedStaf = staflist.find(
+                                        (s) => s._id == selectedId
+                                      ); // Find the full staff object by _id
+                                      // console.log("selectedStaf", selectedStaf);
 
-                                {/* Conditional List Rendering */}
-                                {(item?.formFeald == "source"
-                                  ? sourceLis
-                                  : item?.formFeald == "assignto"
-                                  ? staflist
-                                  : item?.list
-                                )?.map((option) => (
-                                  <option
-                                    disabled={
-                                      !option?.active &&
-                                      item?.formFeald == "assignto"
+                                      fealdOnChange("assignto", selectedStaf); // Send the full object to update the state
+                                    } else {
+                                      fealdOnChange(
+                                        item?.formFeald,
+                                        e.target.value
+                                      ); // For other fields, just send the value
                                     }
-                                    key={option?.id || option?._id} // Use id or _id as the key
-                                    className="light_gray w-100 rounded-2 px-2"
-                                    value={
-                                      item?.formFeald == "assignto"
-                                        ? option?._id // For assignto, send the _id
-                                        : option?.sourcename || option?.name // For others, use sourcename or name
-                                    }
-                                  >
-                                    {option?.name || option?.sourcename}{" "}
-                                    {/* Display name or sourcename */}
+                                  }}
+                                  className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
+                                >
+                                  <option value="" disabled hidden>
+                                    Select{item?.formFeald}
                                   </option>
-                                ))}
-                              </select>
-                              {errors?.[item?.formFeald] && (
-                                <div className="error">
-                                  <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
-                                    {errors?.[item?.formFeald]}
-                                  </p>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        ) : item?.type == "citydropdown" ? (
-                          <div className="w-45">
-                            <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                              {item?.lable}
-                            </p>
-                            <div className="lead_drop position-relative">
-                              <select
-                                disabled={type == "edit" && editbtn}
-                                value={formFeald?.city?.name || ""}
-                                // onChange={(e) => {
-                                //   fealdOnChange(item?.formFeald, e.target.value);
-                                // }}
-                                onChange={(e) => {
-                                  const selectedCity = cities.find(
-                                    (c) => c.name === e.target.value
-                                  );
-                                  // console.log("indexcity", selectedCity);
 
-                                  // fetchPincode(selectedCity);
-                                  fealdOnChange("city", selectedCity); // or selectedCity.name if you prefer just string
-                                }}
-                                className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
-                              >
-                                <option value="" disabled hidden selected>
-                                  Select {item?.selectplace}
-                                </option>
-                                {cities?.map((option, index) => (
-                                  <option
-                                    key={index}
-                                    className="light_gray w-100 rounded-2 px-2"
-                                    value={option?.name}
-                                  >
-                                    {option?.name}
-                                  </option>
-                                ))}
-                              </select>
-                              {errors?.[item?.formFeald] && (
-                                <div className="error">
-                                  <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
-                                    {errors?.[item?.formFeald]}
-                                  </p>
-                                </div>
-                              )}
+                                  {/* Conditional List Rendering */}
+                                  {(item?.formFeald == "source"
+                                    ? sourceLis
+                                    : item?.formFeald == "assignto"
+                                      ? staflist
+                                      : item?.list
+                                  )?.map((option) => (
+                                    <option
+                                      disabled={!option?.active && item?.formFeald == "assignto"}
+                                      key={option?.id || option?._id}
+                                      className="light_gray w-100 rounded-2 px-2"
+                                      value={
+                                        item?.formFeald == "assignto"
+                                          ? option?._id
+                                          : option?.sourcename || option?.name
+                                      }
+                                    >
+                                      {item?.formFeald == "assignto"
+                                        ? option?._id
+                                        : option?.name || option?.sourcename}
+                                    </option>
+
+                                  ))}
+                                </select>
+                                {errors?.[item?.formFeald] && (
+                                  <div className="error">
+                                    <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
+                                      {errors?.[item?.formFeald]}
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        ) : item?.type == "dropdownstate" ? (
-                          <div className="w-45">
-                            <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
-                              {item?.lable}
-                            </p>
-                            <div className="lead_drop position-relative">
-                              <select
-                                disabled={type == "edit" && editbtn}
-                                value={formFeald?.state?.name || ""}
-                                // onChange={(e) => {
-                                //   fealdOnChange("state", e.target.value);
-                                // }}
-                                onChange={(e) => {
-                                  const selectedState = states.find(
-                                    (s) => s.name === e.target.value
-                                  );
-                                  fealdOnChange("state", selectedState); // Store state object
-                                  fealdOnChange("city", ""); // Reset city when state changes
-                                }}
-                                className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
-                              >
-                                <option value="" disabled hidden selected>
-                                  Select State
-                                </option>
-                                {states?.map((option, index) => (
-                                  <option
-                                    key={index}
-                                    className="light_gray w-100 rounded-2 px-2"
-                                    value={option?.name}
-                                  >
-                                    {option?.name}
+                          ) : item?.type == "citydropdown" ? (
+                            <div className="w-45">
+                              <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
+                                {item?.lable}
+                              </p>
+                              <div className="lead_drop position-relative">
+                                <select
+                                  disabled={type == "edit" && editbtn}
+                                  value={formFeald?.city?.name || ""}
+                                  // onChange={(e) => {
+                                  //   fealdOnChange(item?.formFeald, e.target.value);
+                                  // }}
+                                  onChange={(e) => {
+                                    const selectedCity = cities.find(
+                                      (c) => c.name === e.target.value
+                                    );
+                                    // console.log("indexcity", selectedCity);
+
+                                    // fetchPincode(selectedCity);
+                                    fealdOnChange("city", selectedCity); // or selectedCity.name if you prefer just string
+                                  }}
+                                  className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
+                                >
+                                  <option value="" disabled hidden selected>
+                                    Select {item?.selectplace}
                                   </option>
-                                ))}
-                              </select>
-                              {errors?.[item?.formFeald] && (
-                                <div className="error">
-                                  <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
-                                    {errors?.[item?.formFeald]}
-                                  </p>
-                                </div>
-                              )}
+                                  {cities?.map((option) => (
+                                    <option
+                                      key={option?.id}
+                                      className="light_gray w-100 rounded-2 px-2"
+                                      value={option?.name}
+                                    >
+                                      {option?.name}
+                                    </option>
+                                  ))}
+                                </select>
+                                {errors?.[item?.formFeald] && (
+                                  <div className="error">
+                                    <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
+                                      {errors?.[item?.formFeald]}
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        ) : (
+                          ) : item?.type == "dropdownstate" ? (
+                            <div className="w-45">
+                              <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
+                                {item?.lable}
+                              </p>
+                              <div className="lead_drop position-relative">
+                                <select
+                                  disabled={type == "edit" && editbtn}
+                                  value={formFeald?.state?.name || ""}
+                                  // onChange={(e) => {
+                                  //   fealdOnChange("state", e.target.value);
+                                  // }}
+                                  onChange={(e) => {
+                                    const selectedState = states.find(
+                                      (s) => s.name === e.target.value
+                                    );
+                                    fealdOnChange("state", selectedState); // Store state object
+                                    fealdOnChange("city", ""); // Reset city when state changes
+                                  }}
+                                  className="w-100 px-2 rounded-3 shadow border-0 mb-1 f3 fs-xxl-17 fs-xl-16 fs-lg-15 fs-sm-14 fs-xs-13"
+                                >
+                                  <option value="" disabled hidden selected>
+                                    Select State
+                                  </option>
+                                  {states?.map((option, index) => (
+                                    <option
+                                      key={index}
+                                      className="light_gray w-100 rounded-2 px-2"
+                                      value={option?.name}
+                                    >
+                                      {option?.name}
+                                    </option>
+                                  ))}
+                                </select>
+                                {errors?.[item?.formFeald] && (
+                                  <div className="error">
+                                    <p className="mb-0 red f3 fs-xxl-12 fs-xl-12 fs-lg-11 fs-sm-10 fs-xs-10 textani ">
+                                      {errors?.[item?.formFeald]}
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ) : (
                           <div className="w-45 position-relative">
                             <p className="f6 px-1 fs-xxl-18 fs-xl-17 fs-lg-16 fs-sm-15 fs-xs-13 textani primary2 mb-0">
                               {item?.lable}

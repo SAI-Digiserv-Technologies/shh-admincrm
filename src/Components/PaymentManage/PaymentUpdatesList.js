@@ -11,10 +11,27 @@ const PaymentUpdatesList = ({ paymentlist }) => {
   const invoiceRef = useRef();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [paymentDatas, setPaymentDatas] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredPayments, setFilteredPayments] = useState(paymentlist || []);
 
   const [currentPage, setCurrentPage] = useState(1);
   const leadsPerPage = 5;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const filtered = paymentlist?.filter((payment) => {
+      const searchString = searchTerm.toLowerCase();
+      return (
+        payment?.lead_details?.name?.toLowerCase().includes(searchString) ||
+        payment?.lead_details?.lead_id?.toLowerCase().includes(searchString) ||
+        payment?.lead_details?.interested_course?.addcourse
+          ?.toLowerCase()
+          .includes(searchString)
+      );
+    });
+    setFilteredPayments(filtered || []);
+    setCurrentPage(1); // Reset to first page when search changes
+  }, [searchTerm, paymentlist]);
 
   const styles = {
     invoiceWrapper: {
@@ -96,24 +113,18 @@ const PaymentUpdatesList = ({ paymentlist }) => {
 
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
-  const currentLeads = paymentlist?.slice(indexOfFirstLead, indexOfLastLead);
-  const totalPages = Math?.ceil(paymentlist?.length / leadsPerPage);
+  const currentLeads = filteredPayments?.slice(indexOfFirstLead, indexOfLastLead);
+  const totalPages = Math?.ceil(filteredPayments?.length / leadsPerPage);
   const today = new Date().toISOString().split("T")[0];
-  // console.log("today", today);
-
-  // console.log("paymentlists", paymentlist);
 
   const handlePrint = (data) => {
     setPaymentDatas(data);
-    // console.log("invoicedata", data);
     setTimeout(() => {
       if (!invoiceRef.current) {
-        // console.error("Invoice ref not found");
         return;
       }
       const content = invoiceRef.current.innerHTML;
       if (!content.trim()) {
-        // console.error("Invoice content is empty.");
         return;
       }
 
@@ -132,6 +143,28 @@ const PaymentUpdatesList = ({ paymentlist }) => {
 
   return (
     <>
+      {/* Search Input */}
+      <div className="mb-4 flex justify-end">
+        <div className="relative w-full max-w-md">
+          <input
+            type="text"
+            placeholder="Search by name, lead ID, or course..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm("")}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            >
+              ×
+            </button>
+          )}
+        </div>
+      </div>
+
+
       {openDropdown !== null && (
         <button
           onClick={() => handleDropdownClick(null)}
@@ -154,7 +187,7 @@ const PaymentUpdatesList = ({ paymentlist }) => {
             </tr>
           </thead>
           <tbody>
-            {currentLeads.map((lead, index) => (
+            {currentLeads?.map((lead, index) => (
               <tr
                 key={lead.id}
                 onClick={() =>
@@ -192,11 +225,10 @@ const PaymentUpdatesList = ({ paymentlist }) => {
                 <td className="text-center border-0 py-2 px-2 primary3 f5">
                   <div className="d-flex ac-jc">
                     <div
-                      className={`${
-                        lead?.total_balance_amount > 0
+                      className={`${lead?.total_balance_amount > 0
                           ? "bg-ltorange"
                           : "bg-ltgreen"
-                      } table-drop border-0 d-flex ac-jc px-3 rounded-5 primary3`}
+                        } table-drop border-0 d-flex ac-jc px-3 rounded-5 primary3`}
                     >
                       <p className="mb-0">
                         {lead?.total_balance_amount > 0
@@ -223,14 +255,13 @@ const PaymentUpdatesList = ({ paymentlist }) => {
         </table>
       </div>
 
-      {paymentlist.length > leadsPerPage && (
+      {filteredPayments?.length > leadsPerPage && (
         <div className="pagination d-flex justify-content-center mt-3">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className={`${
-              currentPage === 1 ? "opacity-25" : "opacity-100"
-            } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+            className={`${currentPage === 1 ? "opacity-25" : "opacity-100"
+              } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
           >
             <ArrowBackIosNewOutlinedIcon />
           </button>
@@ -242,22 +273,18 @@ const PaymentUpdatesList = ({ paymentlist }) => {
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
             disabled={currentPage === totalPages}
-            className={`${
-              currentPage === totalPages ? "opacity-25" : "opacity-100"
-            } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
+            className={`${currentPage === totalPages ? "opacity-25" : "opacity-100"
+              } px-3 py-1 mx-1 border-0 rounded white bg-primary3`}
           >
             <ArrowForwardIosOutlinedIcon />
           </button>
         </div>
       )}
 
-      {/* Render invoice preview for printing (hidden in UI, used for printing) */}
       {paymentDatas && (
         <div style={{ display: "none" }}>
           <div ref={invoiceRef} style={styles.invoiceWrapper}>
-            {/* Your invoice content here */}
             <NewInvoice paymentData={paymentDatas} />
-            {/* Footer Section */}
             <div style={styles.footerSection}>
               <p style={styles.termsHeader}>Terms & Conditions:</p>
               <div style={styles.flexBetween}>

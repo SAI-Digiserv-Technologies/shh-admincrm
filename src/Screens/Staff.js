@@ -40,7 +40,7 @@ const Staff = () => {
       staff?.email,
       staff?.phone,
       staff?.role,
-      staff?.staff_id,
+      staff?._id,
     ]
       .join(" ")
       .toLowerCase();

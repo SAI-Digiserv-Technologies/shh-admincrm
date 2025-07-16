@@ -99,7 +99,7 @@ const StaffList = ({ res }) => {
                   {index + 1 + indexOfFirstUser}
                 </td>
                 <td className="text-center py-2 px-2 primary3 f4">
-                  {user.staff_id || "-"}
+                  {user._id || "-"}
                 </td>
                 <td className="text-center py-2 px-2 primary3 f4">
                   {user.name}

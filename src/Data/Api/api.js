@@ -16,10 +16,11 @@ export const api = createApi({
         headers.set("Authorization", `Bearer ${newToc}`);
       }
 
-      if (endpoint !== "editStaff" && endpoint !== "profileUpdate") {
+      if (endpoint !== "editStaff" && endpoint !== "profileUpdate" &&
+        endpoint !== "payment_proofEdit" && endpoint !== "bulkleaduplload")  
+        {
         headers.set("Content-Type", "application/json");
       }
-
       headers.set("Accept", "application/json");
       return headers;
     },
@@ -38,6 +39,15 @@ export const api = createApi({
     Leadadd: builder.mutation({
       query: (payload) => ({
         url: URL.ADDLEEDS,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+
+
+    bulkleaduplload: builder.mutation({
+      query: (payload) => ({
+        url: URL.BULK_LEAD_ADD,
         method: "POST",
         body: payload,
       }),
@@ -355,6 +365,8 @@ export const api = createApi({
       }),
     }),
 
+
+
     // Lead view
     lead_view: builder.query({
       query: (id) => ({
@@ -362,6 +374,14 @@ export const api = createApi({
         method: "GET",
       }),
     }),
+
+    getStaffAttendanceById: builder.query({
+      query: (id) => ({
+        url: `${URL.Attendance_Report}/${id}`,
+        method: "GET",
+      })
+    }),
+
 
     tele_lead_list: builder.query({
       query: (id) => ({
@@ -492,4 +512,6 @@ export const {
   useLazyPayment_detaileQuery,
   useLazyNotification_listQuery,
   useMessageReadMutation,
+  useBulkleaduplloadMutation,
+  useLazyGetStaffAttendanceByIdQuery
 } = api;

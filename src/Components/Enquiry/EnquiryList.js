@@ -67,6 +67,11 @@ const LeadeList = ({ leadlist }) => {
     }
   };
 
+  useEffect(() => {
+  console.log("Leads:", leadlist);
+}, [leadlist]);
+
+
   return (
     <>
       {openDropdown !== null && (
@@ -151,7 +156,7 @@ const LeadeList = ({ leadlist }) => {
                   {lead?.phonenumber || "-"}
                 </td>
                 <td className="text-center py-2 px-2 primary3 f4">
-                  {lead?.assignedto?.name || "-"}
+                  {lead?.assignedto?._id || "-"}
                 </td>
                 <td
                   data-label="Source"
